@@ -1037,11 +1037,14 @@
       background: rgba(7, 13, 24, 0.75);
       padding: 1.2rem 1.4rem;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.2rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
+      .docs-endpoint-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
       .docs-endpoint-bar { grid-template-columns: 1fr; }
     }
 
@@ -1155,6 +1158,72 @@
       font-size: 0.69rem;
       color: var(--refraction);
       opacity: 0.92;
+    }
+
+    /* Official Protocol Specifications & White Papers Library Grid */
+    .spec-library-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.15rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 800px) {
+      .spec-library-grid { grid-template-columns: 1fr; }
+    }
+
+    .spec-doc-card {
+      display: block;
+      text-decoration: none;
+      background: rgba(9, 16, 29, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .spec-doc-card:hover {
+      border-color: var(--refraction);
+      background: rgba(14, 25, 46, 0.88);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(100, 233, 238, 0.08);
+    }
+
+    .spec-doc-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--moon-gold);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.45rem;
+    }
+
+    .spec-doc-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--selene);
+      margin-bottom: 0.5rem;
+    }
+
+    .spec-doc-desc {
+      font-size: 0.83rem;
+      color: var(--silver-mist);
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+    }
+
+    .spec-doc-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--refraction);
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 0.65rem;
     }
 
     /* ==========================================================================
@@ -1552,7 +1621,7 @@
         <div>
           <div class="seal-tag">
             <span class="seal-stamp">月印</span>
-            <span class="seal-text">Sovereign Semantic Backbone · W3C Solid + Agent MCP</span>
+            <span class="seal-text">Sovereign Pod Cloud · Inrupt Interoperable · W3C Solid + Native MCP</span>
           </div>
 
           <h1 class="hero-display">
@@ -1566,9 +1635,9 @@
 
           <p class="hero-description">
             하나의 달이 수천 개의 강물에 비추어도 달의 본질은 나뉘지 않듯(月印千江),
-            <strong>Wolin</strong>은 투기적 토큰과 가스비를 걷어낸 단일 경량 Rust 런타임 위에서
-            <strong>Oxigraph 시맨틱 포드</strong>, <strong>연합 신원(WebID · DID · OIDC)</strong>, 그리고
-            <strong>AI 에이전트 최소 권한 투영(Zero-PII MCP)</strong>을 하나로 결속합니다.
+            <strong>Wolin</strong>은 투기적 토큰과 가스비를 걷어낸 초경량 단일 Rust 런타임 위에서
+            <strong>멀티테넌트 소버린 팟 클라우드(Pod Cloud)</strong>, <strong>Inrupt(ESS) 양방향 상호운용(Solid-OIDC &amp; DPoP)</strong>,
+            <strong>Oxigraph 시맨틱 그래프</strong>, 그리고 <strong>AI 에이전트 최소 권한 투영(Zero-PII MCP)</strong>을 하나로 결속합니다.
           </p>
 
           <div class="hero-cta-row">
@@ -1917,12 +1986,16 @@
           <p class="ep-doc-desc">지원 프로토콜(<code>solid-0.11</code>, <code>wac-2.0</code>, <code>mcp-2024-11-05</code>) 및 Identity Mesh 메타데이터 자동 탐색.</p>
         </div>
         <div class="ep-doc-item">
-          <div><span class="http-verb">POST</span><span class="http-route">/mcp/tools/call</span></div>
-          <p class="ep-doc-desc">DPoP 서명 토큰을 검증한 뒤 <code>wolin_query_semantic</code> 등 시맨틱 프로젝션 도구를 무상태 실행.</p>
+          <div><span class="http-verb">POST</span><span class="http-route">/api/pods</span></div>
+          <p class="ep-doc-desc">멀티테넌트 Pod 온디맨드 동적 프로비저닝 및 W3C 표준 시드(<code>card#me</code>, <code>pim:storage</code>, <code>inbox</code>) 자동 생성.</p>
+        </div>
+        <div class="ep-doc-item">
+          <div><span class="http-verb">POST</span><span class="http-route">/mcp</span></div>
+          <p class="ep-doc-desc">RFC 9449 DPoP 서명 토큰 및 Solid-OIDC를 검증한 뒤 네이티브 AI 에이전트 도구 무상태 스트리밍 실행.</p>
         </div>
         <div class="ep-doc-item">
           <div><span class="http-verb">GET</span><span class="http-route">/health</span></div>
-          <p class="ep-doc-desc">데몬 가용성, <code>wolin-server</code> 카고 패키지 버전 및 스토리지 백엔드 상태 즉시 점검.</p>
+          <p class="ep-doc-desc">데몬 가용성, <code>wolin-server</code> 패키지 버전 및 RocksDB/OpenDAL 스토리지 백엔드 상태 즉시 점검.</p>
         </div>
       </div>
 
@@ -1982,6 +2055,35 @@
           <p>Axum 0.8 + Tokio 기반 HTTP LDP, /.well-known/wolin 및 MCP 통합 데몬.</p>
           <div class="crate-exports">axum::serve(TcpListener, Router) // :4000</div>
         </div>
+      </div>
+
+      <!-- Official Specifications & RFC Library -->
+      <div class="crate-grid-title" style="margin-top: 3.5rem;">OFFICIAL PROTOCOL SPECIFICATIONS &amp; WHITE PAPERS</div>
+      <div class="spec-library-grid">
+        <a href="docs/INRUPT_INTEROP.md" class="spec-doc-card">
+          <div class="spec-doc-tag">RFC // INTEROPERABILITY</div>
+          <div class="spec-doc-title">Inrupt ESS &amp; Solid-OIDC 0.11 규격서</div>
+          <p class="spec-doc-desc">외부 WebID RDF 역참조, solid:oidcIssuer 신뢰 체인, RFC 9449 DPoP 증명 및 Inrupt @inrupt/solid-client SDK 양방향 상호운용 사양.</p>
+          <div class="spec-doc-meta"><span>INRUPT_INTEROP.md</span> <span>→</span></div>
+        </a>
+        <a href="docs/POD_CLOUD_SPEC.md" class="spec-doc-card">
+          <div class="spec-doc-tag">ARCHITECTURE // CLOUD</div>
+          <div class="spec-doc-title">소버린 팟 클라우드 운영 사양서</div>
+          <p class="spec-doc-desc">멀티테넌트 서브도메인 격리 라우팅({pod_id}.wolin.cloud), 동적 프로비저닝 API(POST /api/pods) 및 W3C 표준 시맨틱 시딩 명세.</p>
+          <div class="spec-doc-meta"><span>POD_CLOUD_SPEC.md</span> <span>→</span></div>
+        </a>
+        <a href="docs/VISION.md" class="spec-doc-card">
+          <div class="spec-doc-tag">MANIFESTO // PHILOSOPHY</div>
+          <div class="spec-doc-title">월인천강(月印千江) 비전 백서</div>
+          <p class="spec-doc-desc">무코인·무가스비 진정한 인간 중심 Web3, 불변의 신원(WebID)과 수천 AI 에이전트의 최소 권한 투영 철학.</p>
+          <div class="spec-doc-meta"><span>VISION.md</span> <span>→</span></div>
+        </a>
+        <a href="docs/ARCHITECTURE.md" class="spec-doc-card">
+          <div class="spec-doc-tag">ENGINEERING // TOPOLOGY</div>
+          <div class="spec-doc-title">Wolin 5대 계층 아키텍처 명세서</div>
+          <p class="spec-doc-desc">OpenDAL 블롭 + Oxigraph SPARQL 듀얼 플레인 스토리지, WAC/ACP 듀얼 PDP 인가 엔진 및 네이티브 MCP 런타임 토폴로지.</p>
+          <div class="spec-doc-meta"><span>ARCHITECTURE.md</span> <span>→</span></div>
+        </a>
       </div>
     </div>
   </section>
