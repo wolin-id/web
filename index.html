@@ -4,105 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WOLIN (月印) — One Identity. Infinite Reflections.</title>
-  <meta name="description" content="Sovereign Web3 Identity & Semantic Pod Cloud Infrastructure. W3C Solid 0.11, Oxigraph RDF, OpenDAL, and Zero-Trust Policy in a <30MB Rust runtime.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23171717'/%3E%3Ccircle cx='20' cy='14' r='5.8' fill='%23FFFFFF'/%3E%3Cpath d='M8 23.5H32' stroke='%232563EB' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 28H28' stroke='%23FFFFFF' stroke-opacity='0.75' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M16 32H24' stroke='%23FFFFFF' stroke-opacity='0.4' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <meta name="description" content="Sovereign Identity & Semantic Pod Cloud Infrastructure. W3C Solid 0.11, Oxigraph RDF, OpenDAL, and Zero-Trust Policy in a <30MB Rust runtime.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23171717'/%3E%3Ccircle cx='20' cy='14' r='5.8' fill='%23FFFFFF'/%3E%3Cpath d='M8 23.5H32' stroke='%230055FF' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 28H28' stroke='%23FFFFFF' stroke-opacity='0.75' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M16 32H24' stroke='%23FFFFFF' stroke-opacity='0.4' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
     :root {
-      /* Vercel + Stripe Institutional Infrastructure Palette */
-      --abyss: #FFFFFF;
-      --depths: #FAFAFA;
-      --trench: #FFFFFF;
-      --surface: #F4F4F5;
-      --surface-elevated: #FFFFFF;
+      /* Pure White Institutional Infrastructure Palette */
+      --bg: #FFFFFF;
+      --surface: #FAFAFA;
+      --surface-muted: #F4F4F5;
+      --ink: #171717;
+      --ink-secondary: #262626;
+      --muted: #52525B;
+      --dim: #71717A;
 
-      /* Crisp Neutral Ink Scale */
-      --selene: #171717;
-      --mercury: #262626;
-      --silver-mist: #52525B;
-      --slate-dim: #71717A;
-
-      /* Sovereign Cobalt & Institutional Accents */
-      --refraction: #0055FF;
-      --refraction-soft: #EFF6FF;
-      --refraction-glow: rgba(0, 85, 255, 0.14);
-      --cerulean: #2563EB;
-      --moon-gold: #0F172A;
-      --moon-gold-soft: #F1F5F9;
+      /* Sovereign Cobalt & Semantic States */
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --accent-soft: #EFF6FF;
       --permit: #15803D;
+      --permit-soft: rgba(21, 128, 61, 0.06);
       --revoke: #DC2626;
+      --revoke-soft: rgba(220, 38, 38, 0.06);
 
-      /* Shadow-as-Border & Hairlines */
+      /* Crisp 1px Structural Hairlines */
       --line: rgba(0, 0, 0, 0.08);
-      --line-bright: rgba(0, 85, 255, 0.35);
-      --line-lunar: rgba(0, 0, 0, 0.12);
-      --card-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03);
-      --card-shadow-lg: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 12px 28px -8px rgba(15, 23, 42, 0.08);
+      --line-strong: rgba(0, 0, 0, 0.14);
+      --line-accent: rgba(0, 85, 255, 0.28);
 
-      /* Typography (Geist + Pretendard + Geist Mono) */
-      --font-display: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      /* Typography */
       --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-serif-kr: "Noto Serif KR", Georgia, serif;
       --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-      --max-w: 1240px;
+      --max-w: 1200px;
     }
 
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(20, 22, 25, 0.22) rgba(237, 234, 225, 0.8);
-    }
-    *::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    *::-webkit-scrollbar-track {
-      background: rgba(237, 234, 225, 0.8);
-      border-radius: 999px;
-    }
-    *::-webkit-scrollbar-thumb {
-      background: rgba(20, 22, 25, 0.22);
-      border-radius: 999px;
-    }
-    *::-webkit-scrollbar-thumb:hover {
-      background: rgba(20, 22, 25, 0.4);
-    }
-
     html {
       scroll-behavior: smooth;
-      background-color: var(--abyss);
-      color: var(--selene);
-    }
-
-    body {
-      background-color: var(--abyss);
-      color: var(--selene);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      color: var(--ink);
+      max-width: 100%;
       overflow-x: hidden;
     }
 
-    /* Subtle Architectural Paper Grid */
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Architectural Guide Grid */
     .meridian-bg {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background-image:
-        linear-gradient(to right, rgba(20, 22, 25, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(20, 22, 25, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 0, 0, 0.024) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.024) 1px, transparent 1px);
       background-size: 96px 96px;
-      mask-image: radial-gradient(ellipse 90% 78% at 50% 24%, black 20%, transparent 90%);
-      -webkit-mask-image: radial-gradient(ellipse 90% 78% at 50% 24%, black 20%, transparent 90%);
+      mask-image: radial-gradient(ellipse 85% 65% at 50% 18%, black 15%, transparent 88%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 18%, black 15%, transparent 88%);
     }
 
     .container {
@@ -119,340 +96,334 @@
       }
     }
 
+    /* Stripe-style Dotted Inline Reference Link */
+    a.inline-ref {
+      color: var(--ink);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(0, 85, 255, 0.55);
+      transition: color 0.16s ease, border-color 0.16s ease;
+    }
+
+    a.inline-ref:hover {
+      color: var(--accent);
+      border-bottom-style: solid;
+      border-bottom-color: var(--accent);
+    }
+
     /* ==========================================================================
-       TOP NAVIGATION (CLEAN ARCHITECTURAL HEADER)
+       TOP NAVIGATION (INSTITUTIONAL HEADER — ZERO STATUS PILL CLICHES)
        ========================================================================== */
-    header.nav-bar {
+    header.site-header {
       position: sticky;
       top: 0;
       z-index: 100;
-      height: 64px;
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
 
-    .nav-inner {
+    .header-inner {
       max-width: var(--max-w);
-      height: 100%;
+      min-height: 64px;
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 640px) {
-      header.nav-bar { height: 58px; }
-      .nav-inner { padding: 0 1.15rem; }
+      gap: 1.25rem;
     }
 
     .brand-link {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.78rem;
+      gap: 0.7rem;
       text-decoration: none;
-      color: var(--selene);
+      color: var(--ink);
+      flex-shrink: 0;
+      min-height: 44px;
     }
 
     .brand-emblem {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       flex-shrink: 0;
     }
 
     .brand-wordmark {
       display: flex;
       align-items: baseline;
-      gap: 0.55rem;
+      gap: 0.5rem;
     }
 
     .brand-title {
-      font-family: var(--font-sans);
       font-weight: 700;
-      font-size: 1.04rem;
-      letter-spacing: 0.15em;
-      color: var(--selene);
+      font-size: 0.98rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
     }
 
     .brand-hanja {
-      font-family: var(--font-display);
-      font-size: 0.94rem;
-      color: var(--moon-gold);
-      letter-spacing: 0.08em;
+      font-family: var(--font-serif-kr);
+      font-size: 0.86rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
     }
 
-    .nav-menu {
+    .site-nav {
       display: flex;
       align-items: center;
-      gap: 1.8rem;
+      gap: 1.5rem;
     }
 
-    .nav-menu a {
-      font-size: 0.84rem;
-      font-weight: 500;
-      color: var(--silver-mist);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      transition: color 0.2s ease;
-    }
-
-    .nav-menu a:hover {
-      color: var(--selene);
-    }
-
-    .daemon-pill {
+    .site-nav a {
       display: inline-flex;
       align-items: center;
-      gap: 0.48rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid var(--line-lunar);
-      background: var(--trench);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--mercury);
-      letter-spacing: 0.02em;
+      min-height: 44px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.16s ease;
+      white-space: nowrap;
     }
 
-    .pulse-orb {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--permit);
+    .site-nav a:hover {
+      color: var(--ink);
     }
 
-    @keyframes lunarPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.85); }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-shrink: 0;
     }
 
-    @media (max-width: 960px) {
-      .nav-menu { display: none; }
+    .header-link-mobile {
+      display: none;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
     }
 
-    @media (max-width: 480px) {
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 0.95rem;
+      border-radius: 7px;
+      background: var(--ink);
+      color: #FFFFFF;
+      font-size: 0.83rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: background 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      background: var(--accent);
+    }
+
+    @media (max-width: 920px) {
+      .site-nav { display: none; }
+      .header-link-mobile { display: inline-flex; }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        min-height: 58px;
+        padding: 0 1.15rem;
+        gap: 0.6rem;
+      }
       .brand-hanja { display: none; }
-      .daemon-pill span.hide-xs { display: none; }
+      .header-actions { gap: 0.65rem; }
+      .header-link-mobile { font-size: 0.8rem; }
+      .header-cta {
+        min-height: 38px;
+        padding: 0 0.78rem;
+        font-size: 0.79rem;
+      }
     }
 
     /* ==========================================================================
-       HERO SECTION — ABOVE-THE-FOLD CELESTIAL ASTROLABE
+       01. HERO SECTION — ANCHOR DISPLAY PATTERN + ARCHITECTURAL BLUEPRINT
        ========================================================================== */
     section.hero {
       position: relative;
-      padding: 2.75rem 0 0;
+      padding: 4.5rem 0 0;
       border-bottom: 1px solid var(--line);
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
-      gap: 2.6rem;
+      grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+      gap: 3.25rem;
       align-items: center;
-      padding-bottom: 2.35rem;
+      padding-bottom: 4rem;
     }
 
     .hero-grid > *,
+    .passport-grid > *,
     .arch-layout > *,
     .bench-grid > *,
     .playground-body > *,
-    .epoch-triptych > *,
-    .crate-grid > * {
+    .epoch-hairline-grid > *,
+    .crate-hairline-grid > * {
       min-width: 0;
     }
 
     @media (max-width: 1024px) {
-      section.hero { padding-top: 1.65rem; }
+      section.hero { padding-top: 2.5rem; }
       .hero-grid {
         grid-template-columns: minmax(0, 1fr);
-        gap: 1.75rem;
-        padding-bottom: 1.85rem;
+        gap: 2.25rem;
+        padding-bottom: 2.5rem;
       }
     }
 
-    .seal-tag {
+    .eyebrow-label {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0.3rem 0.82rem 0.3rem 0.45rem;
-      border: 1px solid var(--line-lunar);
-      border-radius: 999px;
-      background: var(--trench);
-      margin-bottom: 1.2rem;
-      max-width: 100%;
+      gap: 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
     }
 
-    .seal-stamp {
+    .eyebrow-seal {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.12rem 0.48rem;
-      border-radius: 999px;
-      background: var(--moon-gold-soft);
-      border: 1px solid rgba(154, 113, 38, 0.35);
-      color: var(--moon-gold);
-      font-family: var(--font-display);
+      padding: 0.12rem 0.44rem;
+      border-radius: 4px;
+      border: 1px solid var(--line-accent);
+      background: var(--accent-soft);
+      font-family: var(--font-serif-kr);
+      font-size: 0.72rem;
       font-weight: 600;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-    }
-
-    .seal-text {
-      font-family: var(--font-mono);
-      font-size: 0.71rem;
-      color: var(--mercury);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      min-width: 0;
-    }
-
-    @media (max-width: 560px) {
-      .seal-tag {
-        border-radius: 10px;
-        padding: 0.4rem 0.65rem;
-        margin-bottom: 1rem;
-      }
-      .seal-text {
-        font-size: 0.65rem;
-        white-space: normal;
-        line-height: 1.35;
-      }
-      .hero-cta-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.65rem;
-      }
-      .btn-lunar {
-        width: 100%;
-        justify-content: center;
-      }
-      .cli-capsule {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-      }
-      .astrolabe-stage {
-        padding: 0.9rem 0.85rem 0.85rem;
-      }
-      .astrolabe-topbar {
-        font-size: 0.62rem;
-        flex-wrap: wrap;
-      }
+      color: var(--accent);
+      letter-spacing: 0.04em;
     }
 
     h1.hero-display {
-      font-family: var(--font-display);
+      font-family: var(--font-sans);
       font-weight: 600;
-      font-size: clamp(2.5rem, 4.4vw, 3.85rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      color: var(--selene);
-      margin-bottom: 1.15rem;
+      font-size: clamp(2.5rem, 4.5vw, 4.25rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
     }
 
-    h1.hero-display .italic-refraction {
+    h1.hero-display .accent-line {
       display: block;
-      font-style: normal;
-      font-weight: 600;
-      color: var(--refraction);
-      padding-bottom: 0.04em;
+      color: var(--accent);
     }
 
     .hero-axiom {
-      font-family: var(--font-sans);
-      font-size: 1.02rem;
+      font-size: 1.04rem;
       font-weight: 500;
-      color: var(--selene);
-      margin-bottom: 0.85rem;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
       letter-spacing: -0.015em;
       word-break: keep-all;
     }
 
-    .hero-description {
-      font-size: 0.95rem;
-      color: var(--silver-mist);
-      line-height: 1.7;
-      max-width: 590px;
-      margin-bottom: 1.55rem;
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.68;
+      max-width: 540px;
+      margin-bottom: 2rem;
       word-break: keep-all;
     }
 
-    .hero-description strong {
-      color: var(--selene);
-      font-weight: 600;
-    }
-
+    /* Anchor Single-Dominant CTA + Secondary Text Link */
     .hero-cta-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1.25rem;
+      gap: 1.35rem;
+      margin-bottom: 1.85rem;
     }
 
-    .btn-lunar {
+    .btn-dominant {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      padding: 0.74rem 1.35rem;
-      border-radius: 6px;
-      font-size: 0.86rem;
+      min-height: 48px;
+      padding: 0 1.5rem;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.94rem;
       font-weight: 600;
+      letter-spacing: -0.01em;
       text-decoration: none;
-      letter-spacing: 0.01em;
-      transition: all 0.22s ease;
-      cursor: pointer;
-      border: 1px solid transparent;
+      transition: background 0.16s ease, transform 0.16s ease;
     }
 
-    .btn-lunar-primary {
-      background: var(--selene);
-      color: #F6F4EE;
-      box-shadow: 0 4px 14px rgba(20, 22, 25, 0.14);
-    }
-
-    .btn-lunar-primary:hover {
+    .btn-dominant:hover {
+      background: var(--accent-hover);
       transform: translateY(-1px);
-      background: var(--refraction);
-      box-shadow: 0 6px 18px rgba(27, 59, 95, 0.22);
     }
 
-    .btn-lunar-ghost {
-      background: var(--trench);
-      color: var(--selene);
-      border-color: var(--line-lunar);
+    .hero-secondary-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+      min-height: 44px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line-strong);
+      padding-bottom: 2px;
+      transition: color 0.16s ease, border-color 0.16s ease;
     }
 
-    .btn-lunar-ghost:hover {
-      border-color: var(--selene);
-      color: var(--refraction);
-      background: var(--depths);
+    .hero-secondary-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
-    /* Quick CLI Strip */
+    /* Crisp Hairline CLI Strip */
     .cli-capsule {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      padding: 0.5rem 0.7rem 0.5rem 0.95rem;
-      border-radius: 6px;
-      background: #1A1D23;
-      border: 1px solid rgba(20, 22, 25, 0.2);
+      justify-content: space-between;
+      gap: 0.85rem;
+      padding: 0.38rem 0.45rem 0.38rem 0.85rem;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--line);
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: #E6E2D8;
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
       max-width: 100%;
     }
 
+    .cli-left {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-width: 0;
+    }
+
     .cli-prompt {
-      color: #D8B878;
+      color: var(--dim);
       user-select: none;
     }
 
@@ -466,43 +437,55 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 32px;
-      min-width: 56px;
-      background: rgba(201, 213, 232, 0.08);
+      min-height: 34px;
+      min-width: 58px;
+      background: var(--bg);
       border: 1px solid var(--line);
-      color: var(--mercury);
+      color: var(--muted);
       font-family: var(--font-mono);
-      font-size: 0.69rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0 0.65rem;
+      border-radius: 5px;
       cursor: pointer;
-      transition: all 0.18s;
+      transition: all 0.15s ease;
       flex-shrink: 0;
     }
 
-    @media (max-width: 768px) {
+    .cli-copy:hover {
+      color: var(--accent);
+      border-color: var(--line-accent);
+    }
+
+    @media (max-width: 560px) {
+      .hero-cta-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+      }
+      .btn-dominant {
+        width: 100%;
+      }
+      .hero-secondary-link {
+        justify-content: center;
+        border-bottom: none;
+      }
       .cli-capsule {
-        padding: 0.3rem 0.35rem 0.3rem 0.85rem;
+        width: 100%;
       }
       .cli-copy {
-        min-height: 44px;
-        min-width: 64px;
+        min-height: 40px;
       }
     }
 
-    .cli-copy:hover {
-      color: var(--selene);
-      border-color: var(--refraction);
-    }
-
-    /* Interactive Lunar Reflection Plate (Right Hero Card — Clean Architectural Blueprint) */
+    /* Right Hero Architectural Blueprint Frame */
     .astrolabe-stage {
       position: relative;
       border-radius: 12px;
-      background: #F8FAFC;
-      border: none;
-      box-shadow: var(--card-shadow-lg);
-      padding: 1.1rem 1.2rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 1.15rem 1.2rem 1.05rem;
+      box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.06);
       overflow: hidden;
     }
 
@@ -511,11 +494,15 @@
       justify-content: space-between;
       align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--slate-dim);
-      letter-spacing: 0.04em;
-      margin-bottom: 0.35rem;
+      font-size: 0.69rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line);
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .astrolabe-svg {
@@ -526,58 +513,57 @@
 
     .river-selector-bar {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.45rem;
-      margin-top: 0.65rem;
-      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+      padding-top: 0.8rem;
       border-top: 1px solid var(--line);
     }
 
-    @media (max-width: 520px) {
-      .river-selector-bar {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    @media (max-width: 560px) {
+      .astrolabe-stage { padding: 0.9rem; }
+      .river-selector-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     .river-chip {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: var(--bg);
+      border: 1px solid var(--line);
       border-radius: 6px;
-      padding: 0.44rem 0.52rem;
+      padding: 0.5rem 0.55rem;
+      min-height: 46px;
       text-align: left;
       cursor: pointer;
-      transition: all 0.18s ease;
-      color: var(--silver-mist);
+      transition: border-color 0.16s ease, background 0.16s ease;
+      color: var(--muted);
     }
 
     .river-chip:hover,
     .river-chip.active {
-      border-color: var(--refraction);
-      background: var(--refraction-soft);
-      color: var(--selene);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--ink);
     }
 
     .river-chip-title {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.69rem;
       font-weight: 600;
       color: inherit;
-      margin-bottom: 0.12rem;
+      margin-bottom: 0.1rem;
     }
 
     .river-chip-scope {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.63rem;
-      color: var(--refraction);
-      opacity: 0.95;
+      font-size: 0.62rem;
+      color: var(--accent);
     }
 
-    /* Hero Bottom Telemetry Bar */
+    /* Hero Bottom Hairline Telemetry Bar */
     .telemetry-strip {
       border-top: 1px solid var(--line);
-      background: var(--depths);
+      background: var(--surface);
     }
 
     .telemetry-grid {
@@ -585,29 +571,27 @@
       margin: 0 auto;
       padding: 0 2rem;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @media (max-width: 820px) {
-      .telemetry-grid {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 0 1.15rem;
-      }
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .telemetry-cell {
-      padding: 1rem 1.3rem;
+      padding: 1.15rem 1.35rem;
       border-right: 1px solid var(--line);
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      gap: 0.18rem;
     }
 
     .telemetry-cell:first-child { padding-left: 0; }
     .telemetry-cell:last-child { border-right: none; }
 
     @media (max-width: 820px) {
-      .telemetry-cell { padding: 0.85rem 0.65rem; }
+      .telemetry-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 0 1.15rem;
+      }
+      .telemetry-cell { padding: 0.95rem 0.75rem; }
+      .telemetry-cell:nth-child(odd) { padding-left: 0; }
       .telemetry-cell:nth-child(2n) { border-right: none; }
       .telemetry-cell:nth-child(1),
       .telemetry-cell:nth-child(2) { border-bottom: 1px solid var(--line); }
@@ -615,55 +599,50 @@
 
     .telemetry-val {
       font-family: var(--font-mono);
-      font-size: 1.38rem;
-      font-weight: 700;
-      color: var(--selene);
+      font-size: 1.32rem;
+      font-weight: 600;
+      color: var(--ink);
       letter-spacing: -0.03em;
     }
 
     .telemetry-val span.unit {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      color: var(--refraction);
-      margin-left: 0.18rem;
+      color: var(--accent);
+      margin-left: 0.2rem;
     }
 
     .telemetry-lbl {
-      font-size: 0.75rem;
-      color: var(--silver-mist);
-      letter-spacing: 0.02em;
+      font-size: 0.76rem;
+      color: var(--muted);
     }
 
     /* ==========================================================================
-       SHARED SECTION HEADERS
+       SHARED BAND & STRIPE SECTION HEADINGS
        ========================================================================== */
     section.band {
       position: relative;
-      padding: 5.25rem 0;
+      padding: 5.75rem 0;
       border-bottom: 1px solid var(--line);
     }
 
+    section.band.surface-band {
+      background: var(--surface);
+    }
+
     @media (max-width: 768px) {
-      section.band { padding: 3.6rem 0; }
+      section.band { padding: 3.75rem 0; }
     }
 
     .section-eyebrow {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--refraction);
+      letter-spacing: 0.07em;
+      color: var(--accent);
       margin-bottom: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-
-    .section-eyebrow::before {
-      content: "";
-      width: 18px;
-      height: 1px;
-      background: var(--refraction);
+      display: block;
     }
 
     .section-heading-row {
@@ -671,158 +650,482 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 2rem;
-      margin-bottom: 2.85rem;
+      margin-bottom: 3rem;
       flex-wrap: wrap;
     }
 
     h2.section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.95rem, 3.2vw, 2.75rem);
+      font-family: var(--font-sans);
+      font-size: clamp(1.85rem, 3.1vw, 2.65rem);
       font-weight: 600;
-      line-height: 1.15;
+      line-height: 1.14;
       letter-spacing: -0.03em;
-      color: var(--selene);
-      max-width: 700px;
+      color: var(--ink);
+      max-width: 680px;
       word-break: keep-all;
     }
 
     .section-sub {
       font-size: 0.95rem;
-      color: var(--silver-mist);
-      max-width: 460px;
-      line-height: 1.68;
+      color: var(--muted);
+      max-width: 450px;
+      line-height: 1.66;
       word-break: keep-all;
     }
 
     .section-sub code {
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      color: var(--mercury);
+      color: var(--ink-secondary);
+      background: var(--surface-muted);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
     }
 
     /* ==========================================================================
-       SECTION 02: THE MANIFESTO (EPOCHS & WHITE SPACE MATRIX)
+       02. WOLIN PASSPORT — BENTO & LINKTREE SHOWCASE (ZERO PROTOCOL JARGON)
        ========================================================================== */
-    .epoch-triptych {
+    .passport-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-bottom: 2.6rem;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 3rem;
+      align-items: center;
     }
 
-    @media (max-width: 960px) {
-      .epoch-triptych { grid-template-columns: 1fr; }
+    @media (max-width: 980px) {
+      .passport-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.25rem;
+      }
     }
 
-    .epoch-card {
-      position: relative;
-      padding: 1.95rem 1.8rem;
-      border-radius: 10px;
-      background: var(--trench);
+    .passport-feature-list {
+      margin-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .passport-feature-row {
+      padding: 1.05rem 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .pf-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      padding-top: 0.2rem;
+    }
+
+    .pf-title {
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .pf-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.58;
+      word-break: keep-all;
+    }
+
+    /* Bento Passport Browser Card */
+    .passport-showcase-shell {
       border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--bg);
+      box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .passport-url-bar {
+      padding: 0.7rem 1rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .passport-url-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      padding: 0.26rem 0.7rem;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink);
+      min-width: 0;
+    }
+
+    .passport-url-pill svg {
+      width: 12px;
+      height: 12px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .passport-tag {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--line-accent);
+      border-radius: 4px;
+      padding: 0.16rem 0.48rem;
+      white-space: nowrap;
+    }
+
+    /* Compact MRZ Header */
+    .passport-id-header {
+      padding: 1.25rem 1.35rem 0.95rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .passport-person-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .passport-person-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      min-width: 0;
+    }
+
+    .passport-avatar-frame {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .passport-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .passport-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .verified-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.62rem;
+      font-weight: 700;
+    }
+
+    .passport-bio {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.12rem;
+    }
+
+    .passport-avatar-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-secondary);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.28rem 0.58rem;
+      white-space: nowrap;
+    }
+
+    .passport-mrz {
+      margin-top: 0.85rem;
+      padding-top: 0.6rem;
+      border-top: 1px dashed var(--line);
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.09em;
+      color: var(--dim);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Bento Tiles Grid: 2x1 Featured World + 1x1 Social/World Tiles */
+    .passport-bento {
+      padding: 1.15rem 1.35rem 1.35rem;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .bento-tile {
+      min-width: 0;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.95rem 1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.16s ease, transform 0.16s ease;
     }
 
-    .epoch-card.sovereign {
-      background: var(--trench);
-      border: 1.5px solid var(--refraction);
-      box-shadow: 0 12px 32px rgba(20, 22, 25, 0.07);
+    .bento-tile:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .bento-tile.featured-world {
+      grid-column: span 2;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%);
+      border-color: var(--line-accent);
+    }
+
+    .bento-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .bento-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+    }
+
+    .bento-visitors {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 0.14rem 0.46rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .featured-world-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.9rem;
+    }
+
+    .bento-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .bento-sub {
+      font-size: 0.79rem;
+      color: var(--muted);
+      margin-top: 0.16rem;
+    }
+
+    .bento-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.35rem;
+    }
+
+    .world-mini-svg {
+      width: 84px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .passport-id-header { padding: 1rem; }
+      .passport-bento {
+        padding: 0.95rem 1rem 1.05rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .bento-tile.featured-world {
+        grid-column: span 2;
+      }
+      .world-mini-svg {
+        width: 68px;
+        height: 54px;
+      }
+    }
+
+    /* ==========================================================================
+       03. THE MANIFESTO — STRIPE HAIRLINE TRIPTYCH & COMPARISON TABLE
+       ========================================================================== */
+    .epoch-hairline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg);
+      margin-bottom: 2.5rem;
+    }
+
+    .epoch-cell {
+      padding: 1.85rem 1.7rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .epoch-cell:last-child {
+      border-right: none;
+    }
+
+    .epoch-cell.sovereign {
+      background: linear-gradient(180deg, rgba(0, 85, 255, 0.03) 0%, #FFFFFF 60%);
+    }
+
+    @media (max-width: 920px) {
+      .epoch-hairline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .epoch-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .epoch-cell:last-child {
+        border-bottom: none;
+      }
     }
 
     .epoch-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.3rem;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.69rem;
+      letter-spacing: 0.06em;
     }
 
     .epoch-index {
-      color: var(--slate-dim);
+      color: var(--dim);
     }
 
-    .epoch-pill {
-      padding: 0.2rem 0.55rem;
+    .epoch-badge {
+      padding: 0.16rem 0.48rem;
       border-radius: 4px;
       font-weight: 600;
-      letter-spacing: 0.04em;
     }
 
-    .epoch-pill.legacy {
-      background: rgba(185, 28, 28, 0.08);
+    .epoch-badge.legacy {
       color: var(--revoke);
-      border: 1px solid rgba(185, 28, 28, 0.2);
+      background: var(--revoke-soft);
     }
 
-    .epoch-pill.lunar {
-      background: var(--refraction-soft);
-      color: var(--refraction);
-      border: 1px solid var(--line-bright);
+    .epoch-badge.lunar {
+      color: var(--accent);
+      background: var(--accent-soft);
     }
 
-    .epoch-card h3 {
-      font-size: 1.24rem;
-      font-weight: 700;
-      color: var(--selene);
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.01em;
+    .epoch-cell h3 {
+      font-size: 1.14rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
     }
 
-    .epoch-card p {
-      font-size: 0.91rem;
-      color: var(--silver-mist);
-      line-height: 1.68;
-      margin-bottom: 1.35rem;
+    .epoch-cell p {
+      font-size: 0.89rem;
+      color: var(--muted);
+      line-height: 1.65;
       word-break: keep-all;
     }
 
     .epoch-verdict {
-      padding-top: 0.95rem;
+      padding-top: 0.9rem;
       border-top: 1px solid var(--line);
       font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--mercury);
+      font-size: 0.73rem;
+      color: var(--ink-secondary);
     }
 
-    /* Comparison Matrix Table */
+    /* Stripe Hairline Comparison Table */
     .matrix-shell {
       border: 1px solid var(--line);
       border-radius: 10px;
       overflow-x: auto;
-      background: var(--trench);
+      background: var(--bg);
+      max-width: 100%;
     }
 
     table.wolin-matrix {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      min-width: 680px;
+      min-width: 660px;
     }
 
     .wolin-matrix th {
-      padding: 0.95rem 1.3rem;
+      padding: 0.9rem 1.25rem;
       font-family: var(--font-mono);
-      font-size: 0.73rem;
+      font-size: 0.7rem;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--silver-mist);
-      background: var(--depths);
+      letter-spacing: 0.07em;
+      color: var(--dim);
+      background: var(--surface);
       border-bottom: 1px solid var(--line);
     }
 
     .wolin-matrix th.col-wolin {
-      color: var(--refraction);
-      background: var(--refraction-soft);
+      color: var(--accent);
     }
 
     .wolin-matrix td {
-      padding: 1rem 1.3rem;
-      font-size: 0.87rem;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.86rem;
       border-bottom: 1px solid var(--line);
-      color: var(--silver-mist);
+      color: var(--muted);
       vertical-align: top;
     }
 
@@ -832,101 +1135,117 @@
 
     .wolin-matrix td.domain-name {
       font-weight: 600;
-      color: var(--selene);
+      color: var(--ink);
       white-space: nowrap;
     }
 
     .wolin-matrix td.wolin-adv {
-      color: var(--selene);
-      background: rgba(27, 59, 95, 0.03);
+      color: var(--ink);
     }
 
     .wolin-matrix code {
       font-family: var(--font-mono);
-      font-size: 0.77rem;
-      color: var(--refraction);
-      background: var(--refraction-soft);
+      font-size: 0.76rem;
+      color: var(--accent);
+      background: var(--accent-soft);
       padding: 0.1rem 0.36rem;
       border-radius: 4px;
     }
 
     /* ==========================================================================
-       SECTION 03: INTERACTIVE 4-LAYER ARCHITECTURE & 6-CRATE DOCS PORTAL
+       04. ARCHITECTURE & SPECIFICATION ROWS (STRIPE HAIRLINE ACCORDION/GRID)
        ========================================================================== */
     .arch-layout {
       display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 1.65rem;
-      align-items: stretch;
-      margin-bottom: 2.75rem;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg);
+      margin-bottom: 2.5rem;
     }
 
-    @media (max-width: 980px) {
-      .arch-layout { grid-template-columns: 1fr; }
+    @media (max-width: 960px) {
+      .arch-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
     .layer-stack {
+      border-right: 1px solid var(--line);
       display: flex;
       flex-direction: column;
-      gap: 0.72rem;
+    }
+
+    @media (max-width: 960px) {
+      .layer-stack {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
     }
 
     .layer-btn {
       width: 100%;
       text-align: left;
-      padding: 1.15rem 1.3rem;
-      border-radius: 8px;
-      background: var(--trench);
-      border: 1px solid var(--line);
-      color: var(--selene);
+      padding: 1.15rem 1.35rem;
+      background: var(--bg);
+      border: none;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background 0.15s ease;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+
+    .layer-btn:last-child {
+      border-bottom: none;
     }
 
     .layer-btn:hover {
-      border-color: var(--line-lunar);
-      background: var(--depths);
+      background: var(--surface);
     }
 
     .layer-btn.active {
-      background: var(--trench);
-      border-color: var(--refraction);
-      box-shadow: inset 3px 0 0 var(--refraction), 0 6px 18px rgba(20, 22, 25, 0.05);
+      background: var(--surface);
+      box-shadow: inset 3px 0 0 var(--accent);
     }
 
     .layer-code {
       font-family: var(--font-mono);
-      font-size: 0.69rem;
-      color: var(--refraction);
+      font-size: 0.68rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
       display: block;
       margin-bottom: 0.22rem;
-      letter-spacing: 0.06em;
     }
 
     .layer-name {
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 0.96rem;
+      font-weight: 600;
       display: block;
       margin-bottom: 0.18rem;
+      letter-spacing: -0.01em;
     }
 
     .layer-desc-short {
       font-size: 0.81rem;
-      color: var(--silver-mist);
+      color: var(--muted);
       display: block;
+      line-height: 1.5;
     }
 
     .layer-crate-badge {
       font-family: var(--font-mono);
-      font-size: 0.69rem;
-      padding: 0.24rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid var(--line-lunar);
-      color: var(--mercury);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--muted);
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -934,24 +1253,19 @@
     @media (max-width: 560px) {
       .layer-btn {
         flex-direction: column;
-        align-items: flex-start;
       }
     }
 
-    /* Architecture Inspector Panel */
+    /* Architecture Inspector */
     .arch-inspector {
-      border-radius: 10px;
-      background: var(--trench);
-      border: 1px solid var(--line-lunar);
+      background: var(--bg);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(20, 22, 25, 0.06);
     }
 
     .inspector-header {
-      padding: 0.88rem 1.25rem;
-      background: var(--depths);
+      padding: 0.85rem 1.35rem;
+      background: var(--surface);
       border-bottom: 1px solid var(--line);
       display: flex;
       justify-content: space-between;
@@ -962,29 +1276,29 @@
 
     .inspector-path {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--refraction);
-      font-weight: 600;
+      font-size: 0.74rem;
+      color: var(--ink);
+      font-weight: 500;
     }
 
     .inspector-standards {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.35rem;
       flex-wrap: wrap;
     }
 
     .std-chip {
       font-family: var(--font-mono);
-      font-size: 0.67rem;
-      padding: 0.15rem 0.46rem;
+      font-size: 0.66rem;
+      padding: 0.14rem 0.44rem;
       border-radius: 4px;
-      background: var(--moon-gold-soft);
-      color: var(--moon-gold);
-      border: 1px solid rgba(154, 113, 38, 0.28);
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--line-accent);
     }
 
     .inspector-body {
-      padding: 1.3rem;
+      padding: 1.35rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -993,262 +1307,271 @@
     }
 
     .inspector-summary {
-      font-size: 0.89rem;
-      color: var(--mercury);
+      font-size: 0.88rem;
+      color: var(--muted);
       line-height: 1.65;
     }
 
     .code-block {
-      background: #1A1D23;
-      border: 1px solid rgba(20, 22, 25, 0.16);
+      background: #141619;
+      border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: 8px;
       padding: 1rem 1.1rem;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       line-height: 1.62;
-      color: #E6E2D8;
+      color: #F4F4F5;
       overflow-x: auto;
+      max-width: 100%;
     }
 
-    .kw { color: #F29C9C; }
-    .ty { color: #9BD3F5; }
-    .fn { color: #E6C27A; }
-    .st { color: #B4E3C5; }
-    .cm { color: #9099A8; font-style: italic; }
+    .kw { color: #FCA5A5; }
+    .ty { color: #93C5FD; }
+    .fn { color: #FDE68A; }
+    .cm { color: #9CA3AF; font-style: italic; }
 
-    /* Protocol & Endpoint Quick Reference Docs */
+    /* Endpoint Reference Hairline Strip */
+    .sub-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 0.85rem;
+    }
+
     .docs-endpoint-bar {
       margin-bottom: 2.5rem;
       border: 1px solid var(--line);
       border-radius: 10px;
-      background: var(--trench);
-      padding: 1.2rem 1.4rem;
+      background: var(--bg);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
-    }
-
-    @media (max-width: 1024px) {
-      .docs-endpoint-bar { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .docs-endpoint-bar { grid-template-columns: 1fr; }
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      overflow: hidden;
     }
 
     .ep-doc-item {
+      padding: 1.15rem 1.2rem;
       border-right: 1px solid var(--line);
-      padding-right: 1rem;
     }
 
-    .ep-doc-item:last-child {
-      border-right: none;
-      padding-right: 0;
+    .ep-doc-item:last-child { border-right: none; }
+
+    @media (max-width: 980px) {
+      .docs-endpoint-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .ep-doc-item:nth-child(2n) { border-right: none; }
+      .ep-doc-item:nth-child(1),
+      .ep-doc-item:nth-child(2) { border-bottom: 1px solid var(--line); }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
+      .docs-endpoint-bar { grid-template-columns: minmax(0, 1fr); }
       .ep-doc-item {
         border-right: none;
         border-bottom: 1px solid var(--line);
-        padding-right: 0;
-        padding-bottom: 0.9rem;
       }
-      .ep-doc-item:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
+      .ep-doc-item:last-child { border-bottom: none; }
     }
 
     .http-verb {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 0.12rem 0.42rem;
+      font-size: 0.67rem;
+      font-weight: 600;
+      padding: 0.1rem 0.4rem;
       border-radius: 3px;
-      background: var(--refraction-soft);
-      color: var(--refraction);
+      background: var(--accent-soft);
+      color: var(--accent);
       margin-right: 0.4rem;
     }
 
     .http-route {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--selene);
+      font-size: 0.78rem;
+      color: var(--ink);
       font-weight: 600;
     }
 
     .ep-doc-desc {
-      margin-top: 0.35rem;
+      margin-top: 0.38rem;
       font-size: 0.8rem;
-      color: var(--silver-mist);
+      color: var(--muted);
+      line-height: 1.52;
     }
 
-    /* 6-Crate Monorepo Reference Grid */
-    .crate-grid-title {
+    .ep-doc-desc code {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--moon-gold);
-      margin-bottom: 0.95rem;
+      font-size: 0.74rem;
+      color: var(--ink-secondary);
     }
 
-    .crate-grid {
+    /* 6-Crate Hairline Matrix */
+    .crate-hairline-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg);
+      overflow: hidden;
+      margin-bottom: 2.75rem;
     }
 
-    @media (max-width: 960px) {
-      .crate-grid { grid-template-columns: repeat(2, 1fr); }
+    .crate-cell {
+      padding: 1.2rem 1.3rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .crate-cell:nth-child(3n) { border-right: none; }
+    .crate-cell:nth-child(n+4) { border-bottom: none; }
+
+    @media (max-width: 920px) {
+      .crate-hairline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .crate-cell { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .crate-cell:nth-child(2n) { border-right: none; }
+      .crate-cell:nth-child(n+5) { border-bottom: none; }
     }
 
     @media (max-width: 600px) {
-      .crate-grid { grid-template-columns: 1fr; }
+      .crate-hairline-grid { grid-template-columns: minmax(0, 1fr); }
+      .crate-cell { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+      .crate-cell:last-child { border-bottom: none !important; }
     }
 
-    .crate-card {
-      padding: 1.15rem 1.25rem;
-      border-radius: 8px;
-      background: var(--trench);
-      border: 1px solid var(--line);
-    }
-
-    .crate-card-head {
+    .crate-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
       font-family: var(--font-mono);
     }
 
     .crate-name {
       font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--selene);
+      font-weight: 600;
+      color: var(--ink);
     }
 
     .crate-ver {
       font-size: 0.68rem;
-      color: var(--slate-dim);
+      color: var(--dim);
     }
 
-    .crate-card p {
+    .crate-cell p {
       font-size: 0.81rem;
-      color: var(--silver-mist);
-      line-height: 1.55;
-      margin-bottom: 0.6rem;
+      color: var(--muted);
+      line-height: 1.54;
+      margin-bottom: 0.55rem;
     }
 
     .crate-exports {
       font-family: var(--font-mono);
       font-size: 0.69rem;
-      color: var(--refraction);
-      opacity: 0.92;
+      color: var(--accent);
+      overflow-wrap: anywhere;
     }
 
-    /* Official Protocol Specifications & White Papers Library Grid */
-    .spec-library-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.15rem;
-      margin-bottom: 3rem;
-    }
-
-    @media (max-width: 800px) {
-      .spec-library-grid { grid-template-columns: 1fr; }
-    }
-
-    .spec-doc-card {
-      display: block;
-      text-decoration: none;
-      background: var(--trench);
+    /* Official Specification Rows (Stripe Table-Row Style) */
+    .spec-rows {
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 1.25rem 1.4rem;
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
+      border-radius: 10px;
+      background: var(--bg);
+      overflow: hidden;
     }
 
-    .spec-doc-card:hover {
-      border-color: var(--refraction);
-      background: var(--trench);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(20, 22, 25, 0.08);
-    }
-
-    .spec-doc-tag {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--moon-gold);
-      letter-spacing: 0.08em;
-      margin-bottom: 0.45rem;
-    }
-
-    .spec-doc-title {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--selene);
-      margin-bottom: 0.5rem;
-    }
-
-    .spec-doc-desc {
-      font-size: 0.83rem;
-      color: var(--silver-mist);
-      line-height: 1.55;
-      margin-bottom: 0.85rem;
-    }
-
-    .spec-doc-meta {
-      display: flex;
-      justify-content: space-between;
+    .spec-row-link {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) auto;
+      gap: 1.25rem;
       align-items: center;
+      padding: 1.1rem 1.35rem;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.15s ease;
+    }
+
+    .spec-row-link:last-child { border-bottom: none; }
+
+    .spec-row-link:hover {
+      background: var(--surface);
+    }
+
+    .spec-row-tag {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--refraction);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--dim);
+    }
+
+    .spec-row-title {
+      font-size: 0.95rem;
       font-weight: 600;
-      border-top: 1px solid var(--line);
-      padding-top: 0.65rem;
+      color: var(--ink);
+      margin-bottom: 0.18rem;
+    }
+
+    .spec-row-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .spec-row-file {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 780px) {
+      .spec-row-link {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.35rem;
+      }
     }
 
     /* ==========================================================================
-       SECTION 04: BENCHMARKS & RUST AOT TELEMETRY
+       05. BENCHMARKS & RUST AOT TELEMETRY
        ========================================================================== */
     .bench-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
       gap: 2rem;
-      align-items: center;
+      align-items: stretch;
     }
 
     @media (max-width: 960px) {
-      .bench-grid { grid-template-columns: 1fr; }
+      .bench-grid { grid-template-columns: minmax(0, 1fr); }
     }
 
     .bench-panel {
       padding: 1.85rem;
       border-radius: 10px;
-      background: var(--trench);
+      background: var(--bg);
       border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .bench-panel h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-      color: var(--selene);
+      font-size: 1.02rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
     }
 
     .bench-panel .bench-note {
       font-size: 0.82rem;
-      color: var(--silver-mist);
-      margin-bottom: 1.5rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
     }
 
     .bar-group {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.25rem;
     }
 
     .bar-group:last-child { margin-bottom: 0; }
@@ -1257,16 +1580,16 @@
       display: flex;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      margin-bottom: 0.4rem;
-      color: var(--mercury);
+      font-size: 0.75rem;
+      margin-bottom: 0.42rem;
+      color: var(--ink-secondary);
       gap: 0.5rem;
     }
 
     .bar-track {
-      height: 10px;
+      height: 8px;
       border-radius: 999px;
-      background: var(--depths);
+      background: var(--surface-muted);
       overflow: hidden;
     }
 
@@ -1275,73 +1598,69 @@
       border-radius: 999px;
     }
 
-    .bar-fill.wolin {
-      width: 7%;
-      background: var(--refraction);
-    }
-
-    .bar-fill.node-css {
-      width: 52%;
-      background: rgba(82, 90, 102, 0.45);
-    }
-
-    .bar-fill.jvm-rdf {
-      width: 94%;
-      background: rgba(185, 28, 28, 0.48);
-    }
+    .bar-fill.wolin { width: 7%; background: var(--accent); }
+    .bar-fill.node-css { width: 52%; background: rgba(82, 82, 91, 0.45); }
+    .bar-fill.jvm-rdf { width: 94%; background: rgba(220, 38, 38, 0.45); }
 
     .spec-pillars {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    @media (max-width: 520px) {
-      .spec-pillars { grid-template-columns: 1fr; }
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg);
+      overflow: hidden;
     }
 
     .spec-box {
-      padding: 1.3rem;
-      border-radius: 8px;
-      background: var(--trench);
-      border: 1px solid var(--line);
+      padding: 1.35rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .spec-box:nth-child(2n) { border-right: none; }
+    .spec-box:nth-child(n+3) { border-bottom: none; }
+
+    @media (max-width: 520px) {
+      .spec-pillars { grid-template-columns: minmax(0, 1fr); }
+      .spec-box { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+      .spec-box:last-child { border-bottom: none !important; }
     }
 
     .spec-box .spec-num {
       font-family: var(--font-mono);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--refraction);
+      font-size: 1.42rem;
+      font-weight: 600;
+      color: var(--accent);
       margin-bottom: 0.28rem;
+      letter-spacing: -0.02em;
     }
 
     .spec-box h4 {
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--selene);
-      margin-bottom: 0.32rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
     }
 
     .spec-box p {
       font-size: 0.8rem;
-      color: var(--silver-mist);
+      color: var(--muted);
       line-height: 1.55;
     }
 
     /* ==========================================================================
-       SECTION 05: LIVE INTERACTIVE CONSOLE (SPARQL & POLICY SIMULATOR)
+       06. LIVE INTERACTIVE CONSOLE (SPARQL & POLICY SIMULATOR)
        ========================================================================== */
     .playground-shell {
       border-radius: 10px;
-      border: 1px solid var(--line-lunar);
-      background: var(--trench);
-      box-shadow: 0 14px 36px rgba(20, 22, 25, 0.07);
+      border: 1px solid var(--line);
+      background: var(--bg);
       overflow: hidden;
     }
 
     .playground-topbar {
-      padding: 0.88rem 1.35rem;
-      background: var(--depths);
+      padding: 0.85rem 1.35rem;
+      background: var(--surface);
       border-bottom: 1px solid var(--line);
       display: flex;
       justify-content: space-between;
@@ -1350,33 +1669,20 @@
       gap: 0.75rem;
     }
 
-    .win-dots {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .win-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: rgba(20, 22, 25, 0.18);
-    }
-
     .playground-title {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: var(--mercury);
-      margin-left: 0.45rem;
+      font-size: 0.75rem;
+      color: var(--ink-secondary);
+      font-weight: 500;
     }
 
     .playground-body {
       display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
     }
 
     @media (max-width: 960px) {
-      .playground-body { grid-template-columns: 1fr; }
+      .playground-body { grid-template-columns: minmax(0, 1fr); }
     }
 
     .sim-controls {
@@ -1397,33 +1703,31 @@
     .field-label {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--silver-mist);
+      letter-spacing: 0.07em;
+      color: var(--dim);
       margin-bottom: 0.42rem;
     }
 
     .sim-select,
     .sim-textarea {
       width: 100%;
-      background: var(--abyss);
-      border: 1px solid var(--line-lunar);
+      background: var(--bg);
+      border: 1px solid var(--line-strong);
       border-radius: 6px;
-      color: var(--selene);
+      color: var(--ink);
       font-family: var(--font-mono);
-      font-size: 0.79rem;
-      padding: 0.68rem 0.78rem;
+      font-size: 0.78rem;
+      padding: 0.65rem 0.75rem;
       outline: none;
     }
 
-    .sim-select {
-      min-height: 44px;
-    }
+    .sim-select { min-height: 44px; }
 
     .sim-select:focus,
     .sim-textarea:focus {
-      border-color: var(--refraction);
+      border-color: var(--accent);
     }
 
     .sim-textarea {
@@ -1445,26 +1749,25 @@
       align-items: center;
       justify-content: center;
       min-height: 44px;
-      background: var(--selene);
-      color: #F6F4EE;
+      background: var(--ink);
+      color: #FFFFFF;
       border: none;
       border-radius: 6px;
-      padding: 0.72rem 1.3rem;
+      padding: 0 1.25rem;
       font-family: var(--font-mono);
-      font-size: 0.79rem;
-      font-weight: 700;
+      font-size: 0.77rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.18s ease;
+      transition: background 0.16s ease;
     }
 
     .btn-execute:hover {
-      background: var(--refraction);
-      transform: translateY(-1px);
+      background: var(--accent);
     }
 
     .sim-output {
       padding: 1.45rem;
-      background: var(--depths);
+      background: var(--surface);
       display: flex;
       flex-direction: column;
       gap: 0.95rem;
@@ -1476,47 +1779,47 @@
       align-items: center;
       gap: 0.75rem;
       flex-wrap: wrap;
-      padding: 0.72rem 0.95rem;
-      border-radius: 8px;
+      padding: 0.68rem 0.9rem;
+      border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       border: 1px solid;
     }
 
     .decision-banner.permit {
-      background: rgba(21, 115, 71, 0.08);
-      border-color: rgba(21, 115, 71, 0.3);
+      background: var(--permit-soft);
+      border-color: rgba(21, 128, 61, 0.25);
       color: var(--permit);
     }
 
     .decision-banner.deny {
-      background: rgba(185, 28, 28, 0.08);
-      border-color: rgba(185, 28, 28, 0.3);
+      background: var(--revoke-soft);
+      border-color: rgba(220, 38, 38, 0.25);
       color: var(--revoke);
     }
 
     .sim-json-out {
       flex: 1;
-      background: #1A1D23;
-      border: 1px solid rgba(20, 22, 25, 0.16);
+      background: #141619;
+      border: 1px solid rgba(0, 0, 0, 0.12);
       border-radius: 8px;
       padding: 1rem;
       font-family: var(--font-mono);
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       line-height: 1.6;
-      color: #E6E2D8;
+      color: #F4F4F5;
       overflow-x: auto;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
     /* ==========================================================================
-       FOOTER
+       SHARED INSTITUTIONAL FOOTER
        ========================================================================== */
-    footer.meridian-footer {
+    footer.site-footer {
       padding: 3.25rem 0;
       border-top: 1px solid var(--line);
-      background: var(--depths);
+      background: var(--surface);
     }
 
     .footer-inner {
@@ -1528,52 +1831,62 @@
     }
 
     .footer-quote {
-      font-family: var(--font-display);
-      font-size: 1.22rem;
-      color: var(--mercury);
-      margin-bottom: 0.5rem;
+      font-family: var(--font-serif-kr);
+      font-size: 1.06rem;
+      color: var(--ink-secondary);
+      margin-bottom: 0.55rem;
     }
 
     .footer-meta {
-      font-size: 0.81rem;
-      color: var(--slate-dim);
-      line-height: 1.6;
+      font-size: 0.8rem;
+      color: var(--dim);
+      line-height: 1.65;
+    }
+
+    .footer-meta strong {
+      color: var(--ink-secondary);
+      font-weight: 600;
+    }
+
+    .footer-meta a {
+      color: var(--ink-secondary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .footer-links {
       display: flex;
-      gap: 1.4rem;
+      gap: 0.35rem 1.25rem;
       flex-wrap: wrap;
       font-family: var(--font-mono);
-      font-size: 0.77rem;
+      font-size: 0.76rem;
     }
 
     .footer-links a {
       display: inline-flex;
       align-items: center;
       min-height: 44px;
-      padding: 0 0.25rem;
-      color: var(--silver-mist);
+      color: var(--muted);
       text-decoration: none;
-      transition: color 0.18s;
+      transition: color 0.16s ease;
     }
 
     .footer-links a:hover {
-      color: var(--refraction);
+      color: var(--accent);
     }
   </style>
 </head>
 <body>
   <div class="meridian-bg" aria-hidden="true"></div>
 
-  <!-- Top Meridian Bar -->
-  <header class="nav-bar">
-    <div class="nav-inner">
-      <a href="#" class="brand-link">
+  <!-- Institutional Top Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand-link">
         <svg class="brand-emblem" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="40" height="40" rx="10" fill="#171717"/>
           <circle cx="20" cy="14" r="5.6" fill="#FFFFFF"/>
-          <path d="M8 23.5H32" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 23.5H32" stroke="#0055FF" stroke-width="2" stroke-linecap="round"/>
           <path d="M12 28H28" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.6" stroke-linecap="round"/>
           <path d="M16 32.2H24" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
@@ -1583,389 +1896,511 @@
         </div>
       </a>
 
-      <nav class="nav-menu" aria-label="Primary">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#passport">Passport</a>
         <a href="#manifesto">Manifesto</a>
-        <a href="#architecture">Architecture &amp; Docs</a>
+        <a href="#architecture">Architecture</a>
         <a href="#benchmarks">Benchmarks</a>
-        <a href="#playground">Policy Lab</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/prompts.html">Prompts</a>
       </nav>
 
-      <div class="daemon-pill">
-        <span class="pulse-orb"></span>
-        <span>wolin-server</span>
-        <span class="hide-xs">v0.1.0 · :4000</span>
+      <div class="header-actions">
+        <a href="/pricing.html" class="header-link-mobile">Pricing</a>
+        <a href="/prompts.html" class="header-link-mobile">Prompts</a>
+        <a href="/pricing.html" class="header-cta">Claim your Pod</a>
       </div>
     </div>
   </header>
 
   <main>
-  <!-- 01. Grand Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <!-- Left: Sovereign Narrative -->
-        <div>
-          <div class="seal-tag">
-            <span class="seal-stamp">月印</span>
-            <span class="seal-text">Sovereign Pod Cloud · Inrupt Interoperable · W3C Solid 0.11</span>
+    <!-- 01. Anchor Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left: Anchor Display Hierarchy -->
+          <div>
+            <div class="eyebrow-label">
+              <span class="eyebrow-seal">月印</span>
+              <span>Sovereign Pod Cloud · W3C Solid 0.11</span>
+            </div>
+
+            <h1 class="hero-display">
+              One Identity.
+              <span class="accent-line">Infinite Reflections.</span>
+            </h1>
+
+            <p class="hero-axiom">
+              “애플리케이션은 생겨나고 사라지지만, 아이덴티티는 지속되고 데이터는 흐른다.”
+            </p>
+
+            <p class="hero-subtitle">
+              하나의 달이 천 개의 강물에 비추어도 본질은 나뉘지 않듯(<a href="docs/VISION.md" class="inline-ref">月印千江</a>),
+              Wolin은 토큰과 가스비 없는 단일 Rust 런타임 위에서 <a href="docs/POD_CLOUD_SPEC.md" class="inline-ref">소버린 팟 클라우드</a>,
+              <a href="docs/INRUPT_INTEROP.md" class="inline-ref">Inrupt 양방향 상호운용</a>, 휴대용 3D 신원과 최소 권한 투영을 하나로 결속합니다.
+            </p>
+
+            <div class="hero-cta-row">
+              <a href="/pricing.html" class="btn-dominant">
+                <span>Claim your Pod</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <a href="#architecture" class="hero-secondary-link">
+                <span>Explore Architecture &amp; Specs</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <div class="cli-capsule">
+              <div class="cli-left">
+                <span class="cli-prompt">$</span>
+                <span class="cli-cmd" id="cli-text">cargo run --release -p wolin-server</span>
+              </div>
+              <button type="button" class="cli-copy" id="copy-cli-btn" onclick="copyCli()">COPY</button>
+            </div>
           </div>
 
-          <h1 class="hero-display">
-            One Identity.
-            <span class="italic-refraction">Infinite Reflections.</span>
-          </h1>
+          <!-- Right: Crisp Architectural Lunar Projection Blueprint -->
+          <div class="astrolabe-stage" role="region" aria-label="Lunar Reflection Projection Blueprint">
+            <div class="astrolabe-topbar">
+              <span>PROJECTION TOPOLOGY · 月印千江</span>
+              <span id="active-ray-label" style="color: var(--accent); font-weight: 600;">RAY 01 · SOCIAL VERSE</span>
+            </div>
 
-          <p class="hero-axiom">
-            “애플리케이션은 생겨나고 사라지지만, 아이덴티티는 지속되고 데이터는 흐른다.”
+            <svg class="astrolabe-svg" viewBox="0 0 520 326" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#0055FF" stop-opacity="0.12"/>
+                  <stop offset="100%" stop-color="#FAFAFA" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="horizonGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0055FF" stop-opacity="0.06"/>
+                  <stop offset="50%" stop-color="#0055FF" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#0055FF" stop-opacity="0.06"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Orbit & Zenith Sovereign Identity -->
+              <circle cx="260" cy="76" r="68" fill="url(#moonHalo)"/>
+              <circle cx="260" cy="76" r="42" stroke="rgba(0, 0, 0, 0.1)" stroke-dasharray="2 3"/>
+              <line x1="162" y1="54" x2="218" y2="68" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+              <line x1="162" y1="112" x2="218" y2="86" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+              <line x1="358" y1="54" x2="302" y2="68" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+              <line x1="358" y1="112" x2="302" y2="86" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+
+              <circle cx="260" cy="76" r="24" fill="#171717"/>
+              <text x="260" y="81.5" text-anchor="middle" fill="#FFFFFF" font-family="Noto Serif KR, serif" font-weight="600" font-size="15">月</text>
+
+              <!-- 4 Architectural Module Nodes -->
+              <g transform="translate(22, 32)">
+                <rect width="140" height="40" rx="6" fill="#FFFFFF" stroke="rgba(0,0,0,0.1)"/>
+                <text x="12" y="17" fill="#171717" font-family="Geist Mono, monospace" font-size="8.6" font-weight="600">wolin-identity</text>
+                <text x="12" y="30" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.4">WebID · Solid-OIDC</text>
+              </g>
+
+              <g transform="translate(22, 92)">
+                <rect width="140" height="40" rx="6" fill="#FFFFFF" stroke="rgba(0,0,0,0.1)"/>
+                <text x="12" y="17" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.6" font-weight="600">wolin-storage</text>
+                <text x="12" y="30" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.4">Oxigraph · OpenDAL</text>
+              </g>
+
+              <g transform="translate(358, 32)">
+                <rect width="140" height="40" rx="6" fill="#FFFFFF" stroke="rgba(0,0,0,0.1)"/>
+                <text x="12" y="17" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.6" font-weight="600">wolin-policy</text>
+                <text x="12" y="30" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.4">WAC / ACP · PDP</text>
+              </g>
+
+              <g transform="translate(358, 92)">
+                <rect width="140" height="40" rx="6" fill="#FFFFFF" stroke="rgba(0,0,0,0.1)"/>
+                <text x="12" y="17" fill="#171717" font-family="Geist Mono, monospace" font-size="8.6" font-weight="600">wolin-server</text>
+                <text x="12" y="30" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.4">Pod Cloud · LDP</text>
+              </g>
+
+              <!-- Incident Beam -->
+              <line x1="260" y1="100" x2="260" y2="170" stroke="#171717" stroke-width="1.4" stroke-dasharray="2 3"/>
+
+              <!-- Selective Disclosure Waterline -->
+              <line x1="20" y1="170" x2="500" y2="170" stroke="url(#horizonGlow)" stroke-width="1.6"/>
+              <rect x="148" y="158" width="224" height="24" rx="12" fill="#FFFFFF" stroke="#0055FF" stroke-width="1.1"/>
+              <text x="260" y="173.2" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">SELECTIVE PROJECTION WATERLINE</text>
+
+              <!-- Refracted Projection Rays -->
+              <g id="refraction-rays">
+                <path id="ray-0" d="M260 182 L76 254" stroke="#0055FF" stroke-width="2" opacity="1"/>
+                <path id="ray-1" d="M260 182 L198 254" stroke="#D4D4D8" stroke-width="1.2"/>
+                <path id="ray-2" d="M260 182 L322 254" stroke="#D4D4D8" stroke-width="1.2"/>
+                <path id="ray-3" d="M260 182 L444 254" stroke="#D4D4D8" stroke-width="1.2"/>
+              </g>
+
+              <!-- 4 Metaverse World Reflections -->
+              <g transform="translate(76, 268)">
+                <ellipse cx="0" cy="0" rx="35" ry="6.5" fill="rgba(0, 85, 255, 0.1)" stroke="#0055FF" stroke-width="1.4" id="ripple-0"/>
+                <line x1="-20" y1="11" x2="20" y2="11" stroke="#0055FF" stroke-width="1.2" stroke-linecap="round"/>
+                <text x="0" y="29" text-anchor="middle" fill="#171717" font-family="Geist Mono, monospace" font-size="9" font-weight="600">Social Verse</text>
+                <text x="0" y="41" text-anchor="middle" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.8">3D avatar &amp; bio</text>
+              </g>
+
+              <g transform="translate(198, 268)">
+                <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#A1A1AA" stroke-width="1" id="ripple-1"/>
+                <line x1="-18" y1="11" x2="18" y2="11" stroke="#E4E4E7" stroke-width="1.1" stroke-linecap="round"/>
+                <text x="0" y="29" text-anchor="middle" fill="#3F3F46" font-family="Geist Mono, monospace" font-size="9">Commerce Verse</text>
+                <text x="0" y="41" text-anchor="middle" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.8">3D pop-up store</text>
+              </g>
+
+              <g transform="translate(322, 268)">
+                <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#A1A1AA" stroke-width="1" id="ripple-2"/>
+                <line x1="-18" y1="11" x2="18" y2="11" stroke="#E4E4E7" stroke-width="1.1" stroke-linecap="round"/>
+                <text x="0" y="29" text-anchor="middle" fill="#3F3F46" font-family="Geist Mono, monospace" font-size="9">Live Stage</text>
+                <text x="0" y="41" text-anchor="middle" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.8">concert &amp; fan club</text>
+              </g>
+
+              <g transform="translate(444, 268)">
+                <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#A1A1AA" stroke-width="1" id="ripple-3"/>
+                <line x1="-18" y1="11" x2="18" y2="11" stroke="#E4E4E7" stroke-width="1.1" stroke-linecap="round"/>
+                <text x="0" y="29" text-anchor="middle" fill="#3F3F46" font-family="Geist Mono, monospace" font-size="9">Open World</text>
+                <text x="0" y="41" text-anchor="middle" fill="#71717A" font-family="Geist Mono, monospace" font-size="7.8">cross-game portals</text>
+              </g>
+            </svg>
+
+            <div class="river-selector-bar" role="tablist" aria-label="Select Metaverse Reflection">
+              <button type="button" role="tab" aria-selected="true" class="river-chip active" onclick="focusRiver(0, this)">
+                <span class="river-chip-title">01 Social Verse</span>
+                <span class="river-chip-scope">avatar + profile</span>
+              </button>
+              <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(1, this)">
+                <span class="river-chip-title">02 Commerce</span>
+                <span class="river-chip-scope">wearable closet</span>
+              </button>
+              <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(2, this)">
+                <span class="river-chip-title">03 Live Stage</span>
+                <span class="river-chip-scope">ticket + lightstick</span>
+              </button>
+              <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(3, this)">
+                <span class="river-chip-title">04 Open World</span>
+                <span class="river-chip-scope">portable save</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Hero Hairline Telemetry Bar -->
+      <div class="telemetry-strip">
+        <div class="telemetry-grid">
+          <div class="telemetry-cell">
+            <div class="telemetry-val">&lt; 30<span class="unit">MB</span></div>
+            <div class="telemetry-lbl">Rust AOT Resident Memory Footprint</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-val">1.42<span class="unit">ms</span></div>
+            <div class="telemetry-lbl">P99 Embedded Oxigraph SPARQL Read</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-val">$0<span class="unit">EGRESS</span></div>
+            <div class="telemetry-lbl">Cloudflare R2 3D Asset Edge Delivery</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-val">Solid 0.11<span class="unit">+ DPoP</span></div>
+            <div class="telemetry-lbl">W3C WAC/ACP &amp; Inrupt ESS Interoperable</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. Wolin Passport Showcase (Bento & Linktree Digital Passport) -->
+    <section class="band" id="passport">
+      <div class="container">
+        <div class="passport-grid">
+          <!-- Left: Zero-Jargon Human Value Narrative -->
+          <div>
+            <span class="section-eyebrow">01 · WOLIN PASSPORT &amp; DISCOVERY</span>
+            <h2 class="section-title">하나의 주소가 곧 디지털 여권이자,<br>메타버스 쇼케이스가 됩니다.</h2>
+            <p class="section-sub" style="margin-top: 1rem; max-width: 500px;">
+              브라우저에서 <code>alice.wolin.id</code>를 열면 복잡한 기술 용어 없이 깔끔한 디지털 여권과 월드 디렉토리가 펼쳐집니다. 내가 만든 공간과 자주 찾는 월드를 한 장의 명함으로 공유하세요.
+            </p>
+
+            <div class="passport-feature-list">
+              <div class="passport-feature-row">
+                <span class="pf-num">01</span>
+                <div>
+                  <div class="pf-title">링크 하나로 열리는 내 월드 쇼케이스</div>
+                  <p class="pf-desc">프로필 링크 하나만 걸어두면 방문자가 내가 운영 중인 3D 카페, 공연장, 팝업 스토어로 즉시 입장합니다.</p>
+                </div>
+              </div>
+              <div class="passport-feature-row">
+                <span class="pf-num">02</span>
+                <div>
+                  <div class="pf-title">어디서나 그대로 소환되는 3D 아바타</div>
+                  <p class="pf-desc">여권에 등록한 아바타와 착용 아이템을 새로운 월드마다 다시 업로드할 필요 없이 그대로 가져갑니다.</p>
+                </div>
+              </div>
+              <div class="passport-feature-row">
+                <span class="pf-num">03</span>
+                <div>
+                  <div class="pf-title">원클릭 연결 월드 스위치</div>
+                  <p class="pf-desc">어떤 월드가 내 프로필과 보관함을 읽을 수 있는지 한눈에 확인하고 언제든 스위치 하나로 연결을 해제합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Bento & Linktree Passport Card Preview (Zero Protocol Jargon) -->
+          <div class="passport-showcase-shell" aria-label="Wolin Passport Preview for alice.wolin.id">
+            <div class="passport-url-bar">
+              <div class="passport-url-pill">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                  <rect x="3" y="7" width="10" height="7" rx="1.8"/>
+                  <path d="M5 7V5a3 3 0 0 1 6 0v2"/>
+                </svg>
+                <span>alice.wolin.id</span>
+              </div>
+              <span class="passport-tag">Wolin Passport</span>
+            </div>
+
+            <div class="passport-id-header">
+              <div class="passport-person-row">
+                <div class="passport-person-left">
+                  <div class="passport-avatar-frame" aria-hidden="true">
+                    <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
+                      <circle cx="18" cy="12.5" r="5.5" fill="#171717"/>
+                      <path d="M8.5 29C9.8 23.8 13.4 21 18 21C22.6 21 26.2 23.8 27.5 29" stroke="#0055FF" stroke-width="2.4" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="passport-name-row">
+                      <span class="passport-name">Alice Kim</span>
+                      <span class="verified-check" title="Verified Handle">✓</span>
+                    </div>
+                    <div class="passport-bio">Spatial Architect &amp; Indie World Host · Seoul</div>
+                  </div>
+                </div>
+                <span class="passport-avatar-badge">3D Avatar Equipped</span>
+              </div>
+              <div class="passport-mrz">P&lt;WOLIN&lt;&lt;KIM&lt;&lt;ALICE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;ALICE.WOLIN.ID&lt;&lt;2026</div>
+            </div>
+
+            <div class="passport-bento">
+              <!-- 2x1 Featured World Tile -->
+              <a href="/pricing.html" class="bento-tile featured-world">
+                <div class="bento-top">
+                  <span class="bento-kicker">Featured World · Hosted by @alice</span>
+                  <span class="bento-visitors">24 Visiting</span>
+                </div>
+                <div class="featured-world-body">
+                  <div>
+                    <div class="bento-title">Sunlit Cat Cafe · 3D Hangout</div>
+                    <div class="bento-sub">Cozy rooftop terrace, table voice chat &amp; guestbook</div>
+                    <span class="bento-cta">Enter World <span aria-hidden="true">→</span></span>
+                  </div>
+                  <svg class="world-mini-svg" viewBox="0 0 88 66" fill="none" aria-hidden="true">
+                    <path d="M44 8L80 26L44 44L8 26L44 8Z" fill="#EFF6FF" stroke="#0055FF" stroke-width="1.3"/>
+                    <path d="M8 26V44L44 62V44" fill="#FFFFFF" stroke="#0055FF" stroke-width="1.3"/>
+                    <path d="M80 26V44L44 62V44" fill="#DBEAFE" stroke="#0055FF" stroke-width="1.3"/>
+                    <circle cx="44" cy="25" r="5" fill="#0055FF"/>
+                  </svg>
+                </div>
+              </a>
+
+              <!-- 1x1 Live Stage Tile -->
+              <a href="/pricing.html" class="bento-tile">
+                <span class="bento-kicker">Live Stage</span>
+                <div>
+                  <div class="bento-title">Friday Acoustic Dome</div>
+                  <div class="bento-sub">Fri 21:00 KST</div>
+                </div>
+                <span class="bento-cta">Join Stage ↗</span>
+              </a>
+
+              <!-- 1x1 Avatar Closet Tile -->
+              <a href="/pricing.html" class="bento-tile">
+                <span class="bento-kicker">Wardrobe</span>
+                <div>
+                  <div class="bento-title">Avatar Closet</div>
+                  <div class="bento-sub">4 Wearables Ready</div>
+                </div>
+                <span class="bento-cta">Inspect 3D ↗</span>
+              </a>
+
+              <!-- 1x1 Social Tile -->
+              <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener" class="bento-tile">
+                <span class="bento-kicker">Social</span>
+                <div>
+                  <div class="bento-title">@alice_builds</div>
+                  <div class="bento-sub">Design Notes &amp; Clips</div>
+                </div>
+                <span class="bento-cta">Follow ↗</span>
+              </a>
+
+              <!-- 1x1 Studio Archive Tile -->
+              <a href="/pricing.html" class="bento-tile">
+                <span class="bento-kicker">Directory</span>
+                <div>
+                  <div class="bento-title">Bookmark Portals</div>
+                  <div class="bento-sub">12 Favorite Worlds</div>
+                </div>
+                <span class="bento-cta">Explore ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. The Sovereign Manifesto -->
+    <section class="band surface-band" id="manifesto">
+      <div class="container">
+        <span class="section-eyebrow">02 · THE SOVEREIGN MANIFESTO</span>
+        <div class="section-heading-row">
+          <h2 class="section-title">플랫폼 봉건주의와 투기적 크립토를 넘어,<br>디지털 실존을 위한 영속 백본으로.</h2>
+          <p class="section-sub">
+            수많은 웹·3D 플랫폼이 등장하고 사라지는 시대, 어떤 공간에 접속하더라도 개인과 기업이 신원과 데이터의 주권을 잃지 않도록 설계된 <a href="docs/VISION.md" class="inline-ref">제3의 인프라 아키텍처</a>입니다.
           </p>
+        </div>
 
-          <p class="hero-description">
-            하나의 달이 수천 개의 강물에 비추어도 달의 본질은 나뉘지 않듯(月印千江),
-            <strong>Wolin</strong>은 투기적 토큰과 가스비를 걷어낸 초경량 단일 Rust 런타임 위에서
-            <strong>멀티테넌트 소버린 팟 클라우드(Pod Cloud)</strong>, <strong>Inrupt(ESS) 양방향 상호운용(Solid-OIDC &amp; DPoP)</strong>,
-            <strong>Oxigraph 시맨틱 그래프</strong>, 그리고 <strong>최소 권한 선택적 데이터 투영(Zero-PII Selective Disclosure)</strong>을 하나로 결속합니다.
+        <div class="epoch-hairline-grid">
+          <article class="epoch-cell">
+            <div>
+              <div class="epoch-meta">
+                <span class="epoch-index">EPOCH I // WEB 2.0</span>
+                <span class="epoch-badge legacy">PLATFORM LOCK-IN</span>
+              </div>
+              <h3>사일로 감옥과 신원 종속</h3>
+              <p>
+                거대 플랫폼이 아바타, 친구 관계, 창작 에셋을 서버 내부에 가두어 락인합니다. 서비스마다 계정을 새로 만들고, 플랫폼이 종료되면 쌓아온 디지털 공간과 관계망이 함께 소멸합니다.
+              </p>
+            </div>
+            <div class="epoch-verdict">계정 정지 · 서비스 종료 = 디지털 자산 즉시 유실</div>
+          </article>
+
+          <article class="epoch-cell">
+            <div>
+              <div class="epoch-meta">
+                <span class="epoch-index">EPOCH II // TOKEN WEB3</span>
+                <span class="epoch-badge legacy">SPECULATIVE FRICTION</span>
+              </div>
+              <h3>금융 투기화와 가스비 병목</h3>
+              <p>
+                데이터 주권을 표방했으나 토큰 이코노미와 온체인 가스비, 복잡한 시드 구문 UX에 매몰되어 실제 엔터프라이즈 SSO 및 일상적인 메타버스 경험으로부터 고립되었습니다.
+              </p>
+            </div>
+            <div class="epoch-verdict">단순 프로필 갱신조차 트랜잭션 비용과 지연 발생</div>
+          </article>
+
+          <article class="epoch-cell sovereign">
+            <div>
+              <div class="epoch-meta">
+                <span class="epoch-index">EPOCH III // WOLIN (月印)</span>
+                <span class="epoch-badge lunar">SOVEREIGN POD CLOUD</span>
+              </div>
+              <h3>월인천강(月印千江)의 시맨틱 주권</h3>
+              <p>
+                코인 발행 없이 표준 암호학 서명(WebID · DID · DPoP)만으로 신원을 증명합니다. 원본 데이터는 내 포드에 영속하며, 외부 월드에는 승인된 최소 범위만 실시간 투영합니다.
+              </p>
+            </div>
+            <div class="epoch-verdict">서비스가 사라져도 신원 · 아바타 · 데이터 영구 존속</div>
+          </article>
+        </div>
+
+        <div class="matrix-shell">
+          <table class="wolin-matrix">
+            <thead>
+              <tr>
+                <th>영역 (Domain)</th>
+                <th>기존 생태계의 구조적 한계</th>
+                <th class="col-wolin">WOLIN (月印) 아키텍처 해법</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="domain-name">W3C Solid 런타임</td>
+                <td>기존 Node.js 구현체(CSS)는 300MB 이상의 RAM 점유 및 멀티테넌시 병목</td>
+                <td class="wolin-adv"><code>Rust AOT 단일 바이너리</code> — 30MB 미만 메모리로 홈서버·클라우드 즉시 구동 (<a href="docs/ARCHITECTURE.md" class="inline-ref">명세</a>)</td>
+              </tr>
+              <tr>
+                <td class="domain-name">신원 &amp; 기업 인증</td>
+                <td>크립토 지갑 설치 강제 및 기존 사내 IdP(SSO)와의 단절</td>
+                <td class="wolin-adv"><code>Passwordless OAuth2 · Passkey</code> 및 <code>ZITADEL / Keycloak OIDC</code> · <code>WebID</code> 통합 (<a href="docs/INRUPT_INTEROP.md" class="inline-ref">규격</a>)</td>
+              </tr>
+              <tr>
+                <td class="domain-name">선택적 데이터 투영</td>
+                <td>원시 파일 통째 노출 또는 무제한 API 토큰 위임으로 인한 개인정보 유출</td>
+                <td class="wolin-adv"><code>Scoped Projection Gateway</code> — 요청 맥락에 맞춘 Zero-PII 가상 서브그래프 투영</td>
+              </tr>
+              <tr>
+                <td class="domain-name">스토리지 &amp; 이주 자유</td>
+                <td>특정 클라우드 종속 또는 도메인 변경 시 앱 연결 및 권한 규칙 깨짐</td>
+                <td class="wolin-adv"><code>Apache OpenDAL</code> + <code>.tar.zst</code> 무손실 Pod 번들 이주 (<a href="docs/POD_CLOUD_SPEC.md" class="inline-ref">클라우드 사양</a>)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. Architecture Explorer & Protocol Documentation -->
+    <section class="band" id="architecture">
+      <div class="container">
+        <span class="section-eyebrow">03 · SYSTEM ARCHITECTURE &amp; SPECIFICATIONS</span>
+        <div class="section-heading-row">
+          <h2 class="section-title">4계층 시맨틱 패브릭과<br>프로토콜 레퍼런스 포털.</h2>
+          <p class="section-sub">
+            검증된 Rust 생태계(<code>axum 0.8</code>, <code>oxigraph 0.4</code>, <code>opendal 0.51</code>) 위에 구축된 6개 워크스페이스 모듈과 표준 HTTP 엔드포인트 명세입니다.
           </p>
-
-          <div class="hero-cta-row">
-            <a href="#playground" class="btn-lunar btn-lunar-primary">
-              <span>권한 시뮬레이터 실행 (Live PDP)</span>
-              <span aria-hidden="true">→</span>
-            </a>
-            <a href="#architecture" class="btn-lunar btn-lunar-ghost">
-              <span>아키텍처 &amp; 크레이트 명세</span>
-            </a>
-          </div>
-
-          <div class="cli-capsule">
-            <span class="cli-prompt">$</span>
-            <span class="cli-cmd" id="cli-text">cargo run --release -p wolin-server</span>
-            <button type="button" class="cli-copy" id="copy-cli-btn" onclick="copyCli()">COPY</button>
-          </div>
         </div>
 
-        <!-- Right: Interactive 月印千江 Moon, 4 Cloud Modules & Metaverse Reflections -->
-        <div class="astrolabe-stage" role="region" aria-label="Lunar Reflection Projection Diagram">
-          <div class="astrolabe-topbar">
-            <span>WOLIN ARCHITECTURE · 月印千江</span>
-            <span id="active-ray-label" style="color: var(--refraction); font-weight: 600;">RAY 01 · SOCIAL VERSE</span>
-          </div>
-
-          <svg class="astrolabe-svg" viewBox="0 0 520 336" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#0055FF" stop-opacity="0.14"/>
-                <stop offset="65%" stop-color="#2563EB" stop-opacity="0.05"/>
-                <stop offset="100%" stop-color="#F8FAFC" stop-opacity="0"/>
-              </radialGradient>
-              <linearGradient id="horizonGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#0055FF" stop-opacity="0.08"/>
-                <stop offset="50%" stop-color="#0055FF" stop-opacity="0.85"/>
-                <stop offset="100%" stop-color="#0055FF" stop-opacity="0.08"/>
-              </linearGradient>
-              <filter id="cloudShadow" x="-10%" y="-15%" width="120%" height="140%">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.07"/>
-              </filter>
-            </defs>
-
-            <!-- Subtle Moon Corona -->
-            <circle cx="260" cy="84" r="76" fill="url(#moonHalo)"/>
-            <circle cx="260" cy="84" r="44" stroke="rgba(15, 23, 42, 0.14)" stroke-dasharray="2 3"/>
-
-            <!-- Sovereign Moon (Singular Identity) -->
-            <circle cx="260" cy="84" r="25" fill="#0F172A"/>
-            <text x="260" y="90" text-anchor="middle" fill="#FFFFFF" font-family="Noto Serif KR, serif" font-weight="600" font-size="16">月</text>
-
-            <!-- 4 Core Wolin Modules as Crisp Sculpted Clouds (雲) Flanking the Moon -->
-            <!-- Cloud 1 (Top-Left): wolin-identity -->
-            <g transform="translate(26, 22)" filter="url(#cloudShadow)">
-              <path d="M26 36 H138 C147 36 153 30 153 23 C153 16 147 11 139 11 C136 4 127 0 117 1 C110 -3 98 -2 92 4 C84 0 72 3 67 10 C60 7 50 10 46 16 C37 15 27 20 26 27 C19 28 19 36 26 36 Z"
-                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
-              <text x="89" y="19" text-anchor="middle" fill="#0F172A" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-identity</text>
-              <text x="89" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">WebID · Solid-OIDC</text>
-            </g>
-
-            <!-- Cloud 2 (Bottom-Left): wolin-storage -->
-            <g transform="translate(20, 96)" filter="url(#cloudShadow)">
-              <path d="M26 36 H144 C153 36 159 30 159 23 C159 16 153 11 145 11 C142 4 132 0 122 1 C114 -3 102 -2 95 4 C87 0 74 3 69 10 C62 7 52 10 48 16 C39 15 29 20 26 27 C19 28 19 36 26 36 Z"
-                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
-              <text x="92" y="19" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-storage</text>
-              <text x="92" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">Oxigraph · OpenDAL</text>
-            </g>
-
-            <!-- Cloud 3 (Top-Right): wolin-policy -->
-            <g transform="translate(338, 22)" filter="url(#cloudShadow)">
-              <path d="M24 36 H136 C145 36 151 30 151 23 C151 16 145 11 137 11 C134 4 125 0 115 1 C108 -3 96 -2 90 4 C82 0 70 3 65 10 C58 7 48 10 44 16 C35 15 26 20 24 27 C17 28 17 36 24 36 Z"
-                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
-              <text x="87" y="19" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-policy</text>
-              <text x="87" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">WAC / ACP · PDP</text>
-            </g>
-
-            <!-- Cloud 4 (Bottom-Right): wolin-server -->
-            <g transform="translate(336, 96)" filter="url(#cloudShadow)">
-              <path d="M24 36 H142 C151 36 157 30 157 23 C157 16 151 11 143 11 C140 4 130 0 120 1 C112 -3 100 -2 93 4 C85 0 72 3 67 10 C60 7 50 10 46 16 C37 15 26 20 24 27 C17 28 17 36 24 36 Z"
-                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
-              <text x="90" y="19" text-anchor="middle" fill="#0F172A" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-server</text>
-              <text x="90" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">Pod Cloud · LDP</text>
-            </g>
-
-            <!-- Incident Beam from Moon to Waterline -->
-            <line x1="260" y1="109" x2="260" y2="178" stroke="#0F172A" stroke-width="1.5" stroke-dasharray="2 3"/>
-
-            <!-- Waterline Horizon: Policy Decision & Selective Disclosure Membrane -->
-            <line x1="20" y1="178" x2="500" y2="178" stroke="url(#horizonGlow)" stroke-width="1.8"/>
-            <rect x="148" y="166" width="224" height="24" rx="12" fill="#FFFFFF" stroke="#0055FF" stroke-width="1.2"/>
-            <text x="260" y="181.5" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="9.1" font-weight="600">SELECTIVE PROJECTION WATERLINE</text>
-
-            <!-- Refracted Projection Rays into 4 Metaverse Apps -->
-            <g id="refraction-rays">
-              <path id="ray-0" d="M260 190 L76 264" stroke="#0055FF" stroke-width="2.2" opacity="1"/>
-              <path id="ray-1" d="M260 190 L198 264" stroke="#CBD5E1" stroke-width="1.3"/>
-              <path id="ray-2" d="M260 190 L322 264" stroke="#CBD5E1" stroke-width="1.3"/>
-              <path id="ray-3" d="M260 190 L444 264" stroke="#CBD5E1" stroke-width="1.3"/>
-            </g>
-
-            <!-- 4 Metaverse App Reflection Nodes (Moon's Shadows on Water) -->
-            <!-- Metaverse 0 -->
-            <g transform="translate(76, 278)">
-              <ellipse cx="0" cy="0" rx="36" ry="7" fill="rgba(0, 85, 255, 0.12)" stroke="#0055FF" stroke-width="1.4" id="ripple-0"/>
-              <line x1="-22" y1="12" x2="22" y2="12" stroke="#0055FF" stroke-width="1.3" stroke-linecap="round"/>
-              <line x1="-13" y1="18" x2="13" y2="18" stroke="rgba(0, 85, 255, 0.45)" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#0F172A" font-family="Geist Mono, monospace" font-size="9.5" font-weight="600">Social Verse</text>
-              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">avatar &amp; profile</text>
-            </g>
-
-            <!-- Metaverse 1 -->
-            <g transform="translate(198, 278)">
-              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1" id="ripple-1"/>
-              <line x1="-18" y1="12" x2="18" y2="12" stroke="#CBD5E1" stroke-width="1.1" stroke-linecap="round"/>
-              <line x1="-10" y1="18" x2="10" y2="18" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#334155" font-family="Geist Mono, monospace" font-size="9.5">Commerce Verse</text>
-              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">3D pop-up store</text>
-            </g>
-
-            <!-- Metaverse 2 -->
-            <g transform="translate(322, 278)">
-              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1" id="ripple-2"/>
-              <line x1="-18" y1="12" x2="18" y2="12" stroke="#CBD5E1" stroke-width="1.1" stroke-linecap="round"/>
-              <line x1="-10" y1="18" x2="10" y2="18" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#334155" font-family="Geist Mono, monospace" font-size="9.5">Memorial Verse</text>
-              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">memory &amp; tribute</text>
-            </g>
-
-            <!-- Metaverse 3 -->
-            <g transform="translate(444, 278)">
-              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1" id="ripple-3"/>
-              <line x1="-18" y1="12" x2="18" y2="12" stroke="#CBD5E1" stroke-width="1.1" stroke-linecap="round"/>
-              <line x1="-10" y1="18" x2="10" y2="18" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#334155" font-family="Geist Mono, monospace" font-size="9.5">Open World</text>
-              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">shared asset graph</text>
-            </g>
-          </svg>
-
-          <!-- Interactive Metaverse App Selector -->
-          <div class="river-selector-bar" role="tablist" aria-label="Select Metaverse Reflection">
-            <button type="button" role="tab" aria-selected="true" class="river-chip active" onclick="focusRiver(0, this)">
-              <span class="river-chip-title">01 Social Verse</span>
-              <span class="river-chip-scope">scope: read · WebID</span>
+        <div class="arch-layout">
+          <div class="layer-stack" role="tablist" aria-label="Wolin System Layers">
+            <button type="button" role="tab" aria-selected="true" class="layer-btn active" onclick="selectLayer(0, this)">
+              <div>
+                <span class="layer-code">LAYER 01 · GATEWAY &amp; CONSENT</span>
+                <span class="layer-name">Zero-Trust Policy &amp; Projection (PDP / PEP)</span>
+                <span class="layer-desc-short">외부 월드 요청 검증, 동적 스코프 평가 및 Zero-PII 서브그래프 직렬화</span>
+              </div>
+              <span class="layer-crate-badge">wolin-policy</span>
             </button>
-            <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(1, this)">
-              <span class="river-chip-title">02 Commerce Verse</span>
-              <span class="river-chip-scope">oidc + DPoP proof</span>
+
+            <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(1, this)">
+              <div>
+                <span class="layer-code">LAYER 02 · IDENTITY MESH</span>
+                <span class="layer-name">Federated Trust &amp; Identity Mesh</span>
+                <span class="layer-desc-short">Solid-OIDC, W3C WebID, did:key/did:nostr 및 RFC 9449 DPoP 서명 검증</span>
+              </div>
+              <span class="layer-crate-badge">wolin-identity</span>
             </button>
-            <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(2, this)">
-              <span class="river-chip-title">03 Memorial Verse</span>
-              <span class="river-chip-scope">zero-PII subgraph</span>
+
+            <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(2, this)">
+              <div>
+                <span class="layer-code">LAYER 03 · SEMANTIC ENGINE</span>
+                <span class="layer-name">High-Performance Semantic Core</span>
+                <span class="layer-desc-short">임베디드 Oxigraph 쿼드 스토어 기반 서브밀리초 SPARQL 1.1 및 Solid LDP</span>
+              </div>
+              <span class="layer-crate-badge">wolin-storage</span>
             </button>
-            <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(3, this)">
-              <span class="river-chip-title">04 Open World</span>
-              <span class="river-chip-scope">foaf:Agent read</span>
+
+            <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(3, this)">
+              <div>
+                <span class="layer-code">LAYER 04 · PERSISTENCE FABRIC</span>
+                <span class="layer-name">Multi-Backend Storage Virtualization</span>
+                <span class="layer-desc-short">Apache OpenDAL 물리 스토리지 추상화 (NVMe, S3, Cloudflare R2, Ceph)</span>
+              </div>
+              <span class="layer-crate-badge">opendal</span>
             </button>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Bottom Hero Telemetry Bar -->
-    <div class="telemetry-strip">
-      <div class="telemetry-grid">
-        <div class="telemetry-cell">
-          <div class="telemetry-val">&lt; 30<span class="unit">MB</span></div>
-          <div class="telemetry-lbl">Rust AOT Resident Memory Footprint</div>
-        </div>
-        <div class="telemetry-cell">
-          <div class="telemetry-val">1.42<span class="unit">ms</span></div>
-          <div class="telemetry-lbl">P99 Embedded Oxigraph SPARQL Read</div>
-        </div>
-        <div class="telemetry-cell">
-          <div class="telemetry-val">0<span class="unit">GAS / COIN</span></div>
-          <div class="telemetry-lbl">Pure Ed25519 &amp; DPoP Cryptography</div>
-        </div>
-        <div class="telemetry-cell">
-          <div class="telemetry-val">Solid 0.11<span class="unit">+ DPoP</span></div>
-          <div class="telemetry-lbl">W3C WAC/ACP &amp; Inrupt ESS Compatible</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 02. The Manifesto -->
-  <section class="band" id="manifesto">
-    <div class="container">
-      <div class="section-eyebrow">01 · The Sovereign Manifesto</div>
-      <div class="section-heading-row">
-        <h2 class="section-title">플랫폼 봉건주의와 투기적 크립토를 넘어,<br>인간의 디지털 실존을 위한 백본으로.</h2>
-        <p class="section-sub">
-          수많은 웹·3D 플랫폼이 등장하고 사라지는 시대, 어떤 서비스에 접속하더라도 개인과 기업이 기억과 신원의 주권을 잃지 않도록 설계된 제3의 아키텍처입니다.
-        </p>
-      </div>
-
-      <div class="epoch-triptych">
-        <article class="epoch-card">
-          <div>
-            <div class="epoch-meta">
-              <span class="epoch-index">EPOCH I // WEB 2.0</span>
-              <span class="epoch-pill legacy">PLATFORM FEUDALISM</span>
+          <div class="arch-inspector">
+            <div class="inspector-header">
+              <span class="inspector-path" id="arch-file-path">crates/wolin-policy/src/pdp.rs · crates/wolin-server/src/ldp.rs</span>
+              <div class="inspector-standards" id="arch-badges">
+                <span class="std-chip">Solid 0.11</span>
+                <span class="std-chip">WAC / ACP 2.0</span>
+                <span class="std-chip">Zero-PII</span>
+              </div>
             </div>
-            <h3>사일로 감옥과 디지털 신원 종속</h3>
-            <p>
-              거대 플랫폼이 신원과 기억을 서버 내부에 가두어 락인(Lock-in)합니다. 서비스마다 계정을 새로 만들고, 개인의 사적 맥락과 기업의 핵심 자산까지 중앙 데이터센터에 종속되고 있습니다.
-            </p>
-          </div>
-          <div class="epoch-verdict">계정 정지 = 디지털 자아 및 관계망 즉시 소멸</div>
-        </article>
-
-        <article class="epoch-card">
-          <div>
-            <div class="epoch-meta">
-              <span class="epoch-index">EPOCH II // TOKEN WEB3</span>
-              <span class="epoch-pill legacy">SPECULATIVE MIRAGE</span>
-            </div>
-            <h3>금융 투기화와 가스비의 병목</h3>
-            <p>
-              데이터 주권을 표방했으나 토큰 이코노미와 비싼 온체인 가스비, 파편화된 시드 구문 UX에 매몰되어 실제 엔터프라이즈 IAM(SSO) 및 일상 소프트웨어로부터 철저히 고립되었습니다.
-            </p>
-          </div>
-          <div class="epoch-verdict">단순 프로필 변경조차 트랜잭션 비용 및 지연 발생</div>
-        </article>
-
-        <article class="epoch-card sovereign">
-          <div>
-            <div class="epoch-meta">
-              <span class="epoch-index">EPOCH III // WOLIN (月印)</span>
-              <span class="epoch-pill lunar">SOVEREIGN SEMANTIC WEB</span>
-            </div>
-            <h3>월인천강(月印千江)의 시맨틱 주권</h3>
-            <p>
-              코인 발행 없이 암호학적 서명(WebID · DID · DPoP)만으로 무결성을 증명합니다. 원본 RDF 그래프는 내 포드에 영속하며, 외부 앱과 플랫폼에는 목적에 한정된 일회성 가상 뷰만 투영합니다.
-            </p>
-          </div>
-          <div class="epoch-verdict">서비스가 사라져도 신원과 데이터 역사는 영구 존속</div>
-        </article>
-      </div>
-
-      <!-- Technical Opportunity Matrix -->
-      <div class="matrix-shell">
-        <table class="wolin-matrix">
-          <thead>
-            <tr>
-              <th>영역 (Domain)</th>
-              <th>기존 생태계의 구조적 한계</th>
-              <th class="col-wolin">WOLIN (月印)의 아키텍처 돌파구</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="domain-name">W3C Solid 런타임</td>
-              <td>공식 Node.js 구현체(CSS)는 300MB 이상의 RAM 점유 및 멀티테넌시·실시간성 한계</td>
-              <td class="wolin-adv"><code>Rust AOT 단일 바이너리</code> — 30MB 미만 메모리로 엣지·온프레미스·클라우드 즉시 구동</td>
-            </tr>
-            <tr>
-              <td class="domain-name">분산 신원 &amp; 기업 인증</td>
-              <td>크립토 지갑 설치 강제 및 기존 사내 IdP(SSO)와의 단절</td>
-              <td class="wolin-adv"><code>ZITADEL / Keycloak OIDC</code> 페더레이션과 <code>WebID</code> · <code>did:key</code> · <code>did:nostr</code> 통합</td>
-            </tr>
-            <tr>
-              <td class="domain-name">선택적 데이터 투영</td>
-              <td>원시 파일 통째 노출 또는 무제한 API 키 위임으로 인한 PII 유출 위험</td>
-              <td class="wolin-adv"><code>Scoped Projection Gateway</code> — 요청 맥락에 맞춘 Zero-PII 가상 RDF 서브그래프 투영</td>
-            </tr>
-            <tr>
-              <td class="domain-name">스토리지 가상화</td>
-              <td>단일 파일시스템 종속 또는 무거운 블록체인 상태 동기화 강제</td>
-              <td class="wolin-adv"><code>Apache OpenDAL</code> + <code>Oxigraph</code> — Local NVMe, S3, Cloudflare R2, Ceph 무결성 연동</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03. Interactive Architecture Explorer & Crate Documentation Portal -->
-  <section class="band" id="architecture">
-    <div class="container">
-      <div class="section-eyebrow">02 · System Architecture &amp; Documentation</div>
-      <div class="section-heading-row">
-        <h2 class="section-title">4계층 시맨틱 패브릭과<br>프로토콜 레퍼런스 포털.</h2>
-        <p class="section-sub">
-          검증된 Rust 생태계(<code>axum 0.8</code>, <code>oxigraph 0.4</code>, <code>opendal 0.51</code>) 위에 구축된 6개 워크스페이스 크레이트와 런타임 엔드포인트 명세입니다.
-        </p>
-      </div>
-
-      <div class="arch-layout">
-        <!-- Left: 4 Interactive Architectural Layers -->
-        <div class="layer-stack" role="tablist" aria-label="Wolin System Layers">
-          <button type="button" role="tab" aria-selected="true" class="layer-btn active" onclick="selectLayer(0, this)">
-            <div>
-              <span class="layer-code">LAYER 01 // GATEWAY &amp; CONSENT</span>
-              <span class="layer-name">Zero-Trust Policy &amp; Projection (PDP / PEP)</span>
-              <span class="layer-desc-short">외부 요청 검증, 동적 스코프 평가 및 Zero-PII 시맨틱 서브그래프 생성</span>
-            </div>
-            <span class="layer-crate-badge">wolin-policy · wolin-server</span>
-          </button>
-
-          <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(1, this)">
-            <div>
-              <span class="layer-code">LAYER 02 // IDENTITY MESH</span>
-              <span class="layer-name">Federated Trust &amp; Identity Mesh</span>
-              <span class="layer-desc-short">ZITADEL/Keycloak OIDC, W3C WebID, did:key/did:nostr 및 RFC 9449 DPoP 서명 검증</span>
-            </div>
-            <span class="layer-crate-badge">wolin-identity</span>
-          </button>
-
-          <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(2, this)">
-            <div>
-              <span class="layer-code">LAYER 03 // SEMANTIC ENGINE</span>
-              <span class="layer-name">High-Performance Semantic Core</span>
-              <span class="layer-desc-short">임베디드 Oxigraph 쿼드 스토어 기반 서브밀리초 SPARQL 1.1 및 W3C Solid LDP 파이프라인</span>
-            </div>
-            <span class="layer-crate-badge">wolin-storage::graph</span>
-          </button>
-
-          <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(3, this)">
-            <div>
-              <span class="layer-code">LAYER 04 // PERSISTENCE FABRIC</span>
-              <span class="layer-name">Multi-Backend Storage Virtualization</span>
-              <span class="layer-desc-short">Apache OpenDAL 물리 스토리지 추상화 (NVMe, S3, R2, Ceph) 및 변경 이력 영속성</span>
-            </div>
-            <span class="layer-crate-badge">wolin-storage::physical</span>
-          </button>
-        </div>
-
-        <!-- Right: Live Rust Implementation & Protocol Inspector -->
-        <div class="arch-inspector">
-          <div class="inspector-header">
-            <span class="inspector-path" id="arch-file-path">crates/wolin-policy/src/pdp.rs · crates/wolin-server/src/ldp.rs</span>
-            <div class="inspector-standards" id="arch-badges">
-              <span class="std-chip">Solid 0.11</span>
-              <span class="std-chip">WAC / ACP 2.0</span>
-              <span class="std-chip">Zero-PII</span>
-            </div>
-          </div>
-          <div class="inspector-body">
-            <p class="inspector-summary" id="arch-summary">
-              외부 애플리케이션은 포드 전체 스토리지에 직접 접근할 수 없습니다. 모든 요청은 PolicyEngine::evaluate를 통과해 위임된 스코프(read, write, admin)를 검증받으며, 인가된 트리플만 직렬화되어 반환됩니다.
-            </p>
-            <pre class="code-block" id="arch-code"><code><span class="cm">// crates/wolin-policy/src/pdp.rs — Scoped Data Projection</span>
+            <div class="inspector-body">
+              <p class="inspector-summary" id="arch-summary">
+                외부 애플리케이션은 포드 전체 스토리지에 직접 접근할 수 없습니다. 모든 요청은 PolicyEngine::evaluate를 통과해 위임된 스코프(read, write, admin)를 검증받으며, 인가된 트리플만 직렬화되어 반환됩니다.
+              </p>
+              <pre class="code-block" id="arch-code"><code><span class="cm">// crates/wolin-policy/src/pdp.rs — Scoped Data Projection</span>
 <span class="kw">impl</span> <span class="ty">PolicyEngine</span> {
     <span class="kw">pub fn</span> <span class="fn">project_request</span>(
         principal: &amp;<span class="ty">Principal</span>,
@@ -1978,288 +2413,290 @@
         }
     }
 }</code></pre>
-          </div>
-        </div>
-      </div>
-
-      <!-- HTTP & Solid Protocol Surface Docs -->
-      <div class="docs-endpoint-bar">
-        <div class="ep-doc-item">
-          <div><span class="http-verb">GET</span><span class="http-route">/.well-known/wolin</span></div>
-          <p class="ep-doc-desc">지원 프로토콜(<code>solid-0.11</code>, <code>wac-2.0</code>, <code>oidc-dpop</code>) 및 Identity Mesh 메타데이터 자동 탐색.</p>
-        </div>
-        <div class="ep-doc-item">
-          <div><span class="http-verb">POST</span><span class="http-route">/api/pods</span></div>
-          <p class="ep-doc-desc">멀티테넌트 Pod 온디맨드 동적 프로비저닝 및 W3C 표준 시드(<code>card#me</code>, <code>pim:storage</code>, <code>inbox</code>) 자동 생성.</p>
-        </div>
-        <div class="ep-doc-item">
-          <div><span class="http-verb">GET</span><span class="http-route">/pods/{id}/profile/card</span></div>
-          <p class="ep-doc-desc">RFC 9449 DPoP 및 Solid-OIDC 기반 W3C WebID 프로필 카드(<code>card#me</code>) 및 <code>pim:storage</code> 링크 발행.</p>
-        </div>
-        <div class="ep-doc-item">
-          <div><span class="http-verb">GET</span><span class="http-route">/health</span></div>
-          <p class="ep-doc-desc">데몬 가용성, <code>wolin-server</code> 패키지 버전 및 RocksDB/OpenDAL 스토리지 백엔드 상태 즉시 점검.</p>
-        </div>
-      </div>
-
-      <!-- Workspace 6-Crate Reference -->
-      <div class="crate-grid-title">CARGO WORKSPACE TOPOLOGY (6 CRATES · EDITION 2021)</div>
-      <div class="crate-grid">
-        <div class="crate-card">
-          <div class="crate-card-head">
-            <span class="crate-name">wolin-core</span>
-            <span class="crate-ver">v0.1.0</span>
-          </div>
-          <p>도메인 원시 타입, 주체 식별자 및 통합 오류 체계 정의.</p>
-          <div class="crate-exports">pub use {Principal, WebId, ResourceUri, WolinError}</div>
-        </div>
-
-        <div class="crate-card">
-          <div class="crate-card-head">
-            <span class="crate-name">wolin-storage</span>
-            <span class="crate-ver">v0.1.0</span>
-          </div>
-          <p>Oxigraph 시맨틱 쿼드 스토어 및 OpenDAL 물리 블롭 연산자 결합.</p>
-          <div class="crate-exports">pub struct {SemanticGraphStore, PhysicalStore}</div>
-        </div>
-
-        <div class="crate-card">
-          <div class="crate-card-head">
-            <span class="crate-name">wolin-identity</span>
-            <span class="crate-ver">v0.1.0</span>
-          </div>
-          <p>WebID 디스커버리, W3C DID 해석, ZITADEL OIDC 및 DPoP 클레임 검증.</p>
-          <div class="crate-exports">pub struct OidcValidator · validate_claims()</div>
-        </div>
-
-        <div class="crate-card">
-          <div class="crate-card-head">
-            <span class="crate-name">wolin-policy</span>
-            <span class="crate-ver">v0.1.0</span>
-          </div>
-          <p>W3C WAC/ACP 규칙 평가기(PDP) 및 한시적 스코프 인가 엔진.</p>
-          <div class="crate-exports">PolicyEngine::evaluate(principal, uri, mode)</div>
-        </div>
-
-        <div class="crate-card">
-          <div class="crate-card-head">
-            <span class="crate-name">wolin-mcp</span>
-            <span class="crate-ver">v0.1.0</span>
-          </div>
-          <p>표준 외부 프로토콜 브리지 및 스코프 제한 시맨틱 투영 어댑터.</p>
-          <div class="crate-exports">ScopedServer · ProtocolCall · ToolResult</div>
-        </div>
-
-        <div class="crate-card">
-          <div class="crate-card-head">
-            <span class="crate-name">wolin-server</span>
-            <span class="crate-ver">v0.1.0</span>
-          </div>
-          <p>Axum 0.8 + Tokio 기반 HTTP LDP, /.well-known/wolin 및 멀티테넌트 데몬.</p>
-          <div class="crate-exports">axum::serve(TcpListener, Router) // :4000</div>
-        </div>
-      </div>
-
-      <!-- Official Specifications & RFC Library -->
-      <div class="crate-grid-title" style="margin-top: 3.5rem;">OFFICIAL PROTOCOL SPECIFICATIONS &amp; WHITE PAPERS</div>
-      <div class="spec-library-grid">
-        <a href="docs/INRUPT_INTEROP.md" class="spec-doc-card">
-          <div class="spec-doc-tag">RFC // INTEROPERABILITY</div>
-          <div class="spec-doc-title">Inrupt ESS &amp; Solid-OIDC 0.11 규격서</div>
-          <p class="spec-doc-desc">외부 WebID RDF 역참조, solid:oidcIssuer 신뢰 체인, RFC 9449 DPoP 증명 및 Inrupt @inrupt/solid-client SDK 양방향 상호운용 사양.</p>
-          <div class="spec-doc-meta"><span>INRUPT_INTEROP.md</span> <span>→</span></div>
-        </a>
-        <a href="docs/POD_CLOUD_SPEC.md" class="spec-doc-card">
-          <div class="spec-doc-tag">ARCHITECTURE // CLOUD</div>
-          <div class="spec-doc-title">소버린 팟 클라우드 운영 사양서</div>
-          <p class="spec-doc-desc">멀티테넌트 서브도메인 격리 라우팅({pod_id}.wolin.id), 동적 프로비저닝 API(POST /api/pods) 및 W3C 표준 시맨틱 시딩 명세.</p>
-          <div class="spec-doc-meta"><span>POD_CLOUD_SPEC.md</span> <span>→</span></div>
-        </a>
-        <a href="docs/VISION.md" class="spec-doc-card">
-          <div class="spec-doc-tag">MANIFESTO // PHILOSOPHY</div>
-          <div class="spec-doc-title">월인천강(月印千江) 비전 백서</div>
-          <p class="spec-doc-desc">무코인·무가스비 진정한 인간 중심 Web3, 불변의 신원(WebID)과 수천 플랫폼을 비추는 최소 권한 투영 철학.</p>
-          <div class="spec-doc-meta"><span>VISION.md</span> <span>→</span></div>
-        </a>
-        <a href="docs/ARCHITECTURE.md" class="spec-doc-card">
-          <div class="spec-doc-tag">ENGINEERING // TOPOLOGY</div>
-          <div class="spec-doc-title">Wolin 5대 계층 아키텍처 명세서</div>
-          <p class="spec-doc-desc">OpenDAL 블롭 + Oxigraph SPARQL 듀얼 플레인 스토리지, WAC/ACP 듀얼 PDP 인가 엔진 및 멀티테넌트 런타임 토폴로지.</p>
-          <div class="spec-doc-meta"><span>ARCHITECTURE.md</span> <span>→</span></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04. Technical Specifications & Benchmarks -->
-  <section class="band" id="benchmarks">
-    <div class="container">
-      <div class="section-eyebrow">03 · Engineering Telemetry</div>
-      <div class="section-heading-row">
-        <h2 class="section-title">가비지 컬렉션 없는 정밀함.<br>엣지부터 엔터프라이즈까지 단일 바이너리로.</h2>
-        <p class="section-sub">
-          개인 라즈베리파이 홈서버부터 수십만 포드를 수용하는 클라우드 클러스터까지 동일한 단일 정적 바이너리로 동작합니다.
-        </p>
-      </div>
-
-      <div class="bench-grid">
-        <div class="bench-panel">
-          <h3>Idle &amp; Active Pod Memory Footprint (RSS)</h3>
-          <p class="bench-note">10,000 RDF Triples 로드 및 동시 SPARQL 프로젝션 상태 기준 메모리 점유 비교</p>
-
-          <div class="bar-group">
-            <div class="bar-label-row">
-              <span style="color: var(--refraction); font-weight: 600;">WOLIN Engine (Rust AOT + Oxigraph)</span>
-              <span style="color: var(--refraction); font-weight: 700;">24.6 MB</span>
             </div>
-            <div class="bar-track"><div class="bar-fill wolin"></div></div>
           </div>
+        </div>
 
-          <div class="bar-group">
-            <div class="bar-label-row">
-              <span>Community Solid Server (Node.js V8)</span>
-              <span>342.0 MB</span>
+        <div class="sub-eyebrow">HTTP &amp; W3C SOLID PROTOCOL ENDPOINTS</div>
+        <div class="docs-endpoint-bar">
+          <div class="ep-doc-item">
+            <div><span class="http-verb">GET</span><span class="http-route">/.well-known/wolin</span></div>
+            <p class="ep-doc-desc">지원 프로토콜(<code>solid-0.11</code>, <code>wac-2.0</code>, <code>oidc-dpop</code>) 및 클러스터 메타데이터 탐색.</p>
+          </div>
+          <div class="ep-doc-item">
+            <div><span class="http-verb">POST</span><span class="http-route">/api/pods</span></div>
+            <p class="ep-doc-desc">멀티테넌트 Pod 온디맨드 프로비저닝 및 표준 시드(<code>card#me</code>, <code>pim:storage</code>, <code>inbox</code>) 생성.</p>
+          </div>
+          <div class="ep-doc-item">
+            <div><span class="http-verb">GET</span><span class="http-route">/pods/{id}/profile/card</span></div>
+            <p class="ep-doc-desc">RFC 9449 DPoP 및 Solid-OIDC 기반 W3C WebID 프로필 문서 및 스토리지 포인터 발행.</p>
+          </div>
+          <div class="ep-doc-item">
+            <div><span class="http-verb">GET</span><span class="http-route">/health</span></div>
+            <p class="ep-doc-desc">데몬 가용성, <code>wolin-server</code> 버전 및 RocksDB/OpenDAL 스토리지 상태 점검.</p>
+          </div>
+        </div>
+
+        <div class="sub-eyebrow">CARGO WORKSPACE TOPOLOGY (6 CRATES · EDITION 2021)</div>
+        <div class="crate-hairline-grid">
+          <div class="crate-cell">
+            <div class="crate-head">
+              <span class="crate-name">wolin-core</span>
+              <span class="crate-ver">v0.1.0</span>
             </div>
-            <div class="bar-track"><div class="bar-fill node-css"></div></div>
+            <p>도메인 원시 타입, 주체 식별자 및 통합 오류 체계 정의.</p>
+            <div class="crate-exports">pub use {Principal, WebId, ResourceUri, WolinError}</div>
           </div>
 
-          <div class="bar-group">
-            <div class="bar-label-row">
-              <span>Legacy Enterprise RDF Triplestore (JVM)</span>
-              <span>685.0 MB</span>
+          <div class="crate-cell">
+            <div class="crate-head">
+              <span class="crate-name">wolin-storage</span>
+              <span class="crate-ver">v0.1.0</span>
             </div>
-            <div class="bar-track"><div class="bar-fill jvm-rdf"></div></div>
+            <p>Oxigraph 시맨틱 쿼드 스토어 및 OpenDAL 물리 블롭 연산자 결합.</p>
+            <div class="crate-exports">pub struct {SemanticGraphStore, PhysicalStore}</div>
+          </div>
+
+          <div class="crate-cell">
+            <div class="crate-head">
+              <span class="crate-name">wolin-identity</span>
+              <span class="crate-ver">v0.1.0</span>
+            </div>
+            <p>WebID 디스커버리, W3C DID 해석, Solid-OIDC 및 DPoP 클레임 검증.</p>
+            <div class="crate-exports">pub struct OidcValidator · validate_claims()</div>
+          </div>
+
+          <div class="crate-cell">
+            <div class="crate-head">
+              <span class="crate-name">wolin-policy</span>
+              <span class="crate-ver">v0.1.0</span>
+            </div>
+            <p>W3C WAC/ACP 규칙 평가기(PDP) 및 최소 권한 스코프 인가 엔진.</p>
+            <div class="crate-exports">PolicyEngine::evaluate(principal, uri, mode)</div>
+          </div>
+
+          <div class="crate-cell">
+            <div class="crate-head">
+              <span class="crate-name">wolin-bridge</span>
+              <span class="crate-ver">v0.1.0</span>
+            </div>
+            <p>외부 월드 프로토콜 브리지, 무손실 번들 직렬화 및 서브그래프 투영 어댑터.</p>
+            <div class="crate-exports">ProjectionBridge · BundleExport · SubgraphView</div>
+          </div>
+
+          <div class="crate-cell">
+            <div class="crate-head">
+              <span class="crate-name">wolin-server</span>
+              <span class="crate-ver">v0.1.0</span>
+            </div>
+            <p>Axum 0.8 + Tokio 기반 HTTP LDP, 서브도메인 격리 및 멀티테넌트 데몬.</p>
+            <div class="crate-exports">axum::serve(TcpListener, Router) // :4000</div>
           </div>
         </div>
 
-        <div class="spec-pillars">
-          <div class="spec-box">
-            <div class="spec-num">11 ms</div>
-            <h4>Instant Cold Boot</h4>
-            <p>런타임 인터프리터 예열 없이 Axum 라우터와 임베디드 쿼드 스토어를 즉시 마운트합니다.</p>
-          </div>
-          <div class="spec-box">
-            <div class="spec-num">0.00 ms</div>
-            <h4>Zero GC Tail-Latency</h4>
-            <p>Stop-the-World 가비지 컬렉션 지연이 없어 동시다발적인 멀티테넌트 요청에서도 P99가 균일합니다.</p>
-          </div>
-          <div class="spec-box">
-            <div class="spec-num">SPARQL 1.1</div>
-            <h4>Embedded Graph Joins</h4>
-            <p>네트워크 홉 없이 프로세스 내부에서 RDF 그래프 조인과 선택적 마스킹 뷰를 합성합니다.</p>
-          </div>
-          <div class="spec-box">
-            <div class="spec-num">RFC 9449</div>
-            <h4>Sender-Constrained DPoP</h4>
-            <p>탈취된 베어러 토큰 재사용을 원천 차단하는 비대칭키 소유 증명(Proof-of-Possession)을 강제합니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05. Live Interactive Console / Playground -->
-  <section class="band" id="playground" style="border-bottom: none;">
-    <div class="container">
-      <div class="section-eyebrow">04 · Interactive Reflection Console</div>
-      <div class="section-heading-row">
-        <h2 class="section-title">천 개의 강 시뮬레이터:<br>SPARQL &amp; 선택적 권한 정책 실험실.</h2>
-        <p class="section-sub">
-          호출 주체(소유자, 스코프 위임 앱, 무권한 클라이언트, 익명 사용자)와 작업 모드를 바꿔가며 <code>wolin-policy</code> PDP 인가 판정과 Zero-PII 투영 결과를 실시간으로 검증하세요.
-        </p>
-      </div>
-
-      <div class="playground-shell">
-        <div class="playground-topbar">
-          <div class="win-dots">
-            <span class="win-dot"></span>
-            <span class="win-dot"></span>
-            <span class="win-dot"></span>
-            <span class="playground-title">wolin://cycorld.wolin.id — PDP &amp; Oxigraph Projection Simulator</span>
-          </div>
-          <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--refraction);">ENGINE: DETERMINISTIC IN-BROWSER PDP</span>
-        </div>
-
-        <div class="playground-body">
-          <!-- Controls -->
-          <div class="sim-controls">
+        <div class="sub-eyebrow">OFFICIAL PROTOCOL SPECIFICATIONS &amp; WHITE PAPERS</div>
+        <div class="spec-rows">
+          <a href="docs/INRUPT_INTEROP.md" class="spec-row-link">
+            <span class="spec-row-tag">RFC · INTEROP</span>
             <div>
-              <label class="field-label" for="sim-principal">01. Calling Principal (호출 주체 및 인증 컨텍스트)</label>
-              <select id="sim-principal" class="sim-select" onchange="runSimulation()">
-                <option value="agent_scoped" selected>Principal::App { id: "3d-spatial-app", scope: ["read"], DPoP: valid }</option>
-                <option value="owner">Principal::User { webid: "https://cycorld.wolin.id#me", OIDC }</option>
-                <option value="agent_unscoped">Principal::Client { id: "untrusted-crawler", scope: [] }</option>
-                <option value="anonymous">Principal::Anonymous (No Authorization / No DPoP)</option>
-              </select>
+              <div class="spec-row-title">Inrupt ESS &amp; Solid-OIDC 0.11 규격서</div>
+              <div class="spec-row-desc">외부 WebID 역참조, solid:oidcIssuer 신뢰 체인, RFC 9449 DPoP 증명 및 양방향 상호운용 사양.</div>
+            </div>
+            <span class="spec-row-file">INRUPT_INTEROP.md →</span>
+          </a>
+
+          <a href="docs/POD_CLOUD_SPEC.md" class="spec-row-link">
+            <span class="spec-row-tag">CLOUD · SPEC</span>
+            <div>
+              <div class="spec-row-title">소버린 팟 클라우드 운영 사양서</div>
+              <div class="spec-row-desc">서브도메인 오리진 격리({pod_id}.wolin.id), 동적 프로비저닝 API 및 W3C 표준 시맨틱 시딩 명세.</div>
+            </div>
+            <span class="spec-row-file">POD_CLOUD_SPEC.md →</span>
+          </a>
+
+          <a href="docs/VISION.md" class="spec-row-link">
+            <span class="spec-row-tag">MANIFESTO · VISION</span>
+            <div>
+              <div class="spec-row-title">월인천강(月印千江) 비전 백서</div>
+              <div class="spec-row-desc">무코인·무가스비 인간 중심 신원 계층과 수천 개의 월드를 비추는 최소 권한 투영 철학.</div>
+            </div>
+            <span class="spec-row-file">VISION.md →</span>
+          </a>
+
+          <a href="docs/ARCHITECTURE.md" class="spec-row-link">
+            <span class="spec-row-tag">SYSTEM · TOPOLOGY</span>
+            <div>
+              <div class="spec-row-title">Wolin 다계층 스토리지 &amp; 런타임 명세서</div>
+              <div class="spec-row-desc">OpenDAL 블롭 + Oxigraph SPARQL 듀얼 플레인 스토리지 및 WAC/ACP 인가 토폴로지.</div>
+            </div>
+            <span class="spec-row-file">ARCHITECTURE.md →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. Engineering Telemetry & Benchmarks -->
+    <section class="band surface-band" id="benchmarks">
+      <div class="container">
+        <span class="section-eyebrow">04 · ENGINEERING TELEMETRY</span>
+        <div class="section-heading-row">
+          <h2 class="section-title">가비지 컬렉션 없는 정밀함.<br>홈서버부터 클라우드까지 단일 바이너리로.</h2>
+          <p class="section-sub">
+            개인 미니 PC 홈서버부터 수십만 포드를 수용하는 클라우드 클러스터까지 동일한 정적 바이너리로 동작합니다.
+          </p>
+        </div>
+
+        <div class="bench-grid">
+          <div class="bench-panel">
+            <h3>Idle &amp; Active Pod Memory Footprint (RSS)</h3>
+            <p class="bench-note">10,000 RDF Triples 로드 및 동시 SPARQL 프로젝션 상태 기준 메모리 점유 비교</p>
+
+            <div class="bar-group">
+              <div class="bar-label-row">
+                <span style="color: var(--accent); font-weight: 600;">WOLIN Engine (Rust AOT + Oxigraph)</span>
+                <span style="color: var(--accent); font-weight: 600;">24.6 MB</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill wolin"></div></div>
             </div>
 
-            <div>
-              <label class="field-label" for="sim-action">02. Target Resource &amp; AccessMode (요청 작업)</label>
-              <select id="sim-action" class="sim-select" onchange="syncActionPreset()">
-                <option value="mcp_read" selected>GET /pods/cycorld/semantic (SPARQL Read · AccessMode::Read)</option>
-                <option value="private_write">PATCH wolin://pod/private/vault.ttl (AccessMode::Write)</option>
-                <option value="public_read">GET wolin://pod/public/profile.ttl (AccessMode::Read)</option>
-                <option value="policy_control">PUT wolin://pod/acl/delegations.acl (AccessMode::Control)</option>
-              </select>
+            <div class="bar-group">
+              <div class="bar-label-row">
+                <span>Community Solid Server (Node.js V8)</span>
+                <span>342.0 MB</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill node-css"></div></div>
             </div>
 
-            <div>
-              <label class="field-label" for="sim-sparql">03. SPARQL / RDF Payload</label>
-              <textarea id="sim-sparql" class="sim-textarea">PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+            <div class="bar-group">
+              <div class="bar-label-row">
+                <span>Legacy Enterprise RDF Triplestore (JVM)</span>
+                <span>685.0 MB</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill jvm-rdf"></div></div>
+            </div>
+          </div>
+
+          <div class="spec-pillars">
+            <div class="spec-box">
+              <div class="spec-num">11 ms</div>
+              <h4>Instant Cold Boot</h4>
+              <p>런타임 예열 없이 Axum 라우터와 임베디드 쿼드 스토어를 즉시 마운트합니다.</p>
+            </div>
+            <div class="spec-box">
+              <div class="spec-num">0.00 ms</div>
+              <h4>Zero GC Tail-Latency</h4>
+              <p>Stop-the-World 가비지 컬렉션 지연이 없어 멀티테넌트 요청에서도 P99가 균일합니다.</p>
+            </div>
+            <div class="spec-box">
+              <div class="spec-num">SPARQL 1.1</div>
+              <h4>Embedded Graph Joins</h4>
+              <p>네트워크 홉 없이 프로세스 내부에서 RDF 그래프 조인과 마스킹 뷰를 합성합니다.</p>
+            </div>
+            <div class="spec-box">
+              <div class="spec-num">RFC 9449</div>
+              <h4>Sender-Constrained DPoP</h4>
+              <p>탈취된 베어러 토큰 재사용을 원천 차단하는 비대칭키 소유 증명을 강제합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. Interactive Policy & Selective Disclosure Simulator -->
+    <section class="band" id="playground" style="border-bottom: none;">
+      <div class="container">
+        <span class="section-eyebrow">05 · INTERACTIVE POLICY LAB</span>
+        <div class="section-heading-row">
+          <h2 class="section-title">천 개의 강 시뮬레이터:<br>선택적 권한 정책 실험실.</h2>
+          <p class="section-sub">
+            호출 주체(포드 소유자, 스코프 위임 월드, 미승인 클라이언트, 익명 방문자)와 작업 모드를 바꿔가며 <code>wolin-policy</code> 인가 판정과 Zero-PII 투영 결과를 검증하세요.
+          </p>
+        </div>
+
+        <div class="playground-shell">
+          <div class="playground-topbar">
+            <span class="playground-title">wolin://alice.wolin.id — PDP &amp; Selective Subgraph Simulator</span>
+            <span style="font-family: var(--font-mono); font-size: 0.71rem; color: var(--accent);">DETERMINISTIC IN-BROWSER PDP</span>
+          </div>
+
+          <div class="playground-body">
+            <div class="sim-controls">
+              <div>
+                <label class="field-label" for="sim-principal">01. Calling Principal (호출 주체 및 인증 컨텍스트)</label>
+                <select id="sim-principal" class="sim-select" onchange="runSimulation()">
+                  <option value="app_scoped" selected>Principal::WorldApp { id: "sunlit-cat-cafe", scope: ["read"], DPoP: valid }</option>
+                  <option value="owner">Principal::Owner { webid: "https://alice.wolin.id#me", Solid-OIDC }</option>
+                  <option value="client_unscoped">Principal::Client { id: "unverified-app", scope: [] }</option>
+                  <option value="anonymous">Principal::Anonymous (Public Browser Request)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label" for="sim-action">02. Target Resource &amp; AccessMode (요청 작업)</label>
+                <select id="sim-action" class="sim-select" onchange="syncActionPreset()">
+                  <option value="sparql_read" selected>GET /pods/alice/semantic (SPARQL Read · AccessMode::Read)</option>
+                  <option value="private_write">PATCH wolin://pod/private/vault.ttl (AccessMode::Write)</option>
+                  <option value="public_read">GET wolin://pod/public/profile.ttl (AccessMode::Read)</option>
+                  <option value="policy_control">PUT wolin://pod/acl/delegations.acl (AccessMode::Control)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label" for="sim-sparql">03. SPARQL / RDF Payload</label>
+                <textarea id="sim-sparql" class="sim-textarea">PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX wolin: <https://wolin.id/ns#>
 
-SELECT ?name ?role ?publicKey ?residentRegNo
+SELECT ?name ?avatarGlb ?worldRole ?privatePhone
 WHERE {
   <#me> foaf:name ?name ;
-        wolin:role ?role ;
-        wolin:ed25519Pub ?publicKey .
-  OPTIONAL { <#me> wolin:ssn ?residentRegNo }
+        wolin:avatarGlbUrl ?avatarGlb ;
+        wolin:role ?worldRole .
+  OPTIONAL { <#me> wolin:phone ?privatePhone }
 }</textarea>
+              </div>
+
+              <div class="sim-run-row">
+                <button type="button" class="btn-execute" onclick="runSimulation()">EXECUTE PROJECTION →</button>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);" id="sim-latency">eval: 0.34 ms · selective disclosure active</span>
+              </div>
             </div>
 
-            <div class="sim-run-row">
-              <button type="button" class="btn-execute" onclick="runSimulation()">▶ EXECUTE PROJECTION</button>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--silver-mist);" id="sim-latency">eval: 0.34 ms · selective disclosure active</span>
+            <div class="sim-output">
+              <div id="sim-banner" class="decision-banner permit">
+                <span id="sim-verdict-title">ACCESS DECISION: PERMIT</span>
+                <span id="sim-verdict-rule">WorldApp scope ["read"] matches AccessMode::Read</span>
+              </div>
+              <pre class="sim-json-out" id="sim-json"></pre>
             </div>
-          </div>
-
-          <!-- Output -->
-          <div class="sim-output">
-            <div id="sim-banner" class="decision-banner permit">
-              <span id="sim-verdict-title">ACCESS DECISION: PERMIT</span>
-              <span id="sim-verdict-rule">Agent scope ["read"] matches AccessMode::Read</span>
-            </div>
-            <pre class="sim-json-out" id="sim-json"></pre>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="meridian-footer">
+  <!-- Institutional Footer -->
+  <footer class="site-footer">
     <div class="container footer-inner">
       <div>
         <div class="footer-quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
         <div class="footer-meta">
           <strong>Entropy Paradox, Inc. (엔트로피패러독스 주식회사)</strong> · Co-CEOs: Charles Choi, Jungmo Kang<br>
           Business Reg. No.: 264-88-01993 · 79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea<br>
-          Contact: <a href="mailto:charles.choi@martian.link" style="color:inherit;text-decoration:underline;">charles.choi@martian.link</a> · Licensed under MIT OR Apache-2.0
+          Contact: <a href="mailto:charles.choi@martian.link">charles.choi@martian.link</a> · Licensed under MIT OR Apache-2.0
         </div>
       </div>
       <div class="footer-links">
-        <a href="/pricing.html">PRICING</a>
-        <a href="/terms.html">TERMS</a>
-        <a href="/privacy.html">PRIVACY</a>
-        <a href="/refund.html">REFUND</a>
-        <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GITHUB ↗</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/prompts.html">Prompts</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/refund.html">Refund</a>
+        <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // 1. Copy CLI helper
     function copyCli() {
       const cmd = document.getElementById('cli-text').textContent;
       const btn = document.getElementById('copy-cli-btn');
@@ -2267,19 +2704,20 @@ WHERE {
         navigator.clipboard.writeText(cmd);
       }
       btn.textContent = 'COPIED';
-      btn.style.color = '#64E9EE';
+      btn.style.color = '#0055FF';
+      btn.style.borderColor = '#0055FF';
       setTimeout(() => {
         btn.textContent = 'COPY';
         btn.style.color = '';
+        btn.style.borderColor = '';
       }, 1600);
     }
 
-    // 2. Interactive Hero Lunar Reflection Astrolabe
     const riverMeta = [
-      { label: 'RAY 01 · SOCIAL VERSE (SCOPED PROFILE)' },
-      { label: 'RAY 02 · COMMERCE VERSE (3D POP-UP)' },
-      { label: 'RAY 03 · MEMORIAL VERSE (PRIVATE POD)' },
-      { label: 'RAY 04 · OPEN WORLD (PUBLIC ASSETS)' }
+      { label: 'RAY 01 · SOCIAL VERSE (3D AVATAR)' },
+      { label: 'RAY 02 · COMMERCE VERSE (POP-UP)' },
+      { label: 'RAY 03 · LIVE STAGE (CONCERT)' },
+      { label: 'RAY 04 · OPEN WORLD (PORTALS)' }
     ];
 
     function focusRiver(idx, btnEl) {
@@ -2296,23 +2734,22 @@ WHERE {
         const ripple = document.getElementById('ripple-' + i);
         if (i === idx) {
           ray.setAttribute('stroke', '#0055FF');
-          ray.setAttribute('stroke-width', '2.2');
+          ray.setAttribute('stroke-width', '2');
           ray.setAttribute('opacity', '1');
           ripple.setAttribute('stroke', '#0055FF');
-          ripple.setAttribute('fill', 'rgba(0, 85, 255, 0.12)');
+          ripple.setAttribute('fill', 'rgba(0, 85, 255, 0.1)');
           ripple.setAttribute('stroke-width', '1.4');
         } else {
-          ray.setAttribute('stroke', '#CBD5E1');
-          ray.setAttribute('stroke-width', '1.3');
+          ray.setAttribute('stroke', '#D4D4D8');
+          ray.setAttribute('stroke-width', '1.2');
           ray.setAttribute('opacity', '0.9');
-          ripple.setAttribute('stroke', '#94A3B8');
+          ripple.setAttribute('stroke', '#A1A1AA');
           ripple.setAttribute('fill', '#FFFFFF');
           ripple.setAttribute('stroke-width', '1');
         }
       }
     }
 
-    // 3. Interactive 4-Layer Architecture Explorer
     const archLayers = [
       {
         path: 'crates/wolin-policy/src/pdp.rs · crates/wolin-server/src/ldp.rs',
@@ -2334,16 +2771,16 @@ WHERE {
       },
       {
         path: 'crates/wolin-identity/src/oidc.rs · crates/wolin-core/src/identity.rs',
-        badges: ['ZITADEL OIDC', 'W3C DID', 'RFC 9449 DPoP'],
-        summary: '엔터프라이즈 SSO(ZITADEL, Keycloak)와 탈중앙화 신원(WebID, did:key, did:nostr)을 단일 Principal 열거형으로 추상화합니다. 외부 앱은 위임자의 WebId와 서명된 스코프를 함께 제시합니다.',
+        badges: ['Solid-OIDC', 'W3C DID', 'RFC 9449 DPoP'],
+        summary: '엔터프라이즈 SSO(ZITADEL, Keycloak)와 표준 분산 신원(WebID, did:key, did:nostr)을 단일 Principal 열거형으로 추상화합니다. 연동된 3D 월드는 위임자의 WebID와 서명된 스코프를 함께 제시합니다.',
         code: `<span class="cm">// crates/wolin-core/src/identity.rs — Unified Sovereign Principal</span>
 <span class="kw">pub enum</span> <span class="ty">Principal</span> {
-    <span class="ty">User</span> {
+    <span class="ty">Owner</span> {
         webid: <span class="ty">WebId</span>,
         issuer: <span class="ty">String</span>,
     },
-    <span class="ty">DelegatedApp</span> {
-        app_id: <span class="ty">String</span>,
+    <span class="ty">DelegatedWorld</span> {
+        world_origin: <span class="ty">String</span>,
         delegated_by: <span class="ty">WebId</span>,
         scope: <span class="ty">Vec</span>&lt;<span class="ty">String</span>&gt;,
     },
@@ -2353,7 +2790,7 @@ WHERE {
       {
         path: 'crates/wolin-storage/src/graph.rs',
         badges: ['Oxigraph 0.4', 'SPARQL 1.1', 'Solid LDP 0.11'],
-        summary: '데이터를 파편화된 JSON 덤프가 아닌 의미론적 쿼드 그래프(Subject-Predicate-Object-Graph)로 조직화합니다. 사람과 외부 애플리케이션 모두 정밀한 SPARQL 질의로 필요한 지식만 조합합니다.',
+        summary: '데이터를 파편화된 JSON 덤프가 아닌 의미론적 쿼드 그래프(Subject-Predicate-Object-Graph)로 조직화합니다. 아바타, 착용 에셋, 월드 포털 링크를 표준 어휘로 즉시 질의합니다.',
         code: `<span class="cm">// crates/wolin-storage/src/graph.rs — Embedded RDF Quad Store</span>
 <span class="kw">use</span> oxigraph::store::<span class="ty">Store</span>;
 
@@ -2372,7 +2809,7 @@ WHERE {
       {
         path: 'crates/wolin-storage/src/physical.rs',
         badges: ['Apache OpenDAL 0.51', 'NVMe / S3 / R2', 'Zero Lock-in'],
-        summary: 'Apache OpenDAL 연산자를 통해 로컬 파일시스템부터 AWS S3, Cloudflare R2, 사내 Ceph 클러스터까지 코드 변경 없이 포드의 물리 백엔드를 전환하고 주권을 유지합니다.',
+        summary: 'Apache OpenDAL 연산자를 통해 로컬 NVMe부터 AWS S3, Cloudflare R2, 사내 Ceph 클러스터까지 코드 변경 없이 물리 스토리지를 전환하고 무손실 이주를 보장합니다.',
         code: `<span class="cm">// crates/wolin-storage/src/physical.rs — Multi-Backend Persistence</span>
 <span class="kw">use</span> opendal::{services::<span class="ty">Fs</span>, <span class="ty">Operator</span>};
 
@@ -2402,33 +2839,32 @@ WHERE {
         .join('');
     }
 
-    // 4. Deterministic PolicyEngine & Projection Playground
     function syncActionPreset() {
       const action = document.getElementById('sim-action').value;
       const box = document.getElementById('sim-sparql');
-      if (action === 'mcp_read') {
+      if (action === 'sparql_read') {
         box.value = `PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX wolin: <https://wolin.id/ns#>
 
-SELECT ?name ?role ?publicKey ?residentRegNo
+SELECT ?name ?avatarGlb ?worldRole ?privatePhone
 WHERE {
   <#me> foaf:name ?name ;
-        wolin:role ?role ;
-        wolin:ed25519Pub ?publicKey .
-  OPTIONAL { <#me> wolin:ssn ?residentRegNo }
+        wolin:avatarGlbUrl ?avatarGlb ;
+        wolin:role ?worldRole .
+  OPTIONAL { <#me> wolin:phone ?privatePhone }
 }`;
       } else if (action === 'private_write') {
         box.value = `INSERT DATA {
   <wolin://pod/private/vault#entry-42>
-    wolin:note "confidential-research-memo" ;
-    wolin:updatedBy "external-caller" .
+    wolin:note "private-studio-draft" ;
+    wolin:updatedBy "external-world" .
 }`;
       } else if (action === 'public_read') {
         box.value = `DESCRIBE <wolin://pod/public/profile.ttl#me>`;
       } else {
         box.value = `@prefix acl: <http://www.w3.org/ns/auth/acl#> .
-<#grantAll> acl:agentClass foaf:Agent ;
-            acl:mode acl:Read, acl:Write, acl:Control .`;
+<#grantWorld> acl:origin <https://cafe.wolin.world> ;
+              acl:mode acl:Read, acl:Write, acl:Control .`;
       }
       runSimulation();
     }
@@ -2443,7 +2879,7 @@ WHERE {
       const lat = document.getElementById('sim-latency');
 
       const mapAction = {
-        mcp_read: { target: 'wolin://pod/semantic', mode: 'Read', reqScope: 'read' },
+        sparql_read: { target: 'wolin://pod/semantic', mode: 'Read', reqScope: 'read' },
         private_write: { target: 'wolin://pod/private/vault.ttl', mode: 'Write', reqScope: 'write' },
         public_read: { target: 'wolin://pod/public/profile.ttl', mode: 'Read', reqScope: 'read' },
         policy_control: { target: 'wolin://pod/acl/delegations.acl', mode: 'Control', reqScope: 'admin' }
@@ -2455,27 +2891,27 @@ WHERE {
 
       if (principal === 'owner') {
         permit = true;
-        ruleTag = 'Principal::User (Sovereign Owner)';
-      } else if (principal === 'agent_scoped') {
+        ruleTag = 'Principal::Owner (Sovereign Pod Holder)';
+      } else if (principal === 'app_scoped') {
         if (mapAction.reqScope === 'read') {
           permit = true;
-          ruleTag = 'App scope ["read"] matches AccessMode::Read';
+          ruleTag = 'WorldApp scope ["read"] matches AccessMode::Read';
         } else {
           permit = false;
-          reason = `Client lacks scope: ${mapAction.reqScope}`;
+          reason = `WorldApp lacks scope: ${mapAction.reqScope}`;
           ruleTag = 'PolicyEngine::Deny (Scope Boundary)';
         }
-      } else if (principal === 'agent_unscoped') {
+      } else if (principal === 'client_unscoped') {
         permit = false;
         reason = `Client lacks scope: ${mapAction.reqScope}`;
         ruleTag = 'PolicyEngine::Deny (Zero-Trust Default)';
       } else {
         if (mapAction.mode === 'Read' && mapAction.target.includes('/public/')) {
           permit = true;
-          ruleTag = 'Anonymous Read permitted on /public/*';
+          ruleTag = 'Public Passport Read permitted on /public/*';
         } else if (mapAction.mode === 'Read') {
           permit = false;
-          reason = 'Resource is private';
+          reason = 'Resource requires delegated read consent';
           ruleTag = 'PolicyEngine::Deny (Private Pod)';
         } else {
           permit = false;
@@ -2497,14 +2933,14 @@ WHERE {
           access_mode: mapAction.mode,
           pdp_decision: 'Permit',
           selective_disclosure: piiRedacted
-            ? 'Zero-PII Membrane Active (wolin:ssn masked from App projection)'
-            : 'Full Sovereign Pod Graph (Owner Direct Access)',
+            ? 'Zero-PII Membrane Active (wolin:phone masked from WorldApp)'
+            : 'Full Sovereign Pod Graph (Owner Direct Session)',
           projected_subgraph: {
-            '@id': 'https://cycorld.wolin.id#me',
-            'foaf:name': 'Charles Choi',
-            'wolin:role': 'Systems Architect',
-            'wolin:ed25519Pub': 'did:key:z6Mk...ed25519-public-verification-key',
-            'wolin:ssn': piiRedacted ? '[REDACTED_BY_WOLIN_PDP]' : '880101-******* (Vault Unsealed)'
+            '@id': 'https://alice.wolin.id#me',
+            'foaf:name': 'Alice Kim',
+            'wolin:avatarGlbUrl': 'https://cdn.wolin.id/alice/avatar-v2.glb',
+            'wolin:role': 'Spatial Architect',
+            'wolin:phone': piiRedacted ? '[REDACTED_BY_WOLIN_PDP]' : '+82-10-****-**** (Owner Vault)'
           }
         };
         out.textContent = JSON.stringify(payload, null, 2);
@@ -2527,7 +2963,6 @@ WHERE {
       }
     }
 
-    // Initialize default simulation output immediately on load
     runSimulation();
   </script>
 </body>
