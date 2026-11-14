@@ -109,7 +109,7 @@
 * `wolin-engine`과 `wolin-cloud` 양쪽에서 Fail-Closed 이중 검증을 강제한다:
   1. **형식**: 3~32자 소문자 영문(`a-z`), 숫자(`0-9`), 하이픈(`-`)만 허용 (`-` 시작/끝, `--`, Punycode `xn--` 금지).
   2. **2계층 사전 잠금 (Static + Dynamic)**:
-     * **정적 코퍼스 (`reserved_handles.json`)**: RFC 2142 시스템 예약어(~400개) + 글로벌 Top 브랜드 + 한국 주요 기업/금융/대학/공공기관 + 피싱 접사(`-support`, `-verify`, `-official`) + Leetspeak 정규화 대조.
+     * **정적 코퍼스 (`reserved_handles.json`)**: RFC 2142 시스템 예약어(~400개) + **Tranco/Cloudflare Radar 활성 트래픽 Top 브랜드**(단순 `.com` 등록 여부는 일반 이름 차단 오탐 방지를 위해 배제) + 한국 주요 기업/금융/대학/공공기관 + 피싱 접사(`-support`, `-verify`, `-official`) + Leetspeak 정규화 대조. (일반 개인 핸들은 즉시 1초 자동 발급)
      * **동적 DB (`D1 reserved_handles`)**: 운영 중 신규 브랜드/피싱 제보를 무중단 즉시 잠금(`system` / `brand_locked` / `tombstone`).
   3. **브랜드 소유권 검증 승인**: `brand_locked` 핸들은 공식 도메인 DNS TXT(`_wolin-verify.<domain>`) 또는 공식 도메인 이메일 매직링크 검증 + 운영자 승인을 거쳐 공식 인증 배지(✓)와 함께 해제·발급한다.
   4. **Tombstone 영구 보류**: 탈퇴·삭제된 `pod_id`는 타인의 Identity Hijacking을 막기 위해 영구 재사용 금지 처리한다.
