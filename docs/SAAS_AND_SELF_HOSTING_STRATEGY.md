@@ -60,3 +60,33 @@
 2. **무손실 Pod 번들 이주 (`t_7a1e0e91`)**
    * `wolin export` / `wolin import`: RDF 그래프 + OpenDAL 블롭 + `.acl` 권한 규칙을 단일 압축 번들(`.tar.zst`)로 내보내고, 새 홈서버 `--base-url`에 맞춰 RDF 내부 절대 URL을 자동 치환(Relocation)하여 복원한다.
    * `pim:storage` 포인터 전환: 기존 `alice.wolin.id` WebID를 유지한 채 `pim:storage` 포인터만 집 홈서버(`pod.myhome.kr`)로 전환해 기존 메타버스 앱 연결을 끊지 않고 저장소를 이전한다.
+
+---
+
+## 4. 클라우드 인프라 배치 · 용량 산정 · 생태계 플라이휠 (2026-11-15 확정)
+
+### 4.1 하이브리드 인프라 아키텍처 (Cloudflare 90% + AWS EC2 10%)
+* **Cloudflare Pages / Workers / D1 (`wolin.id`, `app.wolin.id`, `auth.wolin.id`)**:
+  * 랜딩·문서·SaaS 관제탑·**자체 Passwordless Solid-OIDC Auth** (비밀번호 DB 없이 Google · Apple · Kakao · Naver · GitHub · Discord Verified-Email 1:N 자동 병합 + 매직링크 + Passkey + 통합 Consent UI).
+* **Cloudflare R2 (송신료 Egress $0)**:
+  * 3D 아바타(`.glb`), 텍스처, 이미지, 바이너리 블롭 전량 저장. 메타버스 앱이 에셋을 대량 조회해도 AWS 송신료 폭탄이 발생하지 않는다.
+* **AWS EC2 (서울 `ap-northeast-2` Graviton ARM64 + EBS `gp3`)**:
+  * `wolin-engine` + Per-Pod Oxigraph(RocksDB) 메타데이터만 구동. 무거운 바이너리는 R2로 빠지므로 서버 디스크는 경량 RDF + `.acl`만 점유한다.
+
+### 4.2 EC2 · DB · 스토리지 수용량 산정 시나리오
+> 가정: `wolin-server` 상주 RAM ~30MB / 활성 Hot Pod(LRU 캐시) ~3MB / DAU 10%, 동시 Hot Pod 1~2%
+
+| 단계 | 추천 EC2 (서울) | 월 예상 비용 | 동시 Hot Pod (LRU) | 총 가입자 수용 규모 |
+| :--- | :--- | :---: | :---: | :---: |
+| **Phase 1 (초기)** | `t4g.medium` (2 vCPU · 4GB) | ~$28 | ~800개 | **3만 ~ 5만 명** |
+| **Phase 2 (성장)** | `m7g.large` (2 vCPU · 8GB) | ~$65 | ~2,000개 | **10만 ~ 15만 명** |
+| **Phase 3 (확장)** | `m7g.xlarge` × N대 (4 vCPU · 16GB) | ~$130/대 | 대당 ~4,500개 | **대당 25만 ~ 30만 명** (Pod ID 샤딩) |
+
+* **Auth/Control D1**: 유저당 ~1~2KB (10만 명 기준 100~200MB, D1 기본 한도 내 무료)
+* **Oxigraph RDF DB (`gp3`)**: 유저당 0.2~1MB (1만 명 2~10GB / 10만 명 20~100GB, 월 ~$12)
+* **R2 바이너리**: 유저당 평균 30MB 가정 시 1만 명 300GB(월 $4.5) / 10만 명 3TB(월 $45), **송신료 $0**
+* **Cold-Tier R2 스냅샷 확장(후속)**: 수십만 명 이상 확장 시 30일 이상 미접속 휴면 Pod의 Oxigraph 폴더만 `.tar.zst`로 R2에 내려보냈다가 접속 시 복원해 EC2 디스크를 사실상 무제한 경량화한다.
+
+### 4.3 바이럴 & 개발자 온보딩 플라이휠
+1. **Wolin Passport (`{pod_id}.wolin.id`)**: 브라우저 접속 시 링크트리형 3D 아바타·소셜 명함을 렌더링하고, 소유자 로그인 시 연결된 앱 목록과 1클릭 차단 스위치를 제공한다(`Accept: text/turtle` 시엔 표준 RDF 응답 유지).
+2. **무심사 5분 개발자 연동**: Solid-OIDC `Client ID Document (JSON-LD)`를 통해 API 키 발급·앱 심사 없이 메타버스/웹 앱이 즉시 Wolin 로그인을 연동한다.
