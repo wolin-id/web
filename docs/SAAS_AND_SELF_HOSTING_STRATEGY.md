@@ -105,8 +105,13 @@
   2. **Context7 & `wolin-id/skills`**: 오픈소스 공개 시 Context7 인덱싱 및 `SKILL.md` / `AGENTS.md` 배포.
   3. **`https://docs.wolin.id/mcp`**: Cloudflare Workers 기반 경량 읽기 전용 Docs MCP 서버 제공.
 
-### 4.6 서브도메인(`{pod_id}.wolin.id`) 보안 제약 & 예약어 정책
+### 4.6 서브도메인(`{pod_id}.wolin.id`) 보안 제약 · 사전 잠금 · 커스텀 도메인 정책
 * `wolin-engine`과 `wolin-cloud` 양쪽에서 Fail-Closed 이중 검증을 강제한다:
   1. **형식**: 3~32자 소문자 영문(`a-z`), 숫자(`0-9`), 하이픈(`-`)만 허용 (`-` 시작/끝, `--`, Punycode `xn--` 금지).
-  2. **예약어 차단**: 시스템(`www`, `app`, `api`, `auth`, `cdn`, `docs`, `admin`, `mcp`, `oauth`, `ns`, `id` 등) 및 브랜드/사칭(`wolin`, `official`, `security`, `entropy`, 주요 빅테크/금융 키워드) 전면 차단.
-  3. **Tombstone 영구 보류**: 탈퇴·삭제된 `pod_id`는 타인의 Identity Hijacking을 막기 위해 영구 재사용 금지 처리한다.
+  2. **2계층 사전 잠금 (Static + Dynamic)**:
+     * **정적 코퍼스 (`reserved_handles.json`)**: RFC 2142 시스템 예약어(~400개) + 글로벌 Top 브랜드 + 한국 주요 기업/금융/대학/공공기관 + 피싱 접사(`-support`, `-verify`, `-official`) + Leetspeak 정규화 대조.
+     * **동적 DB (`D1 reserved_handles`)**: 운영 중 신규 브랜드/피싱 제보를 무중단 즉시 잠금(`system` / `brand_locked` / `tombstone`).
+  3. **브랜드 소유권 검증 승인**: `brand_locked` 핸들은 공식 도메인 DNS TXT(`_wolin-verify.<domain>`) 또는 공식 도메인 이메일 매직링크 검증 + 운영자 승인을 거쳐 공식 인증 배지(✓)와 함께 해제·발급한다.
+  4. **Tombstone 영구 보류**: 탈퇴·삭제된 `pod_id`는 타인의 Identity Hijacking을 막기 위해 영구 재사용 금지 처리한다.
+  5. **개인·기업 커스텀 도메인 연동 (Cloudflare for SaaS)**:
+     * 기업뿐 아니라 일반 유저(Pro/Creator 등)도 CNAME(`cname.wolin.id`) + TXT 검증만으로 자기 도메인(`id.alice.dev`, `id.brand.com`)을 Pod에 연결할 수 있다(자동 SSL 발급).
