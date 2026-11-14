@@ -5,47 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WOLIN (月印) — One Identity. Infinite Reflections.</title>
   <meta name="description" content="Sovereign Web3 Identity & Semantic Pod Cloud Infrastructure. W3C Solid 0.11, Oxigraph RDF, OpenDAL, and Zero-Trust Policy in a <30MB Rust runtime.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%2304070D'/%3E%3Ccircle cx='20' cy='14' r='6.5' fill='%23F3F6FC'/%3E%3Cpath d='M7 24H33' stroke='%2364E9EE' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 29H28' stroke='%2364E9EE' stroke-opacity='0.65' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23171717'/%3E%3Ccircle cx='20' cy='14' r='5.8' fill='%23FFFFFF'/%3E%3Cpath d='M8 23.5H32' stroke='%232563EB' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 28H28' stroke='%23FFFFFF' stroke-opacity='0.75' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M16 32H24' stroke='%23FFFFFF' stroke-opacity='0.4' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
     :root {
-      /* Hanji Paper & Sumi Ink Editorial Palette (月印千江) */
-      --abyss: #F6F4EE;
-      --depths: #EDEAE1;
+      /* Vercel + Stripe Institutional Infrastructure Palette */
+      --abyss: #FFFFFF;
+      --depths: #FAFAFA;
       --trench: #FFFFFF;
-      --surface: #E7E3D9;
+      --surface: #F4F4F5;
       --surface-elevated: #FFFFFF;
 
-      /* Sumi Ink & Slate Typography */
-      --selene: #141619;
-      --mercury: #2B303A;
-      --silver-mist: #525A66;
-      --slate-dim: #6E7684;
+      /* Crisp Neutral Ink Scale */
+      --selene: #171717;
+      --mercury: #262626;
+      --silver-mist: #52525B;
+      --slate-dim: #71717A;
 
-      /* Traditional Indigo & Burnished Moon Gold Accents (Zero Neon) */
-      --refraction: #1B3B5F;
-      --refraction-soft: rgba(27, 59, 95, 0.08);
-      --refraction-glow: rgba(27, 59, 95, 0.16);
-      --cerulean: #2D5B88;
-      --moon-gold: #9A7126;
-      --moon-gold-soft: rgba(154, 113, 38, 0.10);
-      --permit: #157347;
-      --revoke: #B91C1C;
+      /* Sovereign Cobalt & Institutional Accents */
+      --refraction: #0055FF;
+      --refraction-soft: #EFF6FF;
+      --refraction-glow: rgba(0, 85, 255, 0.14);
+      --cerulean: #2563EB;
+      --moon-gold: #0F172A;
+      --moon-gold-soft: #F1F5F9;
+      --permit: #15803D;
+      --revoke: #DC2626;
 
-      /* Architectural Hairlines */
-      --line: rgba(20, 22, 25, 0.10);
-      --line-bright: rgba(27, 59, 95, 0.32);
-      --line-lunar: rgba(20, 22, 25, 0.18);
+      /* Shadow-as-Border & Hairlines */
+      --line: rgba(0, 0, 0, 0.08);
+      --line-bright: rgba(0, 85, 255, 0.35);
+      --line-lunar: rgba(0, 0, 0, 0.12);
+      --card-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03);
+      --card-shadow-lg: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 12px 28px -8px rgba(15, 23, 42, 0.08);
 
-      /* Typography */
-      --font-display: "Cormorant Garamond", "Noto Serif KR", Georgia, serif;
-      --font-sans: "Plus Jakarta Sans", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      /* Typography (Geist + Pretendard + Geist Mono) */
+      --font-display: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-      --max-w: 1340px;
+      --max-w: 1240px;
     }
 
     * {
@@ -124,9 +126,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      height: 66px;
+      height: 64px;
       border-bottom: 1px solid var(--line);
-      background: rgba(246, 244, 238, 0.9);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -348,27 +350,28 @@
     h1.hero-display {
       font-family: var(--font-display);
       font-weight: 600;
-      font-size: clamp(2.55rem, 4.7vw, 4.4rem);
-      line-height: 1.03;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.5rem, 4.4vw, 3.85rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
       color: var(--selene);
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.15rem;
     }
 
     h1.hero-display .italic-refraction {
       display: block;
-      font-style: italic;
-      font-weight: 500;
+      font-style: normal;
+      font-weight: 600;
       color: var(--refraction);
-      padding-bottom: 0.06em;
+      padding-bottom: 0.04em;
     }
 
     .hero-axiom {
-      font-family: var(--font-display);
-      font-size: 1.08rem;
-      color: var(--moon-gold);
+      font-family: var(--font-sans);
+      font-size: 1.02rem;
+      font-weight: 500;
+      color: var(--selene);
       margin-bottom: 0.85rem;
-      letter-spacing: 0.01em;
+      letter-spacing: -0.015em;
       word-break: keep-all;
     }
 
@@ -492,16 +495,14 @@
       border-color: var(--refraction);
     }
 
-    /* Interactive Lunar Reflection Plate (Right Hero Card — Framed Night-Sky Art Print) */
+    /* Interactive Lunar Reflection Plate (Right Hero Card — Clean Architectural Blueprint) */
     .astrolabe-stage {
       position: relative;
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at 50% 24%, rgba(246, 244, 238, 0.10) 0%, rgba(27, 59, 95, 0.14) 42%, #111622 76%),
-        linear-gradient(180deg, #161D2B 0%, #0E131D 100%);
-      border: 1px solid rgba(20, 22, 25, 0.22);
-      box-shadow: 0 18px 44px rgba(20, 22, 25, 0.14);
-      padding: 1.05rem 1.2rem 0.95rem;
+      border-radius: 12px;
+      background: #F8FAFC;
+      border: none;
+      box-shadow: var(--card-shadow-lg);
+      padding: 1.1rem 1.2rem 1rem;
       overflow: hidden;
     }
 
@@ -511,9 +512,9 @@
       align-items: center;
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      color: #A6B2C3;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.25rem;
+      color: var(--slate-dim);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
       gap: 0.5rem;
     }
 
@@ -527,9 +528,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0.45rem;
-      margin-top: 0.55rem;
-      padding-top: 0.7rem;
-      border-top: 1px solid rgba(246, 244, 238, 0.12);
+      margin-top: 0.65rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
     }
 
     @media (max-width: 520px) {
@@ -539,21 +540,21 @@
     }
 
     .river-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(246, 244, 238, 0.14);
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 6px;
       padding: 0.44rem 0.52rem;
       text-align: left;
       cursor: pointer;
-      transition: all 0.2s ease;
-      color: #C4CEDB;
+      transition: all 0.18s ease;
+      color: var(--silver-mist);
     }
 
     .river-chip:hover,
     .river-chip.active {
-      border-color: #E6C27A;
-      background: rgba(230, 194, 122, 0.12);
-      color: #FAF6EE;
+      border-color: var(--refraction);
+      background: var(--refraction-soft);
+      color: var(--selene);
     }
 
     .river-chip-title {
@@ -569,7 +570,7 @@
       display: block;
       font-family: var(--font-mono);
       font-size: 0.63rem;
-      color: #E6C27A;
+      color: var(--refraction);
       opacity: 0.95;
     }
 
@@ -676,10 +677,10 @@
 
     h2.section-title {
       font-family: var(--font-display);
-      font-size: clamp(2.05rem, 3.5vw, 3.1rem);
+      font-size: clamp(1.95rem, 3.2vw, 2.75rem);
       font-weight: 600;
-      line-height: 1.13;
-      letter-spacing: -0.015em;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
       color: var(--selene);
       max-width: 700px;
       word-break: keep-all;
@@ -1570,11 +1571,11 @@
     <div class="nav-inner">
       <a href="#" class="brand-link">
         <svg class="brand-emblem" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="20" cy="20" r="18.5" stroke="#141619" stroke-opacity="0.22" stroke-width="1"/>
-          <circle cx="20" cy="13.8" r="6.2" fill="#141619"/>
-          <path d="M7 23.5H33" stroke="#9A7126" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M11 27.5H29" stroke="#1B3B5F" stroke-opacity="0.65" stroke-width="1.2" stroke-linecap="round"/>
-          <path d="M14.8 31.2H25.2" stroke="#1B3B5F" stroke-opacity="0.38" stroke-width="1" stroke-linecap="round"/>
+          <rect width="40" height="40" rx="10" fill="#171717"/>
+          <circle cx="20" cy="14" r="5.6" fill="#FFFFFF"/>
+          <path d="M8 23.5H32" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 28H28" stroke="#FFFFFF" stroke-opacity="0.75" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M16 32.2H24" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
         <div class="brand-wordmark">
           <span class="brand-title">WOLIN</span>
@@ -1645,125 +1646,119 @@
         <!-- Right: Interactive 月印千江 Moon, 4 Cloud Modules & Metaverse Reflections -->
         <div class="astrolabe-stage" role="region" aria-label="Lunar Reflection Projection Diagram">
           <div class="astrolabe-topbar">
-            <span>WOLIN TOPOLOGY · 月印千江</span>
-            <span id="active-ray-label" style="color: #E6C27A;">RAY 01 · SOCIAL VERSE</span>
+            <span>WOLIN ARCHITECTURE · 月印千江</span>
+            <span id="active-ray-label" style="color: var(--refraction); font-weight: 600;">RAY 01 · SOCIAL VERSE</span>
           </div>
 
           <svg class="astrolabe-svg" viewBox="0 0 520 336" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#FAF6EE" stop-opacity="0.38"/>
-                <stop offset="55%" stop-color="#E6C27A" stop-opacity="0.14"/>
-                <stop offset="100%" stop-color="#111622" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#0055FF" stop-opacity="0.14"/>
+                <stop offset="65%" stop-color="#2563EB" stop-opacity="0.05"/>
+                <stop offset="100%" stop-color="#F8FAFC" stop-opacity="0"/>
               </radialGradient>
               <linearGradient id="horizonGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#E6C27A" stop-opacity="0.06"/>
-                <stop offset="50%" stop-color="#E6C27A" stop-opacity="0.75"/>
-                <stop offset="100%" stop-color="#E6C27A" stop-opacity="0.06"/>
+                <stop offset="0%" stop-color="#0055FF" stop-opacity="0.08"/>
+                <stop offset="50%" stop-color="#0055FF" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#0055FF" stop-opacity="0.08"/>
               </linearGradient>
-              <linearGradient id="moonSurface" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFDF8"/>
-                <stop offset="72%" stop-color="#F2E7D0"/>
-                <stop offset="100%" stop-color="#D8BE8B"/>
-              </linearGradient>
-              <linearGradient id="cloudFill" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.12"/>
-                <stop offset="100%" stop-color="#C8D3E3" stop-opacity="0.05"/>
-              </linearGradient>
+              <filter id="cloudShadow" x="-10%" y="-15%" width="120%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.07"/>
+              </filter>
             </defs>
 
-            <!-- Subtle Moon Halo -->
+            <!-- Subtle Moon Corona -->
             <circle cx="260" cy="84" r="76" fill="url(#moonHalo)"/>
-            <circle cx="260" cy="84" r="46" stroke="rgba(230,194,122,0.28)" stroke-dasharray="2 3"/>
+            <circle cx="260" cy="84" r="44" stroke="rgba(15, 23, 42, 0.14)" stroke-dasharray="2 3"/>
 
             <!-- Sovereign Moon (Singular Identity) -->
-            <circle cx="260" cy="84" r="25" fill="url(#moonSurface)"/>
-            <text x="260" y="90" text-anchor="middle" fill="#141619" font-family="Cormorant Garamond, Noto Serif KR, serif" font-weight="700" font-size="16">月</text>
+            <circle cx="260" cy="84" r="25" fill="#0F172A"/>
+            <text x="260" y="90" text-anchor="middle" fill="#FFFFFF" font-family="Noto Serif KR, serif" font-weight="600" font-size="16">月</text>
 
-            <!-- 4 Core Wolin Modules as Sculpted Clouds (雲) Flanking the Moon -->
+            <!-- 4 Core Wolin Modules as Crisp Sculpted Clouds (雲) Flanking the Moon -->
             <!-- Cloud 1 (Top-Left): wolin-identity -->
-            <g transform="translate(30, 24)">
-              <path d="M26 36 H134 C143 36 149 30 149 23 C149 16 143 11 135 11 C132 4 123 0 113 1 C106 -3 94 -2 88 4 C80 0 68 3 63 10 C56 7 47 10 43 16 C35 15 26 20 26 27 C19 28 19 36 26 36 Z"
-                    fill="url(#cloudFill)" stroke="rgba(246,244,238,0.34)" stroke-width="1.1"/>
-              <text x="86" y="19" text-anchor="middle" fill="#FAF6EE" font-family="JetBrains Mono, monospace" font-size="8.8" font-weight="600">wolin-identity</text>
-              <text x="86" y="30" text-anchor="middle" fill="#A8B5C7" font-family="JetBrains Mono, monospace" font-size="7.4">WebID · Solid-OIDC</text>
+            <g transform="translate(26, 22)" filter="url(#cloudShadow)">
+              <path d="M26 36 H138 C147 36 153 30 153 23 C153 16 147 11 139 11 C136 4 127 0 117 1 C110 -3 98 -2 92 4 C84 0 72 3 67 10 C60 7 50 10 46 16 C37 15 27 20 26 27 C19 28 19 36 26 36 Z"
+                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+              <text x="89" y="19" text-anchor="middle" fill="#0F172A" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-identity</text>
+              <text x="89" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">WebID · Solid-OIDC</text>
             </g>
 
             <!-- Cloud 2 (Bottom-Left): wolin-storage -->
-            <g transform="translate(22, 96)">
-              <path d="M26 36 H142 C151 36 157 30 157 23 C157 16 151 11 143 11 C140 4 130 0 120 1 C112 -3 100 -2 93 4 C85 0 72 3 67 10 C60 7 50 10 46 16 C37 15 27 20 26 27 C19 28 19 36 26 36 Z"
-                    fill="url(#cloudFill)" stroke="rgba(230,194,122,0.42)" stroke-width="1.1"/>
-              <text x="90" y="19" text-anchor="middle" fill="#E6C27A" font-family="JetBrains Mono, monospace" font-size="8.8" font-weight="600">wolin-storage</text>
-              <text x="90" y="30" text-anchor="middle" fill="#A8B5C7" font-family="JetBrains Mono, monospace" font-size="7.4">Oxigraph · OpenDAL</text>
+            <g transform="translate(20, 96)" filter="url(#cloudShadow)">
+              <path d="M26 36 H144 C153 36 159 30 159 23 C159 16 153 11 145 11 C142 4 132 0 122 1 C114 -3 102 -2 95 4 C87 0 74 3 69 10 C62 7 52 10 48 16 C39 15 29 20 26 27 C19 28 19 36 26 36 Z"
+                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+              <text x="92" y="19" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-storage</text>
+              <text x="92" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">Oxigraph · OpenDAL</text>
             </g>
 
             <!-- Cloud 3 (Top-Right): wolin-policy -->
-            <g transform="translate(340, 24)">
-              <path d="M24 36 H134 C143 36 149 30 149 23 C149 16 143 11 135 11 C132 4 123 0 113 1 C106 -3 94 -2 88 4 C80 0 68 3 63 10 C56 7 47 10 43 16 C35 15 26 20 24 27 C17 28 17 36 24 36 Z"
-                    fill="url(#cloudFill)" stroke="rgba(230,194,122,0.42)" stroke-width="1.1"/>
-              <text x="86" y="19" text-anchor="middle" fill="#E6C27A" font-family="JetBrains Mono, monospace" font-size="8.8" font-weight="600">wolin-policy</text>
-              <text x="86" y="30" text-anchor="middle" fill="#A8B5C7" font-family="JetBrains Mono, monospace" font-size="7.4">WAC / ACP · PDP</text>
+            <g transform="translate(338, 22)" filter="url(#cloudShadow)">
+              <path d="M24 36 H136 C145 36 151 30 151 23 C151 16 145 11 137 11 C134 4 125 0 115 1 C108 -3 96 -2 90 4 C82 0 70 3 65 10 C58 7 48 10 44 16 C35 15 26 20 24 27 C17 28 17 36 24 36 Z"
+                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+              <text x="87" y="19" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-policy</text>
+              <text x="87" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">WAC / ACP · PDP</text>
             </g>
 
             <!-- Cloud 4 (Bottom-Right): wolin-server -->
-            <g transform="translate(338, 96)">
-              <path d="M24 36 H140 C149 36 155 30 155 23 C155 16 149 11 141 11 C138 4 128 0 118 1 C110 -3 98 -2 91 4 C83 0 70 3 65 10 C58 7 48 10 44 16 C35 15 26 20 24 27 C17 28 17 36 24 36 Z"
-                    fill="url(#cloudFill)" stroke="rgba(246,244,238,0.34)" stroke-width="1.1"/>
-              <text x="88" y="19" text-anchor="middle" fill="#FAF6EE" font-family="JetBrains Mono, monospace" font-size="8.8" font-weight="600">wolin-server</text>
-              <text x="88" y="30" text-anchor="middle" fill="#A8B5C7" font-family="JetBrains Mono, monospace" font-size="7.4">Pod Cloud · LDP</text>
+            <g transform="translate(336, 96)" filter="url(#cloudShadow)">
+              <path d="M24 36 H142 C151 36 157 30 157 23 C157 16 151 11 143 11 C140 4 130 0 120 1 C112 -3 100 -2 93 4 C85 0 72 3 67 10 C60 7 50 10 46 16 C37 15 26 20 24 27 C17 28 17 36 24 36 Z"
+                    fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.1"/>
+              <text x="90" y="19" text-anchor="middle" fill="#0F172A" font-family="Geist Mono, monospace" font-size="8.8" font-weight="600">wolin-server</text>
+              <text x="90" y="30" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="7.4">Pod Cloud · LDP</text>
             </g>
 
             <!-- Incident Beam from Moon to Waterline -->
-            <line x1="260" y1="109" x2="260" y2="178" stroke="#F2E7D0" stroke-width="1.5" stroke-dasharray="2 3"/>
+            <line x1="260" y1="109" x2="260" y2="178" stroke="#0F172A" stroke-width="1.5" stroke-dasharray="2 3"/>
 
             <!-- Waterline Horizon: Policy Decision & Selective Disclosure Membrane -->
             <line x1="20" y1="178" x2="500" y2="178" stroke="url(#horizonGlow)" stroke-width="1.8"/>
-            <rect x="148" y="166" width="224" height="24" rx="12" fill="#131926" stroke="rgba(230,194,122,0.5)"/>
-            <text x="260" y="181.5" text-anchor="middle" fill="#E6C27A" font-family="JetBrains Mono, monospace" font-size="9.2" font-weight="600">SELECTIVE PROJECTION WATERLINE</text>
+            <rect x="148" y="166" width="224" height="24" rx="12" fill="#FFFFFF" stroke="#0055FF" stroke-width="1.2"/>
+            <text x="260" y="181.5" text-anchor="middle" fill="#0055FF" font-family="Geist Mono, monospace" font-size="9.1" font-weight="600">SELECTIVE PROJECTION WATERLINE</text>
 
             <!-- Refracted Projection Rays into 4 Metaverse Apps -->
             <g id="refraction-rays">
-              <path id="ray-0" d="M260 190 L76 264" stroke="#E6C27A" stroke-width="2.2" opacity="1"/>
-              <path id="ray-1" d="M260 190 L198 264" stroke="rgba(242,231,208,0.28)" stroke-width="1.2"/>
-              <path id="ray-2" d="M260 190 L322 264" stroke="rgba(242,231,208,0.28)" stroke-width="1.2"/>
-              <path id="ray-3" d="M260 190 L444 264" stroke="rgba(242,231,208,0.28)" stroke-width="1.2"/>
+              <path id="ray-0" d="M260 190 L76 264" stroke="#0055FF" stroke-width="2.2" opacity="1"/>
+              <path id="ray-1" d="M260 190 L198 264" stroke="#CBD5E1" stroke-width="1.3"/>
+              <path id="ray-2" d="M260 190 L322 264" stroke="#CBD5E1" stroke-width="1.3"/>
+              <path id="ray-3" d="M260 190 L444 264" stroke="#CBD5E1" stroke-width="1.3"/>
             </g>
 
             <!-- 4 Metaverse App Reflection Nodes (Moon's Shadows on Water) -->
             <!-- Metaverse 0 -->
             <g transform="translate(76, 278)">
-              <ellipse cx="0" cy="0" rx="36" ry="7" fill="rgba(230,194,122,0.2)" stroke="#E6C27A" stroke-width="1.3" id="ripple-0"/>
-              <line x1="-22" y1="12" x2="22" y2="12" stroke="#E6C27A" stroke-width="1.2" stroke-linecap="round"/>
-              <line x1="-13" y1="18" x2="13" y2="18" stroke="rgba(230,194,122,0.55)" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#FAF6EE" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600">Social Verse</text>
-              <text x="0" y="46" text-anchor="middle" fill="#9AA7B8" font-family="JetBrains Mono, monospace" font-size="8">avatar &amp; profile</text>
+              <ellipse cx="0" cy="0" rx="36" ry="7" fill="rgba(0, 85, 255, 0.12)" stroke="#0055FF" stroke-width="1.4" id="ripple-0"/>
+              <line x1="-22" y1="12" x2="22" y2="12" stroke="#0055FF" stroke-width="1.3" stroke-linecap="round"/>
+              <line x1="-13" y1="18" x2="13" y2="18" stroke="rgba(0, 85, 255, 0.45)" stroke-width="1" stroke-linecap="round"/>
+              <text x="0" y="34" text-anchor="middle" fill="#0F172A" font-family="Geist Mono, monospace" font-size="9.5" font-weight="600">Social Verse</text>
+              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">avatar &amp; profile</text>
             </g>
 
             <!-- Metaverse 1 -->
             <g transform="translate(198, 278)">
-              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="rgba(242,231,208,0.06)" stroke="rgba(242,231,208,0.32)" stroke-width="1" id="ripple-1"/>
-              <line x1="-18" y1="12" x2="18" y2="12" stroke="rgba(242,231,208,0.45)" stroke-width="1" stroke-linecap="round"/>
-              <line x1="-10" y1="18" x2="10" y2="18" stroke="rgba(242,231,208,0.25)" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#D9E0EB" font-family="JetBrains Mono, monospace" font-size="9.5">Commerce Verse</text>
-              <text x="0" y="46" text-anchor="middle" fill="#9AA7B8" font-family="JetBrains Mono, monospace" font-size="8">3D pop-up store</text>
+              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1" id="ripple-1"/>
+              <line x1="-18" y1="12" x2="18" y2="12" stroke="#CBD5E1" stroke-width="1.1" stroke-linecap="round"/>
+              <line x1="-10" y1="18" x2="10" y2="18" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+              <text x="0" y="34" text-anchor="middle" fill="#334155" font-family="Geist Mono, monospace" font-size="9.5">Commerce Verse</text>
+              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">3D pop-up store</text>
             </g>
 
             <!-- Metaverse 2 -->
             <g transform="translate(322, 278)">
-              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="rgba(242,231,208,0.06)" stroke="rgba(242,231,208,0.32)" stroke-width="1" id="ripple-2"/>
-              <line x1="-18" y1="12" x2="18" y2="12" stroke="rgba(242,231,208,0.45)" stroke-width="1" stroke-linecap="round"/>
-              <line x1="-10" y1="18" x2="10" y2="18" stroke="rgba(242,231,208,0.25)" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#D9E0EB" font-family="JetBrains Mono, monospace" font-size="9.5">Memorial Verse</text>
-              <text x="0" y="46" text-anchor="middle" fill="#9AA7B8" font-family="JetBrains Mono, monospace" font-size="8">memory &amp; tribute</text>
+              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1" id="ripple-2"/>
+              <line x1="-18" y1="12" x2="18" y2="12" stroke="#CBD5E1" stroke-width="1.1" stroke-linecap="round"/>
+              <line x1="-10" y1="18" x2="10" y2="18" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+              <text x="0" y="34" text-anchor="middle" fill="#334155" font-family="Geist Mono, monospace" font-size="9.5">Memorial Verse</text>
+              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">memory &amp; tribute</text>
             </g>
 
             <!-- Metaverse 3 -->
             <g transform="translate(444, 278)">
-              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="rgba(242,231,208,0.06)" stroke="rgba(242,231,208,0.32)" stroke-width="1" id="ripple-3"/>
-              <line x1="-18" y1="12" x2="18" y2="12" stroke="rgba(242,231,208,0.45)" stroke-width="1" stroke-linecap="round"/>
-              <line x1="-10" y1="18" x2="10" y2="18" stroke="rgba(242,231,208,0.25)" stroke-width="1" stroke-linecap="round"/>
-              <text x="0" y="34" text-anchor="middle" fill="#D9E0EB" font-family="JetBrains Mono, monospace" font-size="9.5">Open World</text>
-              <text x="0" y="46" text-anchor="middle" fill="#9AA7B8" font-family="JetBrains Mono, monospace" font-size="8">shared asset graph</text>
+              <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1" id="ripple-3"/>
+              <line x1="-18" y1="12" x2="18" y2="12" stroke="#CBD5E1" stroke-width="1.1" stroke-linecap="round"/>
+              <line x1="-10" y1="18" x2="10" y2="18" stroke="#E2E8F0" stroke-width="1" stroke-linecap="round"/>
+              <text x="0" y="34" text-anchor="middle" fill="#334155" font-family="Geist Mono, monospace" font-size="9.5">Open World</text>
+              <text x="0" y="46" text-anchor="middle" fill="#64748B" font-family="Geist Mono, monospace" font-size="8">shared asset graph</text>
             </g>
           </svg>
 
@@ -2298,18 +2293,18 @@ WHERE {
         const ray = document.getElementById('ray-' + i);
         const ripple = document.getElementById('ripple-' + i);
         if (i === idx) {
-          ray.setAttribute('stroke', '#E6C27A');
+          ray.setAttribute('stroke', '#0055FF');
           ray.setAttribute('stroke-width', '2.2');
           ray.setAttribute('opacity', '1');
-          ripple.setAttribute('stroke', '#E6C27A');
-          ripple.setAttribute('fill', 'rgba(230,194,122,0.2)');
-          ripple.setAttribute('stroke-width', '1.3');
+          ripple.setAttribute('stroke', '#0055FF');
+          ripple.setAttribute('fill', 'rgba(0, 85, 255, 0.12)');
+          ripple.setAttribute('stroke-width', '1.4');
         } else {
-          ray.setAttribute('stroke', 'rgba(242,231,208,0.28)');
-          ray.setAttribute('stroke-width', '1.2');
-          ray.setAttribute('opacity', '0.8');
-          ripple.setAttribute('stroke', 'rgba(242,231,208,0.32)');
-          ripple.setAttribute('fill', 'rgba(242,231,208,0.06)');
+          ray.setAttribute('stroke', '#CBD5E1');
+          ray.setAttribute('stroke-width', '1.3');
+          ray.setAttribute('opacity', '0.9');
+          ripple.setAttribute('stroke', '#94A3B8');
+          ripple.setAttribute('fill', '#FFFFFF');
           ripple.setAttribute('stroke-width', '1');
         }
       }
