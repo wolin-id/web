@@ -90,3 +90,11 @@
 ### 4.3 바이럴 & 개발자 온보딩 플라이휠
 1. **Wolin Passport (`{pod_id}.wolin.id`)**: 브라우저 접속 시 링크트리형 3D 아바타·소셜 명함을 렌더링하고, 소유자 로그인 시 연결된 앱 목록과 1클릭 차단 스위치를 제공한다(`Accept: text/turtle` 시엔 표준 RDF 응답 유지).
 2. **무심사 5분 개발자 연동**: Solid-OIDC `Client ID Document (JSON-LD)`를 통해 API 키 발급·앱 심사 없이 메타버스/웹 앱이 즉시 Wolin 로그인을 연동한다.
+
+### 4.4 공식 RDF 스키마 표준(`https://wolin.id/ns#`) & 비공개 R2 권한 제어
+1. **Wolin Metaverse & Passport Vocabulary (`https://wolin.id/ns#`)**:
+   * `foaf`, `vcard`, `schema.org` 표준 어휘 위에 **`avatarGlbUrl`, `avatarVrmUrl`, `passportTheme`, `worldLinks`, `wearableItem`** 등 메타버스·여권 공통 스키마를 공식 정의한다.
+   * 5개 언어 SDK(`sdk-{js,unity,swift,kotlin,python}`)에 표준 타입/메서드로 내장하여, 서로 다른 앱 간 아바타·프로필 100% 상호운용성을 보장한다.
+2. **비공개 R2 에셋 권한 제어 (권한은 엔진, 전송은 R2/Worker)**:
+   * 공개 에셋은 R2 + Cloudflare CDN(`cdn.wolin.id`)에서 엣지 직결 서빙한다.
+   * 비공개 에셋은 `wolin-engine`이 DPoP + `.acl`/ACP 권한을 1차 검증한 뒤 **단기(30초) R2 Presigned URL 또는 HMAC 서명된 Worker URL**로 넘겨, 보안 SSOT를 유지하면서도 EC2 대역폭·송신료 소모를 0으로 만든다.
