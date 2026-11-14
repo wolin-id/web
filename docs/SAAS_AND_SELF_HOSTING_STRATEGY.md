@@ -98,3 +98,15 @@
 2. **비공개 R2 에셋 권한 제어 (권한은 엔진, 전송은 R2/Worker)**:
    * 공개 에셋은 R2 + Cloudflare CDN(`cdn.wolin.id`)에서 엣지 직결 서빙한다.
    * 비공개 에셋은 `wolin-engine`이 DPoP + `.acl`/ACP 권한을 1차 검증한 뒤 **단기(30초) R2 Presigned URL 또는 HMAC 서명된 Worker URL**로 넘겨, 보안 SSOT를 유지하면서도 EC2 대역폭·송신료 소모를 0으로 만든다.
+
+### 4.5 AI 코딩 에이전트 친화 문서 인프라 (Zero-Hallucination DevEx)
+* 메인 랜딩 UI는 순수 브랜드 톤을 유지하면서, 뒷단 개발자 인프라로 Claude/ChatGPT/Cursor 등 AI 에이전트가 Wolin을 즉시 이해하도록 구성한다:
+  1. **`https://wolin.id/llms.txt` & `/llms-full.txt`**: 5개 언어 SDK 10줄 예제, `Client ID Document`, `wolin.id/ns#` 스키마, DPoP/Trailing-slash 규칙을 단일 마크다운으로 제공.
+  2. **Context7 & `wolin-id/skills`**: 오픈소스 공개 시 Context7 인덱싱 및 `SKILL.md` / `AGENTS.md` 배포.
+  3. **`https://docs.wolin.id/mcp`**: Cloudflare Workers 기반 경량 읽기 전용 Docs MCP 서버 제공.
+
+### 4.6 서브도메인(`{pod_id}.wolin.id`) 보안 제약 & 예약어 정책
+* `wolin-engine`과 `wolin-cloud` 양쪽에서 Fail-Closed 이중 검증을 강제한다:
+  1. **형식**: 3~32자 소문자 영문(`a-z`), 숫자(`0-9`), 하이픈(`-`)만 허용 (`-` 시작/끝, `--`, Punycode `xn--` 금지).
+  2. **예약어 차단**: 시스템(`www`, `app`, `api`, `auth`, `cdn`, `docs`, `admin`, `mcp`, `oauth`, `ns`, `id` 등) 및 브랜드/사칭(`wolin`, `official`, `security`, `entropy`, 주요 빅테크/금융 키워드) 전면 차단.
+  3. **Tombstone 영구 보류**: 탈퇴·삭제된 `pod_id`는 타인의 Identity Hijacking을 막기 위해 영구 재사용 금지 처리한다.
