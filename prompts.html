@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompts — WOLIN (月印) · Entropy Paradox, Inc.</title>
+  <meta name="description" content="Copy-paste developer prompts to scaffold Wolin 3D worlds, live stages, pop-up stores, and game lobbies with Solid-OIDC and Sovereign Pods." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23171717'/%3E%3Ccircle cx='20' cy='14' r='5.8' fill='%23FFFFFF'/%3E%3Cpath d='M8 23.5H32' stroke='%232563EB' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 28H28' stroke='%23FFFFFF' stroke-opacity='0.75' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M16 32H24' stroke='%23FFFFFF' stroke-opacity='0.4' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #FAFAFA;
+      --ink: #171717;
+      --muted: #525252;
+      --line: #E5E5E5;
+      --accent: #0055FF;
+      --accent-soft: #EFF6FF;
+      --ok: #15803D;
+      --font-sans: 'Geist', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .brand {
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.15rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    nav a:hover { color: var(--accent); }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(0, 85, 255, 0.2);
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .lead {
+      color: var(--muted);
+      max-width: 740px;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    /* Setup Strip */
+    .setup-strip {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      padding: 1.25rem 1.35rem;
+      margin-bottom: 2.25rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .setup-item {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .setup-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .setup-code {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .setup-code a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .setup-code a:hover { text-decoration: underline; }
+
+    /* Prompt Cards Grid */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.35rem;
+    }
+    .prompt-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.1rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .prompt-card:hover {
+      border-color: rgba(0, 85, 255, 0.45);
+      box-shadow: 0 8px 28px rgba(0, 85, 255, 0.06);
+    }
+    .card-top {
+      min-width: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0.3rem 0 0.4rem;
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.18rem 0.5rem;
+    }
+
+    .prompt-box-wrap {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .prompt-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      background: #FFFFFF;
+    }
+    .prompt-filename {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copy-btn {
+      appearance: none;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.38rem 0.85rem;
+      border-radius: 7px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
+    }
+    .copy-btn:hover {
+      background: #0044CC;
+      border-color: #0044CC;
+    }
+    .copy-btn:active {
+      transform: translateY(1px);
+    }
+    .copy-btn.copied {
+      background: var(--ok);
+      border-color: var(--ok);
+    }
+    .prompt-pre {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.58;
+      color: var(--ink);
+      padding: 0.95rem 1rem;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-height: 310px;
+      overflow-y: auto;
+    }
+
+    .ref-bar {
+      margin-top: 2.5rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .ref-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .ref-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .ref-links a:hover { text-decoration: underline; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    footer a {
+      color: var(--muted);
+      margin-right: 1rem;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .setup-strip { grid-template-columns: minmax(0, 1fr); }
+      .prompt-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      header { padding: 1rem 1.15rem; }
+      main { padding: 2.25rem 1.15rem 3.5rem; }
+      h1 { font-size: 1.75rem; }
+      .prompt-card { padding: 1.15rem; }
+      .prompt-pre { font-size: 0.75rem; padding: 0.85rem; }
+      .ref-bar { padding: 1.1rem 1.15rem; }
+      footer { padding: 1.75rem 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">WOLIN · 月印</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/refund.html">Refund</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">Wolin Prompt Hub · Zero Backend Worlds</div>
+    <h1>Copy-Paste Vibe-Coding Prompts</h1>
+    <p class="lead">Paste any prompt below into Claude Code, Cursor, Windsurf, or Codex to scaffold a production 3D world with passwordless Solid-OIDC login, portable Pod avatars, and zero server bills.</p>
+
+    <section class="setup-strip" aria-label="Developer Context Endpoints">
+      <div class="setup-item">
+        <span class="setup-label">1. Scaffold Starter</span>
+        <code class="setup-code">pnpm create wolin-world my-world</code>
+      </div>
+      <div class="setup-item">
+        <span class="setup-label">2. Connect Docs MCP</span>
+        <code class="setup-code"><a href="https://docs.wolin.id/mcp">https://docs.wolin.id/mcp</a></code>
+      </div>
+      <div class="setup-item">
+        <span class="setup-label">3. Single-File Reference</span>
+        <code class="setup-code"><a href="/llms-full.txt">https://wolin.id/llms-full.txt</a></code>
+      </div>
+    </section>
+
+    <div class="prompt-grid">
+      <!-- Prompt 1: Cozy Cat Cafe 3D World -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag">01 · Social Hangout</span>
+          </div>
+          <h2 class="card-title">Cozy Cat Cafe 3D World</h2>
+          <p class="card-desc">Warm sunlit 3D cafe with portable GLB avatar spawn, P2P table voice chat, Pod-persisted guestbook notes, and contextual wall poster slot.</p>
+          <div class="badge-row">
+            <span class="badge">create-wolin-world</span>
+            <span class="badge">@wolin-id/react</span>
+            <span class="badge">WebRTC P2P Voice</span>
+            <span class="badge">WolinAdSlot</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">cat-cafe-world.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-cat-cafe" onclick="copyPrompt(this)">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-cat-cafe">Build a "Cozy Cat Cafe 3D World" web app powered by Wolin Sovereign Pods. First connect to https://docs.wolin.id/mcp (and read https://wolin.id/llms-full.txt), and use context7 for verified React Three Fiber, @react-three/drei, and @wolin-id/react APIs.
+
+1. Scaffold with `pnpm create wolin-world cozy-cat-cafe` (from `wolin-id/metaverse-starter`) and emit `public/client-id.jsonld` + `public/_headers` so Solid-OIDC works with zero app review (`client_id` origin MUST match `redirect_uri` origin, issuer `https://auth.wolin.id`).
+2. Authenticate users via `<WolinProvider>` and `useWolinSession()`. Dereference their WebID Turtle profile and spawn their 3D avatar from `https://wolin.id/ns#avatarGlbUrl` + `https://wolin.id/ns#displayName` (with a cozy capsule fallback if unset).
+3. Build a warm sunlit cafe interior in React Three Fiber with wooden tables, espresso bar, 3 wandering procedural cats, WASD/touch movement, and 1–4p WebRTC P2P HRTF proximity voice per table (`stun:stun.cloudflare.com:3478`).
+4. Add a cafe corkboard guestbook backed by `/public/cat-cafe/guestbook.ttl` in the player's Pod using `@wolin-id/client` (`WolinPodClient`): enforce trailing `/` on LDP containers (`/public/cat-cafe/`), RFC 9449 ES256 DPoP `ath` SHA-256 binding, `createOnly: true` (`If-None-Match: *`) on first init, and `ETag` `If-Match` optimistic concurrency on updates.
+5. Mount `<WolinAdSlot slotId="cafe-wall-poster-01" format="poster-2x3" worldTheme="cozy-cat-cafe" />` on the brick wall and include a 1-click `wrangler pages deploy dist` script.</pre>
+        </div>
+      </article>
+
+      <!-- Prompt 2: VTuber Live Concert Stage -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag">02 · Live Broadcast</span>
+          </div>
+          <h2 class="card-title">VTuber Live Concert Stage</h2>
+          <p class="card-desc">Zero-egress YouTube Live &amp; CHZZK 3D stage screen using CSS3DRenderer, VRM fan avatar spawn, synced lightsticks, and LED sponsor banners.</p>
+          <div class="badge-row">
+            <span class="badge">CSS3DRenderer</span>
+            <span class="badge">YouTube / CHZZK</span>
+            <span class="badge">avatarVrmUrl</span>
+            <span class="badge">$0 Streaming Cost</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">vtuber-concert-stage.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-vtuber-stage" onclick="copyPrompt(this)">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-vtuber-stage">Build a "VTuber Live Concert Stage" 3D web venue on Wolin with $0 streaming server cost. Query https://docs.wolin.id/mcp (and https://wolin.id/llms-full.txt) first, and use context7 for Three.js CSS3DRenderer, @pixiv/three-vrm, React Three Fiber, and @wolin-id/react docs.
+
+1. Initialize from `create-wolin-world` (`pnpm create wolin-world vtuber-stage`) with a static Solid-OIDC `public/client-id.jsonld` (`token_endpoint_auth_method: "none"`, PKCE `S256`, issuer `https://auth.wolin.id`).
+2. Sign fans in via `useWolinSession()`, parse their WebID profile (`https://wolin.id/ns#`), and load `wolin:avatarVrmUrl` (falling back to `wolin:avatarGlbUrl` or a stylized silhouette) with `wolin:displayName` floating nametags and keyboard wave/cheer emotes.
+3. Mount a giant main-stage LED screen using Three.js `CSS3DRenderer` / `@react-three/drei` `<Html transform>` that embeds a configurable YouTube Live or CHZZK (`chzzk.naver.com/live/...`) stream URL stored in the host's `/public/stage/config.ttl` Pod resource.
+4. Let each fan pick a custom penlight/glowstick hex color and save it to `/private/concert/lightstick.ttl` in their own Pod via `WolinPodClient` with `ETag` `If-Match` concurrency, trailing `/` container checks (`/private/concert/`), and automatic ES256 DPoP `ath` signing.
+5. Place two stage-wing `<WolinAdSlot format="billboard-16x9" worldTheme="vtuber-concert" />` banners and output static Cloudflare Pages deployment config.</pre>
+        </div>
+      </article>
+
+      <!-- Prompt 3: 3D Commerce Pop-up Store -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag">03 · Spatial Commerce</span>
+          </div>
+          <h2 class="card-title">3D Commerce Pop-up Store</h2>
+          <p class="card-desc">Interactive showroom where shoppers preview 3D `.glb` wearables on their own Wolin Pod avatar and save wishlists &amp; equipped items.</p>
+          <div class="badge-row">
+            <span class="badge">wearableItem</span>
+            <span class="badge">3D Try-On</span>
+            <span class="badge">Pod Wishlist</span>
+            <span class="badge">R2 Edge GLB</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">commerce-popup-store.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-popup-store" onclick="copyPrompt(this)">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-popup-store">Create a minimalist architectural "3D Commerce Pop-up Store" using Wolin Sovereign Identity & Pods. Consult https://docs.wolin.id/mcp (and https://wolin.id/llms-full.txt) before coding, and use context7 for React Three Fiber, @react-three/drei, and @wolin-id/client APIs.
+
+1. Bootstrap with `pnpm create wolin-world popup-store` and configure `public/client-id.jsonld` + `public/_headers` (`Access-Control-Allow-Origin: *`) for passwordless Solid-OIDC sign-in against `https://auth.wolin.id`.
+2. Render a sunlit gallery showroom with 4 interactive `.glb` product pedestals (hat, glasses, jacket, companion drone) and a 3D mirror station displaying the shopper's `https://wolin.id/ns#avatarGlbUrl` avatar.
+3. Implement 1-click "Try On Avatar" on each pedestal and persist wishlisted or equipped items to `/private/commerce/wishlist.ttl` and `/public/inventory.ttl` using `https://wolin.id/ns#wearableItem` (`wolin:assetGlbUrl`, `wolin:slot`, `wolin:equipped`).
+4. Enforce Wolin LDP & DPoP invariants: containers MUST end with `/` (`/private/commerce/`), documents MUST NOT end with `/`, initial file creation uses `createOnly: true` (`If-None-Match: *`), and every update passes `ifMatch: etag` with `412 Precondition Failed` retry.
+5. Add a featured brand `<WolinAdSlot slotId="showroom-pedestal-ad" format="poster-2x3" worldTheme="fashion-popup" />` display and Cloudflare Pages static build script.</pre>
+        </div>
+      </article>
+
+      <!-- Prompt 4: Indie Game Lobby -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag">04 · Multiplayer Game</span>
+          </div>
+          <h2 class="card-title">Indie Game Lobby</h2>
+          <p class="card-desc">Cross-game 3D hub with portable player saves, achievement badges, `wolin:worldLinks` portal teleporters, and squad P2P voice.</p>
+          <div class="badge-row">
+            <span class="badge">worldLinks Portals</span>
+            <span class="badge">ETag Save Sync</span>
+            <span class="badge">Cross-Game Inventory</span>
+            <span class="badge">Cloudflare Pages</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">indie-game-lobby.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-game-lobby" onclick="copyPrompt(this)">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-game-lobby">Build an "Indie Game Lobby" 3D multiplayer hub where player identity, save files, and world portals live in Wolin Solid Pods. Connect to https://docs.wolin.id/mcp (and check https://wolin.id/llms-full.txt), and use context7 for React Three Fiber, Rapier/BVH collisions, and @wolin-id/client.
+
+1. Start from `create-wolin-world` (`pnpm create wolin-world indie-lobby`) with `public/client-id.jsonld` bound to the app origin (`openid webid offline_access`, PKCE `S256`, issuer `https://auth.wolin.id`).
+2. Spawn the player's `https://wolin.id/ns#avatarGlbUrl` + `wolin:displayName` in a floating low-poly plaza with 3rd-person camera controller and 4-player squad WebRTC P2P proximity voice.
+3. Sync player XP, unlocked badges, and inventory to `/private/games/indie-lobby/save.ttl` via `WolinPodClient`: create `/private/games/indie-lobby/` with trailing `/` (`createContainer`), initialize `save.ttl` with `createOnly: true` (`If-None-Match: *`), and guard every checkpoint write with `ifMatch: lastEtag` + ES256 DPoP `ath` proof.
+4. Read `https://wolin.id/ns#worldLinks` (`wolin:WorldLink` with `schema:name` and `schema:url`) from the player's WebID profile and dynamically spawn glowing 3D portal arches in the plaza that teleport into linked partner worlds.
+5. Add an arcade scoreboard `<WolinAdSlot slotId="lobby-arcade-board" format="billboard-16x9" worldTheme="indie-game-lobby" />` and verify static `pnpm build` for 1-click Cloudflare Pages deploy.</pre>
+        </div>
+      </article>
+    </div>
+
+    <div class="ref-bar">
+      <div>Need raw protocol specs or 5-language SDK snippets (`TS`, `Unity C#`, `Swift 6`, `Kotlin`, `Python`)?</div>
+      <div class="ref-links">
+        <a href="/llms.txt">/llms.txt</a>
+        <a href="/llms-full.txt">/llms-full.txt</a>
+        <a href="https://docs.wolin.id/mcp">docs.wolin.id/mcp</a>
+        <a href="https://github.com/wolin-id/metaverse-starter">wolin-id/metaverse-starter</a>
+        <a href="https://github.com/wolin-id/skills">wolin-id/skills</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Entropy Paradox, Inc. (엔트로피패러독스 주식회사)</strong> · Business Reg. No.: 264-88-01993<br>
+      79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea · Contact: charles.choi@martian.link
+    </div>
+    <div>
+      <a href="/terms.html">Terms</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/refund.html">Refund</a>
+    </div>
+  </footer>
+
+  <script>
+    function fallbackExecCopy(text) {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.top = '0';
+      area.style.left = '-9999px';
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+      area.setSelectionRange(0, text.length);
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (_) {
+        copied = false;
+      }
+      document.body.removeChild(area);
+      return copied;
+    }
+
+    function setCopyFeedback(btn, ok) {
+      const original = btn.getAttribute('data-original-label') || btn.textContent;
+      btn.setAttribute('data-original-label', original);
+      btn.textContent = ok ? 'Copied ✓' : 'Copy Failed';
+      if (ok) {
+        btn.classList.add('copied');
+      } else {
+        btn.classList.remove('copied');
+      }
+      clearTimeout(btn._copyTimer);
+      btn._copyTimer = setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    }
+
+    function copyPrompt(btn) {
+      const targetId = btn.getAttribute('data-target');
+      const pre = targetId ? document.getElementById(targetId) : null;
+      if (!pre) return;
+      const text = pre.textContent || '';
+
+      const syncOk = fallbackExecCopy(text);
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(text).then(
+          () => setCopyFeedback(btn, true),
+          () => setCopyFeedback(btn, syncOk)
+        );
+      } else {
+        setCopyFeedback(btn, syncOk);
+      }
+    }
+  </script>
+</body>
+</html>

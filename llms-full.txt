@@ -1,0 +1,396 @@
+# Wolin (月印) — Complete Zero-Hallucination Developer Reference (`llms-full.txt`)
+
+> Canonical Reference URL: `https://wolin.id/llms-full.txt`
+> Concise Index: `https://wolin.id/llms.txt`
+> Docs MCP Endpoint: `https://docs.wolin.id/mcp`
+> Copy-Paste Prompt Hub: `https://wolin.id/prompts.html`
+> Standards: W3C Solid Protocol 0.11 · W3C Solid-OIDC · RFC 9449 DPoP (`ES256`) · RFC 7638 JWK Thumbprint · W3C RDF 1.1 Turtle / JSON-LD · WAC & ACP
+
+---
+
+## 0. Architecture & Core Endpoints at a Glance
+
+- **Canonical Solid-OIDC Issuer**: `https://auth.wolin.id` (Discovery: `https://auth.wolin.id/.well-known/openid-configuration`)
+- **User WebID Format**: `https://{handle}.wolin.id/profile/card#me`
+- **User Sovereign Pod Root (`pim:storage`)**: `https://{handle}.wolin.id/` (origin-isolated subdomain) or `https://pod.wolin.cloud/{handle}/`
+- **Wolin Passport Showcase**: Navigating a browser (`Accept: text/html`) to `https://{handle}.wolin.id` renders the user's 3D avatar card and world links; querying with `Accept: text/turtle` returns the standard W3C WebID RDF profile.
+- **Zero Backend Required for Worlds**: Static web worlds (Vite / Next.js / React Three Fiber / Unity WebGL) deploy for `$0/mo` on Cloudflare Pages. Authentication uses a static `client-id.jsonld` file, and persistent state lives inside each player's Wolin Pod.
+
+---
+
+## 1. 5-Language SDK 10-Line Quickstarts
+
+All 5 official Wolin SDKs implement RFC 9449 `ES256` (NIST P-256) DPoP proof signing, RFC 7638 `cnf.jkt` thumbprints, automatic `DPoP-Nonce` retry, W3C WebID `pim:storage` discovery, and `ETag` (`If-Match` / `If-None-Match`) optimistic concurrency with **zero third-party cryptography bloat**.
+
+### 1.1 TypeScript / JavaScript (`@wolin-id/client` & `@wolin-id/react`)
+- **Repo**: `https://github.com/wolin-id/sdk-js`
+- **Install**: `pnpm add @wolin-id/client @wolin-id/react`
+
+```ts
+import { WolinPodClient, fetchWebIdProfile, generateDPoPKeyPair } from '@wolin-id/client';
+
+const profile = await fetchWebIdProfile('https://alice.wolin.id/profile/card#me');
+const dpopKeyPair = await generateDPoPKeyPair(); // Web Crypto non-extractable P-256
+const pod = new WolinPodClient({
+  podUrl: profile.primaryStorage,
+  webId: profile.webId,
+  accessToken: tokens.accessToken, // DPoP-bound token from exchangeCodeForTokens()
+  dpopKeyPair,
+});
+const current = await pod.getResource('/private/notes.ttl');
+await pod.putResource('/private/notes.ttl', '<#n1> <https://wolin.id/ns#displayName> "Alice" .', {
+  ifMatch: current.etag ?? undefined,
+});
+```
+
+**React 18 / 19 Hook Quickstart (`@wolin-id/react`)**:
+```tsx
+import { WolinProvider, usePodResource, useWolinSession } from '@wolin-id/react';
+
+export const App = () => (
+  <WolinProvider clientId={`${location.origin}/client-id.jsonld`} redirectUri={`${location.origin}/auth/callback`} defaultOidcIssuer="https://auth.wolin.id">
+    <WorldHud />
+  </WolinProvider>
+);
+
+function WorldHud() {
+  const { isAuthenticated, session, login, logout } = useWolinSession();
+  const { data, save } = usePodResource(isAuthenticated ? '/private/world-save.ttl' : null);
+  return isAuthenticated
+    ? <button onClick={() => void save('<#save> <https://wolin.id/ns#score> 42 .')}>Save ({session?.webId})</button>
+    : <button onClick={() => void login()}>Continue with Wolin</button>;
+}
+```
+
+### 1.2 Unity C# (`id.wolin.unity` — Unity 2022.3+ / `.NET Standard 2.1`)
+- **Repo**: `https://github.com/wolin-id/sdk-unity`
+- **Install (`Packages/manifest.json`)**: `"id.wolin.unity": "https://github.com/wolin-id/sdk-unity.git#v0.1.0"`
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Wolin.Unity;
+
+using var client = new WolinClient();
+client.SetAccessToken(accessToken, "https://alice.wolin.id/profile/card#me");
+Uri storageRoot = await client.DiscoverStorageAsync("https://alice.wolin.id/profile/card#me");
+Uri saveUri = new Uri(storageRoot, "games/indie-lobby/save.ttl");
+PodResource loaded = await client.GetAsync(saveUri);
+await client.PutAsync(saveUri, "<#player> <https://wolin.id/ns#level> 7 .", "text/turtle", ifMatch: loaded.ETag);
+```
+
+### 1.3 Swift 6 (`WolinKit` — iOS 16+ / macOS 13+ / visionOS 1+)
+- **Repo**: `https://github.com/wolin-id/sdk-swift`
+- **Install (`Package.swift`)**: `.package(url: "https://github.com/wolin-id/sdk-swift.git", from: "0.1.0")` (`product: "WolinKit"`)
+
+```swift
+import CryptoKit
+import WolinKit
+
+let signer = DPoPSigner(privateKey: P256.Signing.PrivateKey())
+let client = WolinClient(accessToken: token, webID: "https://alice.wolin.id/profile/card#me", dpopSigner: signer)
+let storageURL = try await client.discoverStorage()
+let noteURL = storageURL.appending(path: "private/notes.ttl")
+let resource = try await client.getResource(at: noteURL)
+if let etag = resource.etag {
+    try await client.putTurtle(at: noteURL, turtle: "<#me> <https://wolin.id/ns#displayName> \"Alice\" .", etagMatch: .ifMatch(etag))
+}
+```
+
+### 1.4 Kotlin / Android / JVM (`id.wolin:sdk-kotlin` — Kotlin 2.1+ / JVM 17+)
+- **Repo**: `https://github.com/wolin-id/sdk-kotlin`
+- **Install (`build.gradle.kts`)**: `implementation("id.wolin:sdk-kotlin:0.1.0")`
+
+```kotlin
+import id.wolin.sdk.DPoPSigner
+import id.wolin.sdk.WolinClient
+
+val signer = DPoPSigner.generate()
+val client = WolinClient(accessToken = token, dpopSigner = signer)
+val storageRoot = client.discoverStorage("https://alice.wolin.id/profile/card#me")
+val noteUrl = client.resolveResourceUrl(storageRoot, "private/notes.ttl")
+val current = client.get(noteUrl)
+client.put(url = noteUrl, body = "<#it> <https://wolin.id/ns#displayName> \"Alice\" .", ifMatch = current.etag)
+```
+
+### 1.5 Python 3.11+ (`wolin-id` — Async `httpx`)
+- **Repo**: `https://github.com/wolin-id/sdk-python`
+- **Install**: `pip install wolin-id`
+
+```python
+import os
+from wolin_id import DpopSigner, WolinClient
+
+async def sync_pod() -> None:
+    async with WolinClient("https://pod.wolin.cloud", access_token=os.environ["WOLIN_ACCESS_TOKEN"], dpop_signer=DpopSigner.generate()) as client:
+        profile = await client.fetch_webid_profile("https://alice.wolin.id/profile/card#me")
+        note_url = f"{profile.primary_storage}private/note.ttl"
+        res = await client.get(note_url)
+        await client.put(note_url, '<#it> <https://wolin.id/ns#displayName> "Alice" .\n', content_type="text/turtle", if_match=res.etag)
+```
+
+---
+
+## 2. Solid-OIDC Client ID Document (`client-id.jsonld`) — Zero App Review
+
+Wolin eliminates OAuth client secrets, developer portal registration, and manual app review. Host this static JSON-LD file at `https://<your-domain>/client-id.jsonld` (`public/client-id.jsonld` in Vite / Next.js) and pass its full URL as `clientId`.
+
+### Copy-Paste `public/client-id.jsonld`
+```json
+{
+  "@context": "https://www.w3.org/ns/solid/oidc-context.jsonld",
+  "client_id": "https://world.example.com/client-id.jsonld",
+  "client_name": "My Wolin 3D World",
+  "client_uri": "https://world.example.com",
+  "logo_uri": "https://world.example.com/icon-192.png",
+  "redirect_uris": [
+    "https://world.example.com/auth/callback"
+  ],
+  "post_logout_redirect_uris": [
+    "https://world.example.com/"
+  ],
+  "grant_types": [
+    "authorization_code",
+    "refresh_token"
+  ],
+  "response_types": [
+    "code"
+  ],
+  "token_endpoint_auth_method": "none",
+  "scope": "openid webid offline_access"
+}
+```
+
+### Mandatory `client-id.jsonld` Invariants
+1. **Strict Origin Binding**: `new URL(client_id).origin` **MUST** equal `new URL(redirect_uri).origin`. Cross-origin `redirect_uri` values are rejected by `https://auth.wolin.id/authorize` with `invalid_request` to prevent client spoofing.
+2. **PKCE `S256` Required**: `code_challenge_method=S256` and `response_type=code` are mandatory (`token_endpoint_auth_method: "none"`).
+3. **CORS & Content-Type (`public/_headers` on Cloudflare Pages)**:
+   ```text
+   /client-id.jsonld
+     Content-Type: application/ld+json; charset=utf-8
+     Access-Control-Allow-Origin: *
+   ```
+4. **Local Development**: During local dev (`http://localhost:5173`), serve `/client-id.jsonld` dynamically or from `public/` with `"client_id": "http://localhost:5173/client-id.jsonld"` and `"redirect_uris": ["http://localhost:5173/auth/callback"]`.
+
+---
+
+## 3. Official Metaverse & Passport RDF Vocabulary (`https://wolin.id/ns#`)
+
+All cross-world Wolin apps share the canonical `https://wolin.id/ns#` (`PREFIX wolin: <https://wolin.id/ns#>`) vocabulary alongside W3C `foaf:`, `pim:`, `solid:`, `ldp:`, and `schema:`. Do **not** invent ad-hoc avatar predicates; use these exact IRIs so avatars and wearables travel seamlessly across every Wolin-enabled world.
+
+### 3.1 Core Predicates & Classes
+
+| Term (`wolin:*`) | Full IRI | Range / Type | Purpose |
+| :--- | :--- | :--- | :--- |
+| `wolin:displayName` | `https://wolin.id/ns#displayName` | `xsd:string` | Canonical cross-world 3D nametag & Passport display name (falls back to `foaf:name`). |
+| `wolin:avatarGlbUrl` | `https://wolin.id/ns#avatarGlbUrl` | `xsd:anyURI` | glTF 2.0 binary (`.glb`) 3D avatar URL for Three.js / R3F / Unity / Vision Pro worlds. |
+| `wolin:avatarVrmUrl` | `https://wolin.id/ns#avatarVrmUrl` | `xsd:anyURI` | VRM 0.x / 1.0 (`.vrm`) humanoid avatar URL with blendshapes & spring bones for VTuber worlds. |
+| `wolin:worldLinks` | `https://wolin.id/ns#worldLinks` | `wolin:WorldLink` | Links a user's WebID (`#me`) to favorite or hosted 3D worlds & social portals shown on Wolin Passport. |
+| `wolin:wearableItem` | `https://wolin.id/ns#wearableItem` | `wolin:Wearable` | Links `#me` or `/public/inventory.ttl` to portable 3D wearable items owned/equipped by the user. |
+| `wolin:passportTheme` | `https://wolin.id/ns#passportTheme` | `xsd:string` | Optional Passport theme / accent token (e.g. `"cobalt-220"`). |
+
+**Supporting `wolin:WorldLink` & `wolin:Wearable` Properties**:
+- On `wolin:WorldLink`: `schema:name` (`xsd:string`), `schema:url` (`xsd:anyURI`, `http:`/`https:` only), `wolin:linkKind` (`"world"` or `"social"`).
+- On `wolin:Wearable`: `schema:name` (`xsd:string`), `wolin:assetGlbUrl` (`xsd:anyURI`), `wolin:slot` (`"hat"` | `"accessory"` | `"outfit"` | `"companion"`), `wolin:equipped` (`xsd:boolean`).
+
+### 3.2 Canonical WebID Profile Turtle Example (`/profile/card`)
+
+```turtle
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix pim:    <http://www.w3.org/ns/pim/space#> .
+@prefix solid:  <http://www.w3.org/ns/solid/terms#> .
+@prefix ldp:    <http://www.w3.org/ns/ldp#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix wolin:  <https://wolin.id/ns#> .
+
+<> a foaf:PersonalProfileDocument ;
+   foaf:maker <#me> ;
+   foaf:primaryTopic <#me> .
+
+<#me> a foaf:Person ;
+   foaf:name "Alice Kim" ;
+   wolin:displayName "Alice" ;
+   solid:oidcIssuer <https://auth.wolin.id> ;
+   pim:storage </> ;
+   ldp:inbox </inbox/> ;
+   wolin:passportTheme "cobalt-220" ;
+   wolin:avatarGlbUrl <https://cdn.wolin.id/pods/alice/public/avatar.glb> ;
+   wolin:avatarVrmUrl <https://cdn.wolin.id/pods/alice/public/avatar.vrm> ;
+   wolin:worldLinks <#link-cat-cafe>, <#link-concert> ;
+   wolin:wearableItem <#item-beret> .
+
+<#link-cat-cafe> a wolin:WorldLink ;
+   schema:name "Alice's Cozy Cat Cafe" ;
+   schema:url <https://catcafe.pages.dev/> ;
+   wolin:linkKind "world" .
+
+<#link-concert> a wolin:WorldLink ;
+   schema:name "Friday VTuber Stage" ;
+   schema:url <https://vtuber-stage.pages.dev/> ;
+   wolin:linkKind "world" .
+
+<#item-beret> a wolin:Wearable ;
+   schema:name "Cobalt Artist Beret" ;
+   wolin:assetGlbUrl <https://cdn.wolin.id/pods/alice/public/wearables/beret.glb> ;
+   wolin:slot "hat" ;
+   wolin:equipped true .
+```
+
+---
+
+## 4. The 4 Metaverse Lego Blocks
+
+Scaffold all 4 blocks together with `pnpm create wolin-world my-world` (`https://github.com/wolin-id/metaverse-starter`), or compose them individually in any Three.js / React Three Fiber app.
+
+### Block 1: Passwordless Login + Portable GLB / VRM Avatar Spawn
+Dereference the signed-in player's WebID profile, extract `wolin:avatarGlbUrl` (or `wolin:avatarVrmUrl`) and `wolin:displayName`, and spawn their 3D avatar with a zero-crash procedural fallback when unset.
+
+```tsx
+import { Suspense, useEffect, useState } from 'react';
+import { useGLTF, Html } from '@react-three/drei';
+import { fetchWebIdProfile, parseTurtle } from '@wolin-id/client';
+import { useWolinSession } from '@wolin-id/react';
+
+const WOLIN = 'https://wolin.id/ns#';
+
+export function PlayerAvatar({ position = [0, 0, 0] as [number, number, number] }) {
+  const { session } = useWolinSession();
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [name, setName] = useState('Guest');
+
+  useEffect(() => {
+    if (!session?.webId) return;
+    fetch(session.webId, { headers: { Accept: 'text/turtle' } })
+      .then((r) => r.text())
+      .then((ttl) => {
+        const triples = parseTurtle(ttl, session.webId);
+        const glb = triples.find((t) => t.predicate === `${WOLIN}avatarGlbUrl`)?.object;
+        const label = triples.find((t) => t.predicate === `${WOLIN}displayName`)?.object;
+        if (glb) setAvatarUrl(glb);
+        if (label) setName(label);
+      });
+  }, [session?.webId]);
+
+  return (
+    <group position={position}>
+      <Html position={[0, 2.1, 0]} center distanceFactor={8}>
+        <span style={{ background: '#171717', color: '#fff', padding: '2px 8px', borderRadius: 999, fontSize: 12 }}>{name}</span>
+      </Html>
+      <Suspense fallback={<FallbackCapsule />}>
+        {avatarUrl ? <GlbModel url={avatarUrl} /> : <FallbackCapsule />}
+      </Suspense>
+    </group>
+  );
+}
+
+function GlbModel({ url }: { url: string }) {
+  const { scene } = useGLTF(url);
+  return <primitive object={scene} />;
+}
+
+function FallbackCapsule() {
+  return (
+    <mesh position={[0, 0.9, 0]}>
+      <capsuleGeometry args={[0.35, 1.1, 8, 16]} />
+      <meshStandardMaterial color="#0055FF" />
+    </mesh>
+  );
+}
+```
+
+### Block 2: `$0` YouTube / CHZZK `CSS3DRenderer` Live Stage + P2P Spatial Voice
+- **Broadcast Video (`$0` Egress)**: Never transcode or relay 1080p broadcast video through your own server when embedding public livestreams. Mount a YouTube Live (`https://www.youtube.com/embed/<VIDEO_ID>?autoplay=1&mute=0`) or CHZZK (`https://chzzk.naver.com/live/<CHANNEL_ID>`) `<iframe>` onto a 3D stage plane via Three.js `CSS3DRenderer` (`CSS3DObject` or `@react-three/drei` `<Html transform occlude>`). All video CDN egress is paid by YouTube / CHZZK.
+- **Proximity Spatial Voice (`$0` for 1–4 Peers)**: Connect nearby players via `RTCPeerConnection` (`stun:stun.cloudflare.com:3478`) and pipe remote `MediaStream` tracks into Web Audio API `AudioContext -> MediaStreamAudioSourceNode -> PannerNode (panningModel = 'HRTF', refDistance = 2, maxDistance = 18)` updated in `useFrame` from avatar positions. For 5+ concurrent speakers, bridge through Cloudflare Realtime SFU.
+
+```tsx
+import { Html } from '@react-three/drei';
+
+export function LiveConcertScreen({ embedUrl }: { embedUrl: string }) {
+  return (
+    <group position={[0, 3.6, -12]}>
+      <mesh>
+        <planeGeometry args={[9.8, 5.6]} />
+        <meshStandardMaterial color="#171717" />
+      </mesh>
+      <Html transform distanceFactor={4} position={[0, 0, 0.02]}>
+        <iframe
+          src={embedUrl}
+          width={960}
+          height={540}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          style={{ border: '1px solid #E5E5E5', borderRadius: 8, background: '#000' }}
+          title="Wolin Live Stage"
+        />
+      </Html>
+    </group>
+  );
+}
+```
+
+### Block 3: Sovereign Zero-PII Spatial Monetization (`<WolinAdSlot />`)
+Monetize 3D worlds without tracking cookies or leaking personal data. `<WolinAdSlot />` matches creatives strictly on **world spatial context** (`worldTheme`) and **optional user-declared interests**, delivering `.glb` props or `16:9` / `2:3` poster textures from Cloudflare R2 CDN (`60–70%` revenue share to the world host).
+
+```tsx
+import { WolinAdSlot } from '@wolin-id/metaverse-starter';
+
+// Drop anywhere inside a <Canvas>:
+<WolinAdSlot
+  slotId="cafe-wall-poster-01"
+  format="poster-2x3"
+  worldTheme="cozy-cat-cafe"
+  position={[4.2, 2.0, -3.5]}
+  rotation={[0, -Math.PI / 2, 0]}
+  fallbackHouseAd={true}
+/>
+```
+
+**Built-in 3D Viewability Invariants (Do Not Bypass)**:
+- Valid viewability (`vCPM`) fires **only** when: (1) inside active `PerspectiveCamera` frustum, (2) center + corner raycasts pass with zero wall occlusion, (3) projected screen area `>= 5%`, (4) continuous dwell time `>= 1500ms` verified against server-issued `impression_token`, and (5) local user input occurred within the last `30s` (anti-AFK farming). Gaze checks stay 100% in browser RAM and are never sent to any server.
+
+### Block 4: 1-Click Cloudflare Pages Static World Deploy
+Because authentication (`https://auth.wolin.id`) and user storage (`https://{handle}.wolin.id/`) are externalized to Wolin, your 3D world is 100% static HTML/JS/WASM/GLB assets with `$0` backend compute:
+
+```bash
+# 1. Scaffold starter with client-id.jsonld + _headers preconfigured
+pnpm create wolin-world my-world
+cd my-world
+
+# 2. Build static bundle (sets client_id origin from VITE_PUBLIC_ORIGIN)
+VITE_PUBLIC_ORIGIN="https://my-world.pages.dev" pnpm build
+
+# 3. Deploy globally to Cloudflare Pages in 1 command
+npx wrangler pages deploy dist --project-name=my-world --branch=main
+```
+
+---
+
+## 5. Common Pitfall Prevention Rules (Mandatory Guardrails)
+
+Coding agents integrating Wolin or raw W3C Solid HTTP endpoints **MUST** obey these three protocol rules to avoid `401`, `405`, and `412` runtime errors.
+
+### Rule 1: RFC 9449 DPoP `ath` SHA-256 Hash & `htu` Normalization
+- **Never send a DPoP-bound token with `Authorization: Bearer`**: Use `Authorization: DPoP <access_token>` paired with `DPoP: <proof_jwt>`.
+- **Mandatory `ath` Claim on Resource Requests**: Whenever an `access_token` is sent, the DPoP proof JWT payload **MUST** contain `"ath"` equal to the **unpadded Base64URL encoding of the raw SHA-256 digest of the ASCII `access_token` bytes**:
+  ```ts
+  // CORRECT: unpadded Base64URL(SHA-256(ASCII(accessToken))) -> 43 chars
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(accessToken));
+  const ath = btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  ```
+  - **WRONG**: Hex-encoded SHA-256 (`64` hex chars), Base64 with `=` padding, or omitting `ath` after token exchange.
+- **Strict `htu` Normalization**: Strip `?query` and `#fragment` from `htu` (`https://alice.wolin.id/private/notes.ttl`, never `...notes.ttl?foo=1#me`). Ensure `alg: "ES256"`, `typ: "dpop+jwt"`, public `jwk` without private `"d"`, and raw 64-byte IEEE P1363 (`R || S`, not ASN.1 DER) signature.
+- **Recommendation**: Always use `@wolin-id/client`, `id.wolin.unity`, `WolinKit`, `id.wolin:sdk-kotlin`, or `wolin-id` (`DpopSigner`) instead of hand-rolling JWT signing.
+
+### Rule 2: W3C Solid LDP Trailing Slash (`/`) Container Rule
+- **Containers MUST end with `/`**: `/public/`, `/public/worlds/`, `/private/saves/` are `ldp:BasicContainer` URIs.
+- **Documents/Files MUST NOT end with `/`**: `/private/saves/slot1.ttl`, `/public/avatar.glb` are `ldp:Resource` (`ldp:RDFSource` or `ldp:NonRDFSource`) URIs.
+- **Failure Modes**:
+  - `GET /private/saves` (missing `/`) looks up a document named `saves` (`404 Not Found`), whereas `GET /private/saves/` lists `ldp:contains` children of the `saves/` container.
+  - `PUT /private/saves/` with file bytes creates/updates a container graph instead of storing a file; `POST /private/saves` (missing `/`) fails with `405 Method Not Allowed`.
+- Always call `pod.createContainer('/private/saves/')` and `pod.listContainer('/private/saves/')` for directories, and `pod.putResource('/private/saves/slot1.ttl', ...)` for documents.
+
+### Rule 3: Optimistic Concurrency with `ETag`, `If-Match`, and `If-None-Match: *`
+- **Prevent Lost Updates (`If-Match`)**: Every Wolin `GET`, `HEAD`, `PUT`, and `POST` response returns a strong HTTP `ETag` header. Store `etag` alongside state and pass `If-Match: <etag>` on subsequent `PUT`, `PATCH` (`application/sparql-update`), or `DELETE` calls.
+- **Prevent Accidental Overwrites (`If-None-Match: *`)**: When initializing a default profile, inventory, or save slot for the first time, pass `If-None-Match: *` (`createOnly: true` in TS/Python, `.createOnly` in Swift, `createIfAbsent` in Kotlin).
+- **Handle `412 Precondition Failed` Gracefully**: If another tab or world updated the Pod resource concurrently, Wolin returns `412 Precondition Failed` (`WolinPreconditionError` in `@wolin-id/client`). Catch `412`, re-read the latest resource + `ETag` via `GET`, merge the RDF triples or state, and retry with the fresh `ETag`.
