@@ -285,7 +285,17 @@
       'footer.license': 'Licensed under MIT OR Apache-2.0',
       'footer.terms': 'Terms',
       'footer.privacy': 'Privacy',
-      'footer.refund': 'Refund'
+      'footer.refund': 'Refund',
+      'footer.reportIssue': 'Report an issue',
+      'report.title': 'Report an issue',
+      'report.desc': 'Spot something broken or confusing? Tell us what happened.',
+      'report.placeholder': 'What were you trying to do, and what happened instead?',
+      'report.cancel': 'Cancel',
+      'report.submit': 'Send report',
+      'report.sending': 'Sending…',
+      'report.success': 'Thanks — we received your report.',
+      'report.fallbackPrefix': 'Couldn’t reach the server right now. Email us directly at ',
+      'report.emptyError': 'Please enter a short description first.'
     },
 
     /* ========================================================================
@@ -558,7 +568,17 @@
       'footer.license': '基于 MIT OR Apache-2.0 协议开源',
       'footer.terms': '服务条款',
       'footer.privacy': '隐私政策',
-      'footer.refund': '退款政策'
+      'footer.refund': '退款政策',
+      'footer.reportIssue': '反馈问题',
+      'report.title': '反馈问题',
+      'report.desc': '发现页面异常或使用不便？请告诉我们具体情况。',
+      'report.placeholder': '你当时想做什么？实际发生了什么？',
+      'report.cancel': '取消',
+      'report.submit': '发送反馈',
+      'report.sending': '正在发送…',
+      'report.success': '感谢反馈，我们已收到你的说明。',
+      'report.fallbackPrefix': '暂时无法连接服务器，请直接发送邮件至 ',
+      'report.emptyError': '请先填写简要说明。'
     },
 
     /* ========================================================================
@@ -831,7 +851,17 @@
       'footer.license': 'Licencia MIT OR Apache-2.0',
       'footer.terms': 'Términos',
       'footer.privacy': 'Privacidad',
-      'footer.refund': 'Reembolso'
+      'footer.refund': 'Reembolso',
+      'footer.reportIssue': 'Informar de un problema',
+      'report.title': 'Informar de un problema',
+      'report.desc': '¿Encontraste algo que no funciona bien? Cuéntanos qué ocurrió.',
+      'report.placeholder': '¿Qué intentabas hacer y qué ocurrió en su lugar?',
+      'report.cancel': 'Cancelar',
+      'report.submit': 'Enviar informe',
+      'report.sending': 'Enviando…',
+      'report.success': 'Gracias, hemos recibido tu informe.',
+      'report.fallbackPrefix': 'No pudimos conectar ahora mismo. Escríbenos directamente a ',
+      'report.emptyError': 'Escribe una breve descripción primero.'
     },
 
     /* ========================================================================
@@ -1104,7 +1134,17 @@
       'footer.license': 'Licenciado sob MIT OR Apache-2.0',
       'footer.terms': 'Termos',
       'footer.privacy': 'Privacidade',
-      'footer.refund': 'Reembolso'
+      'footer.refund': 'Reembolso',
+      'footer.reportIssue': 'Relatar um problema',
+      'report.title': 'Relatar um problema',
+      'report.desc': 'Encontrou algo quebrado ou confuso? Conte o que aconteceu.',
+      'report.placeholder': 'O que você estava tentando fazer e o que aconteceu?',
+      'report.cancel': 'Cancelar',
+      'report.submit': 'Enviar relato',
+      'report.sending': 'Enviando…',
+      'report.success': 'Obrigado — recebemos seu relato.',
+      'report.fallbackPrefix': 'Não foi possível conectar agora. Envie um e-mail direto para ',
+      'report.emptyError': 'Digite uma breve descrição primeiro.'
     },
 
     /* ========================================================================
@@ -1377,7 +1417,17 @@
       'footer.license': 'MIT OR Apache-2.0 ライセンス',
       'footer.terms': '利用規約',
       'footer.privacy': 'プライバシー',
-      'footer.refund': '返金規定'
+      'footer.refund': '返金規定',
+      'footer.reportIssue': '問題を報告',
+      'report.title': '問題を報告',
+      'report.desc': '表示崩れや不具合がありましたか？状況を教えてください。',
+      'report.placeholder': '何をしようとして、何が起きましたか？',
+      'report.cancel': 'キャンセル',
+      'report.submit': '送信する',
+      'report.sending': '送信中…',
+      'report.success': 'ご報告ありがとうございます。受け付けました。',
+      'report.fallbackPrefix': '現在サーバーに接続できませんでした。直接メールでお知らせください: ',
+      'report.emptyError': '内容を簡単に入力してください。'
     },
 
     /* ========================================================================
@@ -1650,7 +1700,17 @@
       'footer.license': 'MIT OR Apache-2.0 라이선스',
       'footer.terms': '이용약관',
       'footer.privacy': '개인정보처리방침',
-      'footer.refund': '환불정책'
+      'footer.refund': '환불정책',
+      'footer.reportIssue': '문제 신고',
+      'report.title': '문제 신고',
+      'report.desc': '작동하지 않거나 불편한 점이 있나요? 어떤 상황인지 알려주세요.',
+      'report.placeholder': '어떤 작업을 하려다 어떤 현상이 나타났나요?',
+      'report.cancel': '취소',
+      'report.submit': '보내기',
+      'report.sending': '보내는 중…',
+      'report.success': '감사합니다. 보내주신 내용을 접수했습니다.',
+      'report.fallbackPrefix': '지금 서버에 연결할 수 없어요. 아래 메일로 바로 보내주세요: ',
+      'report.emptyError': '내용을 간단히 입력해 주세요.'
     }
   };
 
@@ -1730,6 +1790,15 @@
       var hKey = hEl.getAttribute('data-i18n-html');
       if (hKey) {
         hEl.innerHTML = t(hKey);
+      }
+    }
+
+    var placeholderNodes = document.querySelectorAll('[data-i18n-placeholder]');
+    for (var p = 0; p < placeholderNodes.length; p++) {
+      var pEl = placeholderNodes[p];
+      var pKey = pEl.getAttribute('data-i18n-placeholder');
+      if (pKey) {
+        pEl.setAttribute('placeholder', t(pKey));
       }
     }
 

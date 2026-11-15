@@ -769,8 +769,165 @@
       transition: color 0.16s ease;
     }
 
-    .footer-links a:hover {
+    .footer-links a:hover,
+    .footer-links .footer-report-btn:hover {
       color: var(--accent);
+    }
+
+    .footer-links .footer-report-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links .footer-report-btn:focus-visible,
+    .report-textarea:focus-visible,
+    .report-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .report-backdrop[hidden],
+    .report-status[hidden] {
+      display: none !important;
+    }
+
+    .report-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(23, 23, 23, 0.48);
+      backdrop-filter: blur(2px);
+    }
+
+    .report-dialog {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      color: var(--ink);
+      border-radius: 14px;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 20px 40px -12px rgba(23, 23, 23, 0.18);
+      padding: 1.5rem;
+    }
+
+    .report-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .report-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0.9rem;
+    }
+
+    .report-textarea {
+      width: 100%;
+      min-height: 112px;
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--line-strong);
+      background: #FFFFFF;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-status {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+      overflow-wrap: anywhere;
+    }
+
+    .report-status-ok {
+      background: var(--accent-soft);
+      color: var(--ink);
+      border: 1px solid var(--line-accent);
+    }
+
+    .report-status-fallback {
+      background: var(--surface-muted);
+      color: var(--ink-secondary);
+      border: 1px solid var(--line-strong);
+    }
+
+    .report-status a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .report-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1.1rem;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--line-strong);
+      background: #FFFFFF;
+      color: var(--ink);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .report-btn:hover {
+      background: var(--surface);
+    }
+
+    .report-btn-primary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #FFFFFF;
+    }
+
+    .report-btn-primary:hover {
+      background: #2E2E2E;
+      border-color: #2E2E2E;
+    }
+
+    .report-btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    @media (max-width: 480px) {
+      .report-dialog { padding: 1.2rem; }
+      .report-actions { flex-direction: row; }
+      .report-btn { flex: 1; }
     }
   </style>
   <script src="https://rybbit.cycorld.com/api/script.js" data-site-id="15" defer></script>
@@ -1067,10 +1224,26 @@
         <a href="/terms.html" data-i18n="footer.terms">Terms</a>
         <a href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
         <a href="/refund.html" data-i18n="footer.refund">Refund</a>
+        <button type="button" class="footer-report-btn" data-report-open data-i18n="footer.reportIssue">Report an issue</button>
         <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
   </footer>
+
+  <div id="wolin-report-modal" class="report-backdrop" role="dialog" aria-modal="true" aria-labelledby="wolin-report-title" aria-describedby="wolin-report-desc" hidden>
+    <div class="report-dialog">
+      <h2 id="wolin-report-title" class="report-title" data-i18n="report.title">Report an issue</h2>
+      <p id="wolin-report-desc" class="report-desc" data-i18n="report.desc">Spot something broken or confusing? Tell us what happened.</p>
+      <form id="wolin-report-form" novalidate>
+        <textarea id="wolin-report-message" class="report-textarea" name="message" rows="4" maxlength="2000" required aria-labelledby="wolin-report-title" data-i18n-placeholder="report.placeholder" placeholder="What were you trying to do, and what happened instead?"></textarea>
+        <div id="wolin-report-status" class="report-status" role="status" aria-live="polite" hidden></div>
+        <div class="report-actions">
+          <button type="button" class="report-btn" data-report-close data-i18n="report.cancel">Cancel</button>
+          <button type="submit" id="wolin-report-submit" class="report-btn report-btn-primary" data-i18n="report.submit">Send report</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <script src="i18n.js"></script>
 </body>
 </html>
