@@ -25,7 +25,8 @@
     return raw
       .replace(/\beyJ[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]*/g, "[REDACTED_JWT]")
       .replace(/\b(?:Bearer|DPoP|Basic)\s+[A-Za-z0-9._~+/=-]+/gi, "[REDACTED_TOKEN]")
-      .replace(/([?&;]|^)(token|access_token|id_token|refresh_token|code|code_verifier|password|passwd|pwd|secret|client_secret|csrf_token|dpop|dpop_proof|api_key|apikey)=([^&\s#"']+)/gi, "$1$2=[REDACTED]")
+      .replace(/([?&;]|^)(token|access_token|id_token|refresh_token|code|code_verifier|password|passwd|pwd|secret|client_secret|csrf_token|dpop|dpop_proof|api_key|apikey)=([^&\s#"')]+)/gi, "$1$2=[REDACTED]")
+      .replace(/(["']?(?:token|access_token|id_token|refresh_token|code_verifier|password|passwd|pwd|secret|client_secret|csrf_token|dpop|dpop_proof|authorization|cookie|set-cookie|api_key|apikey)["']?\s*[:=]\s*)(?!\[REDACTED)(?:"[^"]*"|'[^']*'|[^\s,}\])&;]+)/gi, '$1"[REDACTED]"')
       .replace(/[a-zA-Z0-9._%+-]+(?:@|%40)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, "[REDACTED_EMAIL]")
       .replace(/\b(?=[a-fA-F0-9]*[0-9])(?=[a-fA-F0-9]*[a-fA-F])[a-fA-F0-9]{32,}\b/g, "[REDACTED_TOKEN]");
   }
