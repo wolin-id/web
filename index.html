@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" data-i18n-title="index.meta.title">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
       --line-accent: rgba(0, 85, 255, 0.28);
 
       /* Typography */
-      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
       --font-serif-kr: "Noto Serif KR", Georgia, serif;
       --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -174,7 +174,7 @@
     .site-nav {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: clamp(0.85rem, 1.35vw, 1.5rem);
     }
 
     .site-nav a {
@@ -196,8 +196,42 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.65rem;
       flex-shrink: 0;
+    }
+
+    .lang-select {
+      appearance: none;
+      -webkit-appearance: none;
+      height: 36px;
+      min-height: 36px;
+      padding: 0 1.75rem 0 0.65rem;
+      border-radius: 7px;
+      border: 1px solid var(--line-strong);
+      background-color: var(--surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%2352525B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.55rem center;
+      background-size: 11px 11px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.16s ease, background-color 0.16s ease;
+      flex-shrink: 0;
+    }
+
+    .lang-select:hover {
+      border-color: var(--ink);
+      background-color: var(--bg);
+    }
+
+    .lang-select:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(0, 85, 255, 0.15);
     }
 
     .header-link-mobile {
@@ -208,6 +242,7 @@
       font-weight: 500;
       color: var(--muted);
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .header-cta {
@@ -231,24 +266,59 @@
       background: var(--accent);
     }
 
-    @media (max-width: 920px) {
-      .site-nav { display: none; }
-      .header-link-mobile { display: inline-flex; }
+    .mobile-subnav {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 0 1.15rem;
+      gap: 1.25rem;
+      align-items: center;
     }
 
-    @media (max-width: 640px) {
+    .mobile-subnav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.81rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .mobile-subnav a:hover {
+      color: var(--ink);
+    }
+
+    @media (max-width: 980px) {
+      .site-nav { display: none; }
+      .header-link-mobile { display: inline-flex; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 680px) {
       .header-inner {
-        min-height: 60px;
+        min-height: 58px;
         padding: 0 1.15rem;
-        gap: 0.6rem;
+        gap: 0.5rem;
       }
       .brand-hanja { display: none; }
-      .header-actions { gap: 0.65rem; }
-      .header-link-mobile { font-size: 0.8rem; }
+      .header-link-mobile { display: none; }
+      .mobile-subnav { display: flex; }
+      .header-actions { gap: 0.5rem; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+        font-size: 0.78rem;
+        padding: 0 1.55rem 0 0.55rem;
+        background-position: right 0.45rem center;
+      }
       .header-cta {
         min-height: 44px;
-        padding: 0 0.78rem;
-        font-size: 0.79rem;
+        padding: 0 0.75rem;
+        font-size: 0.78rem;
       }
     }
 
@@ -314,6 +384,19 @@
       font-weight: 600;
       color: var(--accent);
       letter-spacing: 0.04em;
+    }
+
+    h1, h2, h3, h4, p {
+      overflow-wrap: break-word;
+    }
+
+    html:not([lang="ko"]) .hero-axiom,
+    html:not([lang="ko"]) .hero-subtitle,
+    html:not([lang="ko"]) h2.section-title,
+    html:not([lang="ko"]) .section-sub,
+    html:not([lang="ko"]) .pf-desc,
+    html:not([lang="ko"]) .epoch-cell p {
+      word-break: normal;
     }
 
     h1.hero-display {
@@ -1905,20 +1988,34 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
-        <a href="#passport">Passport</a>
-        <a href="#manifesto">Manifesto</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#benchmarks">Benchmarks</a>
-        <a href="/pricing.html">Pricing</a>
-        <a href="/prompts.html">Prompts</a>
+        <a href="#passport" data-i18n="nav.passport">Passport</a>
+        <a href="#manifesto" data-i18n="nav.manifesto">Manifesto</a>
+        <a href="#architecture" data-i18n="nav.architecture">Architecture</a>
+        <a href="#benchmarks" data-i18n="nav.benchmarks">Benchmarks</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
       </nav>
 
       <div class="header-actions">
-        <a href="/pricing.html" class="header-link-mobile">Pricing</a>
-        <a href="/prompts.html" class="header-link-mobile">Prompts</a>
-        <a href="/pricing.html" class="header-cta">Claim your Pod</a>
+        <a href="/pricing.html" class="header-link-mobile" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" class="header-link-mobile" data-i18n="nav.prompts">Prompts</a>
+        <select class="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+        <a href="/pricing.html" class="header-cta" data-i18n="nav.claimPod">Claim your Pod</a>
       </div>
     </div>
+    <nav class="mobile-subnav" aria-label="Mobile Navigation">
+      <a href="#passport" data-i18n="nav.passport">Passport</a>
+      <a href="#architecture" data-i18n="nav.architecture">Architecture</a>
+      <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+      <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
+    </nav>
   </header>
 
   <main>
@@ -1930,19 +2027,19 @@
           <div>
             <div class="eyebrow-label">
               <span class="eyebrow-seal">月印</span>
-              <span>Sovereign Pod Cloud · W3C Solid 0.11</span>
+              <span data-i18n="hero.eyebrow">Sovereign Pod Cloud · W3C Solid 0.11</span>
             </div>
 
             <h1 class="hero-display">
-              One Identity.
-              <span class="accent-line">Infinite Reflections.</span>
+              <span data-i18n="hero.titleLine1">One Identity.</span>
+              <span class="accent-line" data-i18n="hero.titleLine2">Infinite Reflections.</span>
             </h1>
 
-            <p class="hero-axiom">
+            <p class="hero-axiom" data-i18n="hero.axiom">
               “애플리케이션은 생겨나고 사라지지만, 아이덴티티는 지속되고 데이터는 흐른다.”
             </p>
 
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" data-i18n-html="hero.subtitle">
               하나의 달이 천 개의 강물에 비추어도 본질은 나뉘지 않듯(<a href="docs/VISION.md" class="inline-ref">月印千江</a>),
               Wolin은 토큰과 가스비 없는 단일 Rust 런타임 위에서 <a href="docs/POD_CLOUD_SPEC.md" class="inline-ref">소버린 팟 클라우드</a>,
               <a href="docs/INRUPT_INTEROP.md" class="inline-ref">Inrupt 양방향 상호운용</a>, 휴대용 3D 신원과 최소 권한 투영을 하나로 결속합니다.
@@ -1950,11 +2047,11 @@
 
             <div class="hero-cta-row">
               <a href="/pricing.html" class="btn-dominant">
-                <span>Claim your Pod</span>
+                <span data-i18n="hero.ctaPrimary">Claim your Pod</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a href="#architecture" class="hero-secondary-link">
-                <span>Explore Architecture &amp; Specs</span>
+                <span data-i18n="hero.ctaSecondary">Explore Architecture &amp; Specs</span>
                 <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -1964,15 +2061,15 @@
                 <span class="cli-prompt">$</span>
                 <span class="cli-cmd" id="cli-text">cargo run --release -p wolin-server</span>
               </div>
-              <button type="button" class="cli-copy" id="copy-cli-btn" onclick="copyCli()">COPY</button>
+              <button type="button" class="cli-copy" id="copy-cli-btn" onclick="copyCli()" data-i18n="hero.cliCopy">COPY</button>
             </div>
           </div>
 
           <!-- Right: Crisp Architectural Lunar Projection Blueprint -->
           <div class="astrolabe-stage" role="region" aria-label="Lunar Reflection Projection Blueprint">
             <div class="astrolabe-topbar">
-              <span>PROJECTION TOPOLOGY · 月印千江</span>
-              <span id="active-ray-label" style="color: var(--accent); font-weight: 600;">RAY 01 · SOCIAL VERSE</span>
+              <span data-i18n="hero.astrolabeTitle">PROJECTION TOPOLOGY · 月印千江</span>
+              <span id="active-ray-label" style="color: var(--accent); font-weight: 600;" data-i18n="hero.ray0">RAY 01 · SOCIAL VERSE</span>
             </div>
 
             <svg class="astrolabe-svg" viewBox="0 0 520 326" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2072,20 +2169,20 @@
 
             <div class="river-selector-bar" role="tablist" aria-label="Select Metaverse Reflection">
               <button type="button" role="tab" aria-selected="true" class="river-chip active" onclick="focusRiver(0, this)">
-                <span class="river-chip-title">01 Social Verse</span>
-                <span class="river-chip-scope">avatar + profile</span>
+                <span class="river-chip-title" data-i18n="hero.chip0Title">01 Social Verse</span>
+                <span class="river-chip-scope" data-i18n="hero.chip0Scope">avatar + profile</span>
               </button>
               <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(1, this)">
-                <span class="river-chip-title">02 Commerce</span>
-                <span class="river-chip-scope">wearable closet</span>
+                <span class="river-chip-title" data-i18n="hero.chip1Title">02 Commerce</span>
+                <span class="river-chip-scope" data-i18n="hero.chip1Scope">wearable closet</span>
               </button>
               <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(2, this)">
-                <span class="river-chip-title">03 Live Stage</span>
-                <span class="river-chip-scope">ticket + lightstick</span>
+                <span class="river-chip-title" data-i18n="hero.chip2Title">03 Live Stage</span>
+                <span class="river-chip-scope" data-i18n="hero.chip2Scope">ticket + lightstick</span>
               </button>
               <button type="button" role="tab" aria-selected="false" class="river-chip" onclick="focusRiver(3, this)">
-                <span class="river-chip-title">04 Open World</span>
-                <span class="river-chip-scope">portable save</span>
+                <span class="river-chip-title" data-i18n="hero.chip3Title">04 Open World</span>
+                <span class="river-chip-scope" data-i18n="hero.chip3Scope">portable save</span>
               </button>
             </div>
           </div>
@@ -2097,19 +2194,19 @@
         <div class="telemetry-grid">
           <div class="telemetry-cell">
             <div class="telemetry-val">&lt; 30<span class="unit">MB</span></div>
-            <div class="telemetry-lbl">Rust AOT Resident Memory Footprint</div>
+            <div class="telemetry-lbl" data-i18n="telemetry.rss">Rust AOT Resident Memory Footprint</div>
           </div>
           <div class="telemetry-cell">
             <div class="telemetry-val">1.42<span class="unit">ms</span></div>
-            <div class="telemetry-lbl">P99 Embedded Oxigraph SPARQL Read</div>
+            <div class="telemetry-lbl" data-i18n="telemetry.sparql">P99 Embedded Oxigraph SPARQL Read</div>
           </div>
           <div class="telemetry-cell">
             <div class="telemetry-val">$0<span class="unit">EGRESS</span></div>
-            <div class="telemetry-lbl">Cloudflare R2 3D Asset Edge Delivery</div>
+            <div class="telemetry-lbl" data-i18n="telemetry.egress">Cloudflare R2 3D Asset Edge Delivery</div>
           </div>
           <div class="telemetry-cell">
             <div class="telemetry-val">Solid 0.11<span class="unit">+ DPoP</span></div>
-            <div class="telemetry-lbl">W3C WAC/ACP &amp; Inrupt ESS Interoperable</div>
+            <div class="telemetry-lbl" data-i18n="telemetry.interop">W3C WAC/ACP &amp; Inrupt ESS Interoperable</div>
           </div>
         </div>
       </div>
@@ -2121,9 +2218,9 @@
         <div class="passport-grid">
           <!-- Left: Zero-Jargon Human Value Narrative -->
           <div>
-            <span class="section-eyebrow">01 · WOLIN PASSPORT &amp; DISCOVERY</span>
-            <h2 class="section-title">하나의 주소가 곧 디지털 여권이자,<br>메타버스 쇼케이스가 됩니다.</h2>
-            <p class="section-sub" style="margin-top: 1rem; max-width: 500px;">
+            <span class="section-eyebrow" data-i18n="passport.eyebrow">01 · WOLIN PASSPORT &amp; DISCOVERY</span>
+            <h2 class="section-title" data-i18n-html="passport.title">하나의 주소가 곧 디지털 여권이자,<br>메타버스 쇼케이스가 됩니다.</h2>
+            <p class="section-sub" style="margin-top: 1rem; max-width: 500px;" data-i18n-html="passport.sub">
               브라우저에서 <code>alice.wolin.id</code>를 열면 복잡한 기술 용어 없이 깔끔한 디지털 여권과 월드 디렉토리가 펼쳐집니다. 내가 만든 공간과 자주 찾는 월드를 한 장의 명함으로 공유하세요.
             </p>
 
@@ -2131,22 +2228,22 @@
               <div class="passport-feature-row">
                 <span class="pf-num">01</span>
                 <div>
-                  <div class="pf-title">링크 하나로 열리는 내 월드 쇼케이스</div>
-                  <p class="pf-desc">프로필 링크 하나만 걸어두면 방문자가 내가 운영 중인 3D 카페, 공연장, 팝업 스토어로 즉시 입장합니다.</p>
+                  <div class="pf-title" data-i18n="passport.f1Title">링크 하나로 열리는 내 월드 쇼케이스</div>
+                  <p class="pf-desc" data-i18n="passport.f1Desc">프로필 링크 하나만 걸어두면 방문자가 내가 운영 중인 3D 카페, 공연장, 팝업 스토어로 즉시 입장합니다.</p>
                 </div>
               </div>
               <div class="passport-feature-row">
                 <span class="pf-num">02</span>
                 <div>
-                  <div class="pf-title">어디서나 그대로 소환되는 3D 아바타</div>
-                  <p class="pf-desc">여권에 등록한 아바타와 착용 아이템을 새로운 월드마다 다시 업로드할 필요 없이 그대로 가져갑니다.</p>
+                  <div class="pf-title" data-i18n="passport.f2Title">어디서나 그대로 소환되는 3D 아바타</div>
+                  <p class="pf-desc" data-i18n="passport.f2Desc">여권에 등록한 아바타와 착용 아이템을 새로운 월드마다 다시 업로드할 필요 없이 그대로 가져갑니다.</p>
                 </div>
               </div>
               <div class="passport-feature-row">
                 <span class="pf-num">03</span>
                 <div>
-                  <div class="pf-title">원클릭 연결 월드 스위치</div>
-                  <p class="pf-desc">어떤 월드가 내 프로필과 보관함을 읽을 수 있는지 한눈에 확인하고 언제든 스위치 하나로 연결을 해제합니다.</p>
+                  <div class="pf-title" data-i18n="passport.f3Title">원클릭 연결 월드 스위치</div>
+                  <p class="pf-desc" data-i18n="passport.f3Desc">어떤 월드가 내 프로필과 보관함을 읽을 수 있는지 한눈에 확인하고 언제든 스위치 하나로 연결을 해제합니다.</p>
                 </div>
               </div>
             </div>
@@ -2179,10 +2276,10 @@
                       <span class="passport-name">Alice Kim</span>
                       <span class="verified-check" title="Verified Handle">✓</span>
                     </div>
-                    <div class="passport-bio">Spatial Architect &amp; Indie World Host · Seoul</div>
+                    <div class="passport-bio" data-i18n="passport.cardBio">Spatial Architect &amp; Indie World Host · Seoul</div>
                   </div>
                 </div>
-                <span class="passport-avatar-badge">3D Avatar Equipped</span>
+                <span class="passport-avatar-badge" data-i18n="passport.avatarBadge">3D Avatar Equipped</span>
               </div>
               <div class="passport-mrz">P&lt;WOLIN&lt;&lt;KIM&lt;&lt;ALICE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;ALICE.WOLIN.ID&lt;&lt;2026</div>
             </div>
@@ -2191,14 +2288,14 @@
               <!-- 2x1 Featured World Tile -->
               <a href="/pricing.html" class="bento-tile featured-world">
                 <div class="bento-top">
-                  <span class="bento-kicker">Featured World · Hosted by @alice</span>
-                  <span class="bento-visitors">24 Visiting</span>
+                  <span class="bento-kicker" data-i18n="passport.featuredKicker">Featured World · Hosted by @alice</span>
+                  <span class="bento-visitors" data-i18n="passport.visiting">24 Visiting</span>
                 </div>
                 <div class="featured-world-body">
                   <div>
-                    <div class="bento-title">Sunlit Cat Cafe · 3D Hangout</div>
-                    <div class="bento-sub">Cozy rooftop terrace, table voice chat &amp; guestbook</div>
-                    <span class="bento-cta">Enter World <span aria-hidden="true">→</span></span>
+                    <div class="bento-title" data-i18n="passport.featuredTitle">Sunlit Cat Cafe · 3D Hangout</div>
+                    <div class="bento-sub" data-i18n="passport.featuredSub">Cozy rooftop terrace, table voice chat &amp; guestbook</div>
+                    <span class="bento-cta" data-i18n="passport.enterWorld">Enter World →</span>
                   </div>
                   <svg class="world-mini-svg" viewBox="0 0 88 66" fill="none" aria-hidden="true">
                     <path d="M44 8L80 26L44 44L8 26L44 8Z" fill="#EFF6FF" stroke="#0055FF" stroke-width="1.3"/>
@@ -2211,42 +2308,42 @@
 
               <!-- 1x1 Live Stage Tile -->
               <a href="/pricing.html" class="bento-tile">
-                <span class="bento-kicker">Live Stage</span>
+                <span class="bento-kicker" data-i18n="passport.tile1Kicker">Live Stage</span>
                 <div>
-                  <div class="bento-title">Friday Acoustic Dome</div>
-                  <div class="bento-sub">Fri 21:00 KST</div>
+                  <div class="bento-title" data-i18n="passport.tile1Title">Friday Acoustic Dome</div>
+                  <div class="bento-sub" data-i18n="passport.tile1Sub">Fri 21:00 KST</div>
                 </div>
-                <span class="bento-cta">Join Stage ↗</span>
+                <span class="bento-cta" data-i18n="passport.tile1Cta">Join Stage ↗</span>
               </a>
 
               <!-- 1x1 Avatar Closet Tile -->
               <a href="/pricing.html" class="bento-tile">
-                <span class="bento-kicker">Wardrobe</span>
+                <span class="bento-kicker" data-i18n="passport.tile2Kicker">Wardrobe</span>
                 <div>
-                  <div class="bento-title">Avatar Closet</div>
-                  <div class="bento-sub">4 Wearables Ready</div>
+                  <div class="bento-title" data-i18n="passport.tile2Title">Avatar Closet</div>
+                  <div class="bento-sub" data-i18n="passport.tile2Sub">4 Wearables Ready</div>
                 </div>
-                <span class="bento-cta">Inspect 3D ↗</span>
+                <span class="bento-cta" data-i18n="passport.tile2Cta">Inspect 3D ↗</span>
               </a>
 
               <!-- 1x1 Social Tile -->
               <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener" class="bento-tile">
-                <span class="bento-kicker">Social</span>
+                <span class="bento-kicker" data-i18n="passport.tile3Kicker">Social</span>
                 <div>
                   <div class="bento-title">@alice_builds</div>
-                  <div class="bento-sub">Design Notes &amp; Clips</div>
+                  <div class="bento-sub" data-i18n="passport.tile3Sub">Design Notes &amp; Clips</div>
                 </div>
-                <span class="bento-cta">Follow ↗</span>
+                <span class="bento-cta" data-i18n="passport.tile3Cta">Follow ↗</span>
               </a>
 
               <!-- 1x1 Studio Archive Tile -->
               <a href="/pricing.html" class="bento-tile">
-                <span class="bento-kicker">Directory</span>
+                <span class="bento-kicker" data-i18n="passport.tile4Kicker">Directory</span>
                 <div>
-                  <div class="bento-title">Bookmark Portals</div>
-                  <div class="bento-sub">12 Favorite Worlds</div>
+                  <div class="bento-title" data-i18n="passport.tile4Title">Bookmark Portals</div>
+                  <div class="bento-sub" data-i18n="passport.tile4Sub">12 Favorite Worlds</div>
                 </div>
-                <span class="bento-cta">Explore ↗</span>
+                <span class="bento-cta" data-i18n="passport.tile4Cta">Explore ↗</span>
               </a>
             </div>
           </div>
@@ -2257,10 +2354,10 @@
     <!-- 03. The Sovereign Manifesto -->
     <section class="band surface-band" id="manifesto">
       <div class="container">
-        <span class="section-eyebrow">02 · THE SOVEREIGN MANIFESTO</span>
+        <span class="section-eyebrow" data-i18n="manifesto.eyebrow">02 · THE SOVEREIGN MANIFESTO</span>
         <div class="section-heading-row">
-          <h2 class="section-title">플랫폼 봉건주의와 투기적 크립토를 넘어,<br>디지털 실존을 위한 영속 백본으로.</h2>
-          <p class="section-sub">
+          <h2 class="section-title" data-i18n-html="manifesto.title">플랫폼 봉건주의와 투기적 크립토를 넘어,<br>디지털 실존을 위한 영속 백본으로.</h2>
+          <p class="section-sub" data-i18n-html="manifesto.sub">
             수많은 웹·3D 플랫폼이 등장하고 사라지는 시대, 어떤 공간에 접속하더라도 개인과 기업이 신원과 데이터의 주권을 잃지 않도록 설계된 <a href="docs/VISION.md" class="inline-ref">제3의 인프라 아키텍처</a>입니다.
           </p>
         </div>
@@ -2270,42 +2367,42 @@
             <div>
               <div class="epoch-meta">
                 <span class="epoch-index">EPOCH I // WEB 2.0</span>
-                <span class="epoch-badge legacy">PLATFORM LOCK-IN</span>
+                <span class="epoch-badge legacy" data-i18n="manifesto.e1Badge">PLATFORM LOCK-IN</span>
               </div>
-              <h3>사일로 감옥과 신원 종속</h3>
-              <p>
+              <h3 data-i18n="manifesto.e1Title">사일로 감옥과 신원 종속</h3>
+              <p data-i18n="manifesto.e1Desc">
                 거대 플랫폼이 아바타, 친구 관계, 창작 에셋을 서버 내부에 가두어 락인합니다. 서비스마다 계정을 새로 만들고, 플랫폼이 종료되면 쌓아온 디지털 공간과 관계망이 함께 소멸합니다.
               </p>
             </div>
-            <div class="epoch-verdict">계정 정지 · 서비스 종료 = 디지털 자산 즉시 유실</div>
+            <div class="epoch-verdict" data-i18n="manifesto.e1Verdict">계정 정지 · 서비스 종료 = 디지털 자산 즉시 유실</div>
           </article>
 
           <article class="epoch-cell">
             <div>
               <div class="epoch-meta">
                 <span class="epoch-index">EPOCH II // TOKEN WEB3</span>
-                <span class="epoch-badge legacy">SPECULATIVE FRICTION</span>
+                <span class="epoch-badge legacy" data-i18n="manifesto.e2Badge">SPECULATIVE FRICTION</span>
               </div>
-              <h3>금융 투기화와 가스비 병목</h3>
-              <p>
+              <h3 data-i18n="manifesto.e2Title">금융 투기화와 가스비 병목</h3>
+              <p data-i18n="manifesto.e2Desc">
                 데이터 주권을 표방했으나 토큰 이코노미와 온체인 가스비, 복잡한 시드 구문 UX에 매몰되어 실제 엔터프라이즈 SSO 및 일상적인 메타버스 경험으로부터 고립되었습니다.
               </p>
             </div>
-            <div class="epoch-verdict">단순 프로필 갱신조차 트랜잭션 비용과 지연 발생</div>
+            <div class="epoch-verdict" data-i18n="manifesto.e2Verdict">단순 프로필 갱신조차 트랜잭션 비용과 지연 발생</div>
           </article>
 
           <article class="epoch-cell sovereign">
             <div>
               <div class="epoch-meta">
                 <span class="epoch-index">EPOCH III // WOLIN (月印)</span>
-                <span class="epoch-badge lunar">SOVEREIGN POD CLOUD</span>
+                <span class="epoch-badge lunar" data-i18n="manifesto.e3Badge">SOVEREIGN POD CLOUD</span>
               </div>
-              <h3>월인천강(月印千江)의 시맨틱 주권</h3>
-              <p>
+              <h3 data-i18n="manifesto.e3Title">월인천강(月印千江)의 시맨틱 주권</h3>
+              <p data-i18n="manifesto.e3Desc">
                 코인 발행 없이 표준 암호학 서명(WebID · DID · DPoP)만으로 신원을 증명합니다. 원본 데이터는 내 포드에 영속하며, 외부 월드에는 승인된 최소 범위만 실시간 투영합니다.
               </p>
             </div>
-            <div class="epoch-verdict">서비스가 사라져도 신원 · 아바타 · 데이터 영구 존속</div>
+            <div class="epoch-verdict" data-i18n="manifesto.e3Verdict">서비스가 사라져도 신원 · 아바타 · 데이터 영구 존속</div>
           </article>
         </div>
 
@@ -2313,31 +2410,31 @@
           <table class="wolin-matrix">
             <thead>
               <tr>
-                <th>영역 (Domain)</th>
-                <th>기존 생태계의 구조적 한계</th>
-                <th class="col-wolin">WOLIN (月印) 아키텍처 해법</th>
+                <th data-i18n="manifesto.thDomain">영역 (Domain)</th>
+                <th data-i18n="manifesto.thLegacy">기존 생태계의 구조적 한계</th>
+                <th class="col-wolin" data-i18n="manifesto.thWolin">WOLIN (月印) 아키텍처 해법</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="domain-name">W3C Solid 런타임</td>
-                <td>기존 Node.js 구현체(CSS)는 300MB 이상의 RAM 점유 및 멀티테넌시 병목</td>
-                <td class="wolin-adv"><code>Rust AOT 단일 바이너리</code> — 30MB 미만 메모리로 홈서버·클라우드 즉시 구동 (<a href="docs/ARCHITECTURE.md" class="inline-ref">명세</a>)</td>
+                <td class="domain-name" data-i18n="manifesto.r1Domain">W3C Solid 런타임</td>
+                <td data-i18n="manifesto.r1Legacy">기존 Node.js 구현체(CSS)는 300MB 이상의 RAM 점유 및 멀티테넌시 병목</td>
+                <td class="wolin-adv" data-i18n-html="manifesto.r1Wolin"><code>Rust AOT 단일 바이너리</code> — 30MB 미만 메모리로 홈서버·클라우드 즉시 구동 (<a href="docs/ARCHITECTURE.md" class="inline-ref">명세</a>)</td>
               </tr>
               <tr>
-                <td class="domain-name">신원 &amp; 기업 인증</td>
-                <td>크립토 지갑 설치 강제 및 기존 사내 IdP(SSO)와의 단절</td>
-                <td class="wolin-adv"><code>Passwordless OAuth2 · Passkey</code> 및 <code>ZITADEL / Keycloak OIDC</code> · <code>WebID</code> 통합 (<a href="docs/INRUPT_INTEROP.md" class="inline-ref">규격</a>)</td>
+                <td class="domain-name" data-i18n="manifesto.r2Domain">신원 &amp; 기업 인증</td>
+                <td data-i18n="manifesto.r2Legacy">크립토 지갑 설치 강제 및 기존 사내 IdP(SSO)와의 단절</td>
+                <td class="wolin-adv" data-i18n-html="manifesto.r2Wolin"><code>Passwordless OAuth2 · Passkey</code> 및 <code>ZITADEL / Keycloak OIDC</code> · <code>WebID</code> 통합 (<a href="docs/INRUPT_INTEROP.md" class="inline-ref">규격</a>)</td>
               </tr>
               <tr>
-                <td class="domain-name">선택적 데이터 투영</td>
-                <td>원시 파일 통째 노출 또는 무제한 API 토큰 위임으로 인한 개인정보 유출</td>
-                <td class="wolin-adv"><code>Scoped Projection Gateway</code> — 요청 맥락에 맞춘 Zero-PII 가상 서브그래프 투영</td>
+                <td class="domain-name" data-i18n="manifesto.r3Domain">선택적 데이터 투영</td>
+                <td data-i18n="manifesto.r3Legacy">원시 파일 통째 노출 또는 무제한 API 토큰 위임으로 인한 개인정보 유출</td>
+                <td class="wolin-adv" data-i18n-html="manifesto.r3Wolin"><code>Scoped Projection Gateway</code> — 요청 맥락에 맞춘 Zero-PII 가상 서브그래프 투영</td>
               </tr>
               <tr>
-                <td class="domain-name">스토리지 &amp; 이주 자유</td>
-                <td>특정 클라우드 종속 또는 도메인 변경 시 앱 연결 및 권한 규칙 깨짐</td>
-                <td class="wolin-adv"><code>Apache OpenDAL</code> + <code>.tar.zst</code> 무손실 Pod 번들 이주 (<a href="docs/POD_CLOUD_SPEC.md" class="inline-ref">클라우드 사양</a>)</td>
+                <td class="domain-name" data-i18n="manifesto.r4Domain">스토리지 &amp; 이주 자유</td>
+                <td data-i18n="manifesto.r4Legacy">특정 클라우드 종속 또는 도메인 변경 시 앱 연결 및 권한 규칙 깨짐</td>
+                <td class="wolin-adv" data-i18n-html="manifesto.r4Wolin"><code>Apache OpenDAL</code> + <code>.tar.zst</code> 무손실 Pod 번들 이주 (<a href="docs/POD_CLOUD_SPEC.md" class="inline-ref">클라우드 사양</a>)</td>
               </tr>
             </tbody>
           </table>
@@ -2348,10 +2445,10 @@
     <!-- 04. Architecture Explorer & Protocol Documentation -->
     <section class="band" id="architecture">
       <div class="container">
-        <span class="section-eyebrow">03 · SYSTEM ARCHITECTURE &amp; SPECIFICATIONS</span>
+        <span class="section-eyebrow" data-i18n="arch.eyebrow">03 · SYSTEM ARCHITECTURE &amp; SPECIFICATIONS</span>
         <div class="section-heading-row">
-          <h2 class="section-title">4계층 시맨틱 패브릭과<br>프로토콜 레퍼런스 포털.</h2>
-          <p class="section-sub">
+          <h2 class="section-title" data-i18n-html="arch.title">4계층 시맨틱 패브릭과<br>프로토콜 레퍼런스 포털.</h2>
+          <p class="section-sub" data-i18n-html="arch.sub">
             검증된 Rust 생태계(<code>axum 0.8</code>, <code>oxigraph 0.4</code>, <code>opendal 0.51</code>) 위에 구축된 6개 워크스페이스 모듈과 표준 HTTP 엔드포인트 명세입니다.
           </p>
         </div>
@@ -2360,36 +2457,36 @@
           <div class="layer-stack" role="tablist" aria-label="Wolin System Layers">
             <button type="button" role="tab" aria-selected="true" class="layer-btn active" onclick="selectLayer(0, this)">
               <div>
-                <span class="layer-code">LAYER 01 · GATEWAY &amp; CONSENT</span>
-                <span class="layer-name">Zero-Trust Policy &amp; Projection (PDP / PEP)</span>
-                <span class="layer-desc-short">외부 월드 요청 검증, 동적 스코프 평가 및 Zero-PII 서브그래프 직렬화</span>
+                <span class="layer-code" data-i18n="arch.l0Code">LAYER 01 · GATEWAY &amp; CONSENT</span>
+                <span class="layer-name" data-i18n="arch.l0Name">Zero-Trust Policy &amp; Projection (PDP / PEP)</span>
+                <span class="layer-desc-short" data-i18n="arch.l0Short">외부 월드 요청 검증, 동적 스코프 평가 및 Zero-PII 서브그래프 직렬화</span>
               </div>
               <span class="layer-crate-badge">wolin-policy</span>
             </button>
 
             <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(1, this)">
               <div>
-                <span class="layer-code">LAYER 02 · IDENTITY MESH</span>
-                <span class="layer-name">Federated Trust &amp; Identity Mesh</span>
-                <span class="layer-desc-short">Solid-OIDC, W3C WebID, did:key/did:nostr 및 RFC 9449 DPoP 서명 검증</span>
+                <span class="layer-code" data-i18n="arch.l1Code">LAYER 02 · IDENTITY MESH</span>
+                <span class="layer-name" data-i18n="arch.l1Name">Federated Trust &amp; Identity Mesh</span>
+                <span class="layer-desc-short" data-i18n="arch.l1Short">Solid-OIDC, W3C WebID, did:key/did:nostr 및 RFC 9449 DPoP 서명 검증</span>
               </div>
               <span class="layer-crate-badge">wolin-identity</span>
             </button>
 
             <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(2, this)">
               <div>
-                <span class="layer-code">LAYER 03 · SEMANTIC ENGINE</span>
-                <span class="layer-name">High-Performance Semantic Core</span>
-                <span class="layer-desc-short">임베디드 Oxigraph 쿼드 스토어 기반 서브밀리초 SPARQL 1.1 및 Solid LDP</span>
+                <span class="layer-code" data-i18n="arch.l2Code">LAYER 03 · SEMANTIC ENGINE</span>
+                <span class="layer-name" data-i18n="arch.l2Name">High-Performance Semantic Core</span>
+                <span class="layer-desc-short" data-i18n="arch.l2Short">임베디드 Oxigraph 쿼드 스토어 기반 서브밀리초 SPARQL 1.1 및 Solid LDP</span>
               </div>
               <span class="layer-crate-badge">wolin-storage</span>
             </button>
 
             <button type="button" role="tab" aria-selected="false" class="layer-btn" onclick="selectLayer(3, this)">
               <div>
-                <span class="layer-code">LAYER 04 · PERSISTENCE FABRIC</span>
-                <span class="layer-name">Multi-Backend Storage Virtualization</span>
-                <span class="layer-desc-short">Apache OpenDAL 물리 스토리지 추상화 (NVMe, S3, Cloudflare R2, Ceph)</span>
+                <span class="layer-code" data-i18n="arch.l3Code">LAYER 04 · PERSISTENCE FABRIC</span>
+                <span class="layer-name" data-i18n="arch.l3Name">Multi-Backend Storage Virtualization</span>
+                <span class="layer-desc-short" data-i18n="arch.l3Short">Apache OpenDAL 물리 스토리지 추상화 (NVMe, S3, Cloudflare R2, Ceph)</span>
               </div>
               <span class="layer-crate-badge">opendal</span>
             </button>
@@ -2425,34 +2522,34 @@
           </div>
         </div>
 
-        <div class="sub-eyebrow">HTTP &amp; W3C SOLID PROTOCOL ENDPOINTS</div>
+        <div class="sub-eyebrow" data-i18n="arch.epEyebrow">HTTP &amp; W3C SOLID PROTOCOL ENDPOINTS</div>
         <div class="docs-endpoint-bar">
           <div class="ep-doc-item">
             <div><span class="http-verb">GET</span><span class="http-route">/.well-known/wolin</span></div>
-            <p class="ep-doc-desc">지원 프로토콜(<code>solid-0.11</code>, <code>wac-2.0</code>, <code>oidc-dpop</code>) 및 클러스터 메타데이터 탐색.</p>
+            <p class="ep-doc-desc" data-i18n-html="arch.ep1Desc">지원 프로토콜(<code>solid-0.11</code>, <code>wac-2.0</code>, <code>oidc-dpop</code>) 및 클러스터 메타데이터 탐색.</p>
           </div>
           <div class="ep-doc-item">
             <div><span class="http-verb">POST</span><span class="http-route">/api/pods</span></div>
-            <p class="ep-doc-desc">멀티테넌트 Pod 온디맨드 프로비저닝 및 표준 시드(<code>card#me</code>, <code>pim:storage</code>, <code>inbox</code>) 생성.</p>
+            <p class="ep-doc-desc" data-i18n-html="arch.ep2Desc">멀티테넌트 Pod 온디맨드 프로비저닝 및 표준 시드(<code>card#me</code>, <code>pim:storage</code>, <code>inbox</code>) 생성.</p>
           </div>
           <div class="ep-doc-item">
             <div><span class="http-verb">GET</span><span class="http-route">/pods/{id}/profile/card</span></div>
-            <p class="ep-doc-desc">RFC 9449 DPoP 및 Solid-OIDC 기반 W3C WebID 프로필 문서 및 스토리지 포인터 발행.</p>
+            <p class="ep-doc-desc" data-i18n-html="arch.ep3Desc">RFC 9449 DPoP 및 Solid-OIDC 기반 W3C WebID 프로필 문서 및 스토리지 포인터 발행.</p>
           </div>
           <div class="ep-doc-item">
             <div><span class="http-verb">GET</span><span class="http-route">/health</span></div>
-            <p class="ep-doc-desc">데몬 가용성, <code>wolin-server</code> 버전 및 RocksDB/OpenDAL 스토리지 상태 점검.</p>
+            <p class="ep-doc-desc" data-i18n-html="arch.ep4Desc">데몬 가용성, <code>wolin-server</code> 버전 및 RocksDB/OpenDAL 스토리지 상태 점검.</p>
           </div>
         </div>
 
-        <div class="sub-eyebrow">CARGO WORKSPACE TOPOLOGY (6 CRATES · EDITION 2021)</div>
+        <div class="sub-eyebrow" data-i18n="arch.cratesEyebrow">CARGO WORKSPACE TOPOLOGY (6 CRATES · EDITION 2021)</div>
         <div class="crate-hairline-grid">
           <div class="crate-cell">
             <div class="crate-head">
               <span class="crate-name">wolin-core</span>
               <span class="crate-ver">v0.1.0</span>
             </div>
-            <p>도메인 원시 타입, 주체 식별자 및 통합 오류 체계 정의.</p>
+            <p data-i18n="arch.c1Desc">도메인 원시 타입, 주체 식별자 및 통합 오류 체계 정의.</p>
             <div class="crate-exports">pub use {Principal, WebId, ResourceUri, WolinError}</div>
           </div>
 
@@ -2461,7 +2558,7 @@
               <span class="crate-name">wolin-storage</span>
               <span class="crate-ver">v0.1.0</span>
             </div>
-            <p>Oxigraph 시맨틱 쿼드 스토어 및 OpenDAL 물리 블롭 연산자 결합.</p>
+            <p data-i18n="arch.c2Desc">Oxigraph 시맨틱 쿼드 스토어 및 OpenDAL 물리 블롭 연산자 결합.</p>
             <div class="crate-exports">pub struct {SemanticGraphStore, PhysicalStore}</div>
           </div>
 
@@ -2470,7 +2567,7 @@
               <span class="crate-name">wolin-identity</span>
               <span class="crate-ver">v0.1.0</span>
             </div>
-            <p>WebID 디스커버리, W3C DID 해석, Solid-OIDC 및 DPoP 클레임 검증.</p>
+            <p data-i18n="arch.c3Desc">WebID 디스커버리, W3C DID 해석, Solid-OIDC 및 DPoP 클레임 검증.</p>
             <div class="crate-exports">pub struct OidcValidator · validate_claims()</div>
           </div>
 
@@ -2479,7 +2576,7 @@
               <span class="crate-name">wolin-policy</span>
               <span class="crate-ver">v0.1.0</span>
             </div>
-            <p>W3C WAC/ACP 규칙 평가기(PDP) 및 최소 권한 스코프 인가 엔진.</p>
+            <p data-i18n="arch.c4Desc">W3C WAC/ACP 규칙 평가기(PDP) 및 최소 권한 스코프 인가 엔진.</p>
             <div class="crate-exports">PolicyEngine::evaluate(principal, uri, mode)</div>
           </div>
 
@@ -2488,7 +2585,7 @@
               <span class="crate-name">wolin-bridge</span>
               <span class="crate-ver">v0.1.0</span>
             </div>
-            <p>외부 월드 프로토콜 브리지, 무손실 번들 직렬화 및 서브그래프 투영 어댑터.</p>
+            <p data-i18n="arch.c5Desc">외부 월드 프로토콜 브리지, 무손실 번들 직렬화 및 서브그래프 투영 어댑터.</p>
             <div class="crate-exports">ProjectionBridge · BundleExport · SubgraphView</div>
           </div>
 
@@ -2497,18 +2594,18 @@
               <span class="crate-name">wolin-server</span>
               <span class="crate-ver">v0.1.0</span>
             </div>
-            <p>Axum 0.8 + Tokio 기반 HTTP LDP, 서브도메인 격리 및 멀티테넌트 데몬.</p>
+            <p data-i18n="arch.c6Desc">Axum 0.8 + Tokio 기반 HTTP LDP, 서브도메인 격리 및 멀티테넌트 데몬.</p>
             <div class="crate-exports">axum::serve(TcpListener, Router) // :4000</div>
           </div>
         </div>
 
-        <div class="sub-eyebrow">OFFICIAL PROTOCOL SPECIFICATIONS &amp; WHITE PAPERS</div>
+        <div class="sub-eyebrow" data-i18n="arch.specsEyebrow">OFFICIAL PROTOCOL SPECIFICATIONS &amp; WHITE PAPERS</div>
         <div class="spec-rows">
           <a href="docs/INRUPT_INTEROP.md" class="spec-row-link">
             <span class="spec-row-tag">RFC · INTEROP</span>
             <div>
-              <div class="spec-row-title">Inrupt ESS &amp; Solid-OIDC 0.11 규격서</div>
-              <div class="spec-row-desc">외부 WebID 역참조, solid:oidcIssuer 신뢰 체인, RFC 9449 DPoP 증명 및 양방향 상호운용 사양.</div>
+              <div class="spec-row-title" data-i18n="arch.s1Title">Inrupt ESS &amp; Solid-OIDC 0.11 규격서</div>
+              <div class="spec-row-desc" data-i18n="arch.s1Desc">외부 WebID 역참조, solid:oidcIssuer 신뢰 체인, RFC 9449 DPoP 증명 및 양방향 상호운용 사양.</div>
             </div>
             <span class="spec-row-file">INRUPT_INTEROP.md →</span>
           </a>
@@ -2516,8 +2613,8 @@
           <a href="docs/POD_CLOUD_SPEC.md" class="spec-row-link">
             <span class="spec-row-tag">CLOUD · SPEC</span>
             <div>
-              <div class="spec-row-title">소버린 팟 클라우드 운영 사양서</div>
-              <div class="spec-row-desc">서브도메인 오리진 격리({pod_id}.wolin.id), 동적 프로비저닝 API 및 W3C 표준 시맨틱 시딩 명세.</div>
+              <div class="spec-row-title" data-i18n="arch.s2Title">소버린 팟 클라우드 운영 사양서</div>
+              <div class="spec-row-desc" data-i18n="arch.s2Desc">서브도메인 오리진 격리({pod_id}.wolin.id), 동적 프로비저닝 API 및 W3C 표준 시맨틱 시딩 명세.</div>
             </div>
             <span class="spec-row-file">POD_CLOUD_SPEC.md →</span>
           </a>
@@ -2525,8 +2622,8 @@
           <a href="docs/VISION.md" class="spec-row-link">
             <span class="spec-row-tag">MANIFESTO · VISION</span>
             <div>
-              <div class="spec-row-title">월인천강(月印千江) 비전 백서</div>
-              <div class="spec-row-desc">무코인·무가스비 인간 중심 신원 계층과 수천 개의 월드를 비추는 최소 권한 투영 철학.</div>
+              <div class="spec-row-title" data-i18n="arch.s3Title">월인천강(月印千江) 비전 백서</div>
+              <div class="spec-row-desc" data-i18n="arch.s3Desc">무코인·무가스비 인간 중심 신원 계층과 수천 개의 월드를 비추는 최소 권한 투영 철학.</div>
             </div>
             <span class="spec-row-file">VISION.md →</span>
           </a>
@@ -2534,8 +2631,8 @@
           <a href="docs/ARCHITECTURE.md" class="spec-row-link">
             <span class="spec-row-tag">SYSTEM · TOPOLOGY</span>
             <div>
-              <div class="spec-row-title">Wolin 다계층 스토리지 &amp; 런타임 명세서</div>
-              <div class="spec-row-desc">OpenDAL 블롭 + Oxigraph SPARQL 듀얼 플레인 스토리지 및 WAC/ACP 인가 토폴로지.</div>
+              <div class="spec-row-title" data-i18n="arch.s4Title">Wolin 다계층 스토리지 &amp; 런타임 명세서</div>
+              <div class="spec-row-desc" data-i18n="arch.s4Desc">OpenDAL 블롭 + Oxigraph SPARQL 듀얼 플레인 스토리지 및 WAC/ACP 인가 토폴로지.</div>
             </div>
             <span class="spec-row-file">ARCHITECTURE.md →</span>
           </a>
@@ -2546,18 +2643,18 @@
     <!-- 05. Engineering Telemetry & Benchmarks -->
     <section class="band surface-band" id="benchmarks">
       <div class="container">
-        <span class="section-eyebrow">04 · ENGINEERING TELEMETRY</span>
+        <span class="section-eyebrow" data-i18n="bench.eyebrow">04 · ENGINEERING TELEMETRY</span>
         <div class="section-heading-row">
-          <h2 class="section-title">가비지 컬렉션 없는 정밀함.<br>홈서버부터 클라우드까지 단일 바이너리로.</h2>
-          <p class="section-sub">
+          <h2 class="section-title" data-i18n-html="bench.title">가비지 컬렉션 없는 정밀함.<br>홈서버부터 클라우드까지 단일 바이너리로.</h2>
+          <p class="section-sub" data-i18n="bench.sub">
             개인 미니 PC 홈서버부터 수십만 포드를 수용하는 클라우드 클러스터까지 동일한 정적 바이너리로 동작합니다.
           </p>
         </div>
 
         <div class="bench-grid">
           <div class="bench-panel">
-            <h3>Idle &amp; Active Pod Memory Footprint (RSS)</h3>
-            <p class="bench-note">10,000 RDF Triples 로드 및 동시 SPARQL 프로젝션 상태 기준 메모리 점유 비교</p>
+            <h3 data-i18n="bench.panelTitle">Idle &amp; Active Pod Memory Footprint (RSS)</h3>
+            <p class="bench-note" data-i18n="bench.panelNote">10,000 RDF Triples 로드 및 동시 SPARQL 프로젝션 상태 기준 메모리 점유 비교</p>
 
             <div class="bar-group">
               <div class="bar-label-row">
@@ -2587,23 +2684,23 @@
           <div class="spec-pillars">
             <div class="spec-box">
               <div class="spec-num">11 ms</div>
-              <h4>Instant Cold Boot</h4>
-              <p>런타임 예열 없이 Axum 라우터와 임베디드 쿼드 스토어를 즉시 마운트합니다.</p>
+              <h4 data-i18n="bench.p1Title">Instant Cold Boot</h4>
+              <p data-i18n="bench.p1Desc">런타임 예열 없이 Axum 라우터와 임베디드 쿼드 스토어를 즉시 마운트합니다.</p>
             </div>
             <div class="spec-box">
               <div class="spec-num">0.00 ms</div>
-              <h4>Zero GC Tail-Latency</h4>
-              <p>Stop-the-World 가비지 컬렉션 지연이 없어 멀티테넌트 요청에서도 P99가 균일합니다.</p>
+              <h4 data-i18n="bench.p2Title">Zero GC Tail-Latency</h4>
+              <p data-i18n="bench.p2Desc">Stop-the-World 가비지 컬렉션 지연이 없어 멀티테넌트 요청에서도 P99가 균일합니다.</p>
             </div>
             <div class="spec-box">
               <div class="spec-num">SPARQL 1.1</div>
-              <h4>Embedded Graph Joins</h4>
-              <p>네트워크 홉 없이 프로세스 내부에서 RDF 그래프 조인과 마스킹 뷰를 합성합니다.</p>
+              <h4 data-i18n="bench.p3Title">Embedded Graph Joins</h4>
+              <p data-i18n="bench.p3Desc">네트워크 홉 없이 프로세스 내부에서 RDF 그래프 조인과 마스킹 뷰를 합성합니다.</p>
             </div>
             <div class="spec-box">
               <div class="spec-num">RFC 9449</div>
-              <h4>Sender-Constrained DPoP</h4>
-              <p>탈취된 베어러 토큰 재사용을 원천 차단하는 비대칭키 소유 증명을 강제합니다.</p>
+              <h4 data-i18n="bench.p4Title">Sender-Constrained DPoP</h4>
+              <p data-i18n="bench.p4Desc">탈취된 베어러 토큰 재사용을 원천 차단하는 비대칭키 소유 증명을 강제합니다.</p>
             </div>
           </div>
         </div>
@@ -2613,10 +2710,10 @@
     <!-- 06. Interactive Policy & Selective Disclosure Simulator -->
     <section class="band" id="playground" style="border-bottom: none;">
       <div class="container">
-        <span class="section-eyebrow">05 · INTERACTIVE POLICY LAB</span>
+        <span class="section-eyebrow" data-i18n="play.eyebrow">05 · INTERACTIVE POLICY LAB</span>
         <div class="section-heading-row">
-          <h2 class="section-title">천 개의 강 시뮬레이터:<br>선택적 권한 정책 실험실.</h2>
-          <p class="section-sub">
+          <h2 class="section-title" data-i18n-html="play.title">천 개의 강 시뮬레이터:<br>선택적 권한 정책 실험실.</h2>
+          <p class="section-sub" data-i18n-html="play.sub">
             호출 주체(포드 소유자, 스코프 위임 월드, 미승인 클라이언트, 익명 방문자)와 작업 모드를 바꿔가며 <code>wolin-policy</code> 인가 판정과 Zero-PII 투영 결과를 검증하세요.
           </p>
         </div>
@@ -2624,13 +2721,13 @@
         <div class="playground-shell">
           <div class="playground-topbar">
             <span class="playground-title">wolin://alice.wolin.id — PDP &amp; Selective Subgraph Simulator</span>
-            <span style="font-family: var(--font-mono); font-size: 0.71rem; color: var(--accent);">DETERMINISTIC IN-BROWSER PDP</span>
+            <span style="font-family: var(--font-mono); font-size: 0.71rem; color: var(--accent);" data-i18n="play.topBadge">DETERMINISTIC IN-BROWSER PDP</span>
           </div>
 
           <div class="playground-body">
             <div class="sim-controls">
               <div>
-                <label class="field-label" for="sim-principal">01. Calling Principal (호출 주체 및 인증 컨텍스트)</label>
+                <label class="field-label" for="sim-principal" data-i18n="play.labelPrincipal">01. Calling Principal (호출 주체 및 인증 컨텍스트)</label>
                 <select id="sim-principal" class="sim-select" onchange="runSimulation()">
                   <option value="app_scoped" selected>Principal::WorldApp { id: "sunlit-cat-cafe", scope: ["read"], DPoP: valid }</option>
                   <option value="owner">Principal::Owner { webid: "https://alice.wolin.id#me", Solid-OIDC }</option>
@@ -2640,7 +2737,7 @@
               </div>
 
               <div>
-                <label class="field-label" for="sim-action">02. Target Resource &amp; AccessMode (요청 작업)</label>
+                <label class="field-label" for="sim-action" data-i18n="play.labelAction">02. Target Resource &amp; AccessMode (요청 작업)</label>
                 <select id="sim-action" class="sim-select" onchange="syncActionPreset()">
                   <option value="sparql_read" selected>GET /pods/alice/semantic (SPARQL Read · AccessMode::Read)</option>
                   <option value="private_write">PATCH wolin://pod/private/vault.ttl (AccessMode::Write)</option>
@@ -2650,7 +2747,7 @@
               </div>
 
               <div>
-                <label class="field-label" for="sim-sparql">03. SPARQL / RDF Payload</label>
+                <label class="field-label" for="sim-sparql" data-i18n="play.labelSparql">03. SPARQL / RDF Payload</label>
                 <textarea id="sim-sparql" class="sim-textarea">PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX wolin: <https://wolin.id/ns#>
 
@@ -2664,7 +2761,7 @@ WHERE {
               </div>
 
               <div class="sim-run-row">
-                <button type="button" class="btn-execute" onclick="runSimulation()">EXECUTE PROJECTION →</button>
+                <button type="button" class="btn-execute" onclick="runSimulation()" data-i18n="play.executeBtn">EXECUTE PROJECTION →</button>
                 <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);" id="sim-latency">eval: 0.34 ms · selective disclosure active</span>
               </div>
             </div>
@@ -2684,29 +2781,29 @@ WHERE {
     <!-- 06. Company / Operator Introduction -->
     <section class="band" id="company" style="border-top: 1px solid var(--line); border-bottom: none; background: var(--surface);">
       <div class="container">
-        <div class="section-eyebrow">06 · Company &amp; Operator</div>
+        <div class="section-eyebrow" data-i18n="company.eyebrow">06 · Company &amp; Operator</div>
         <div class="section-heading-row" style="margin-bottom: 2rem;">
           <h2 class="section-title">엔트로피패러독스 주식회사<br><span style="font-size: 0.62em; font-weight: 500; color: var(--muted); letter-spacing: -0.01em;">Entropy Paradox, Inc.</span></h2>
-          <p class="section-sub">
+          <p class="section-sub" data-i18n="company.sub">
             서울 기반의 시스템 소프트웨어·소버린 인프라 전문 기업입니다. W3C 개방형 표준과 초경량 Rust 런타임으로 플랫폼 종속 없는 차세대 디지털 정체성 인프라 Wolin(월인)을 설계·운영합니다.
           </p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border: 1px solid var(--line); border-radius: 10px; background: var(--bg); overflow: hidden;">
           <div style="padding: 1.25rem 1.4rem; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);">
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.35rem;">Operator</div>
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.35rem;" data-i18n="company.labelOperator">Operator</div>
             <div style="font-size: 0.94rem; font-weight: 600; color: var(--ink);">엔트로피패러독스 주식회사</div>
             <div style="font-size: 0.82rem; color: var(--muted);">Entropy Paradox, Inc.</div>
           </div>
           <div style="padding: 1.25rem 1.4rem; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);">
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.35rem;">Leadership &amp; Registration</div>
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.35rem;" data-i18n="company.labelLeadership">Leadership &amp; Registration</div>
             <div style="font-size: 0.94rem; font-weight: 600; color: var(--ink);">Co-CEOs: Yongcheol Choi, Jungmo Kang</div>
             <div style="font-size: 0.82rem; color: var(--muted); font-family: var(--font-mono);">Reg. No. 264-88-01993</div>
           </div>
           <div style="padding: 1.25rem 1.4rem; border-bottom: 1px solid var(--line);">
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.35rem;">Headquarters &amp; Contact</div>
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.35rem;" data-i18n="company.labelHq">Headquarters &amp; Contact</div>
             <div style="font-size: 0.94rem; font-weight: 600; color: var(--ink);">79-4 Duteopbawi-ro, Yongsan-gu, Seoul</div>
-            <div style="font-size: 0.82rem; color: var(--cobalt); font-family: var(--font-mono);"><a href="mailto:hello@wolin.id" style="color: inherit; text-decoration: none;">hello@wolin.id</a></div>
+            <div style="font-size: 0.82rem; color: var(--accent); font-family: var(--font-mono);"><a href="mailto:hello@wolin.id" style="color: inherit; text-decoration: none;">hello@wolin.id</a></div>
           </div>
         </div>
       </div>
@@ -2717,56 +2814,69 @@ WHERE {
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <div class="footer-quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
+        <div class="footer-quote" data-i18n="footer.quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
         <div class="footer-meta">
-          <strong>wolin.id</strong> · Sovereign Pod Cloud &amp; Identity Infrastructure<br>
-          79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea<br>
-          Contact: <a href="mailto:hello@wolin.id">hello@wolin.id</a> · Licensed under MIT OR Apache-2.0
+          <strong>wolin.id</strong> · <span data-i18n="footer.tagline">Sovereign Pod Cloud &amp; Identity Infrastructure</span><br>
+          <span data-i18n="footer.address">79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea</span><br>
+          <span data-i18n="footer.contactLabel">Contact:</span> <a href="mailto:hello@wolin.id">hello@wolin.id</a> · <span data-i18n="footer.license">Licensed under MIT OR Apache-2.0</span>
         </div>
       </div>
       <div class="footer-links">
-        <a href="/pricing.html">Pricing</a>
-        <a href="/prompts.html">Prompts</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/refund.html">Refund</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
+        <a href="/terms.html" data-i18n="footer.terms">Terms</a>
+        <a href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
+        <a href="/refund.html" data-i18n="footer.refund">Refund</a>
         <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
   </footer>
 
+  <script src="i18n.js"></script>
   <script>
+    let currentRiverIdx = 0;
+    let currentArchIdx = 0;
+
+    function tr(key, fallback) {
+      return window.wolinT ? window.wolinT(key) : fallback;
+    }
+
     function copyCli() {
       const cmd = document.getElementById('cli-text').textContent;
       const btn = document.getElementById('copy-cli-btn');
       if (navigator.clipboard) {
         navigator.clipboard.writeText(cmd);
       }
-      btn.textContent = 'COPIED';
+      btn.textContent = tr('hero.cliCopied', 'COPIED');
       btn.style.color = '#0055FF';
       btn.style.borderColor = '#0055FF';
       setTimeout(() => {
-        btn.textContent = 'COPY';
+        btn.textContent = tr('hero.cliCopy', 'COPY');
         btn.style.color = '';
         btn.style.borderColor = '';
       }, 1600);
     }
 
     const riverMeta = [
-      { label: 'RAY 01 · SOCIAL VERSE (3D AVATAR)' },
-      { label: 'RAY 02 · COMMERCE VERSE (POP-UP)' },
-      { label: 'RAY 03 · LIVE STAGE (CONCERT)' },
-      { label: 'RAY 04 · OPEN WORLD (PORTALS)' }
+      { key: 'hero.ray0', label: 'RAY 01 · SOCIAL VERSE (3D AVATAR)' },
+      { key: 'hero.ray1', label: 'RAY 02 · COMMERCE VERSE (POP-UP)' },
+      { key: 'hero.ray2', label: 'RAY 03 · LIVE STAGE (CONCERT)' },
+      { key: 'hero.ray3', label: 'RAY 04 · OPEN WORLD (PORTALS)' }
     ];
 
     function focusRiver(idx, btnEl) {
+      currentRiverIdx = idx;
       document.querySelectorAll('.river-chip').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
       });
-      btnEl.classList.add('active');
-      btnEl.setAttribute('aria-selected', 'true');
-      document.getElementById('active-ray-label').textContent = riverMeta[idx].label;
+      if (btnEl) {
+        btnEl.classList.add('active');
+        btnEl.setAttribute('aria-selected', 'true');
+      }
+      const rayEl = document.getElementById('active-ray-label');
+      rayEl.setAttribute('data-i18n', riverMeta[idx].key);
+      rayEl.textContent = tr(riverMeta[idx].key, riverMeta[idx].label);
 
       for (let i = 0; i < 4; i++) {
         const ray = document.getElementById('ray-' + i);
@@ -2793,6 +2903,7 @@ WHERE {
       {
         path: 'crates/wolin-policy/src/pdp.rs · crates/wolin-server/src/ldp.rs',
         badges: ['Solid 0.11', 'WAC / ACP 2.0', 'Zero-PII'],
+        summaryKey: 'arch.l0Summary',
         summary: '외부 애플리케이션은 포드 전체 스토리지에 직접 접근할 수 없습니다. 모든 요청은 PolicyEngine::evaluate를 통과해 위임된 스코프(read, write, admin)를 검증받으며, 인가된 트리플만 직렬화되어 반환됩니다.',
         code: `<span class="cm">// crates/wolin-policy/src/pdp.rs — Scoped Data Projection</span>
 <span class="kw">impl</span> <span class="ty">PolicyEngine</span> {
@@ -2811,6 +2922,7 @@ WHERE {
       {
         path: 'crates/wolin-identity/src/oidc.rs · crates/wolin-core/src/identity.rs',
         badges: ['Solid-OIDC', 'W3C DID', 'RFC 9449 DPoP'],
+        summaryKey: 'arch.l1Summary',
         summary: '엔터프라이즈 SSO(ZITADEL, Keycloak)와 표준 분산 신원(WebID, did:key, did:nostr)을 단일 Principal 열거형으로 추상화합니다. 연동된 3D 월드는 위임자의 WebID와 서명된 스코프를 함께 제시합니다.',
         code: `<span class="cm">// crates/wolin-core/src/identity.rs — Unified Sovereign Principal</span>
 <span class="kw">pub enum</span> <span class="ty">Principal</span> {
@@ -2829,6 +2941,7 @@ WHERE {
       {
         path: 'crates/wolin-storage/src/graph.rs',
         badges: ['Oxigraph 0.4', 'SPARQL 1.1', 'Solid LDP 0.11'],
+        summaryKey: 'arch.l2Summary',
         summary: '데이터를 파편화된 JSON 덤프가 아닌 의미론적 쿼드 그래프(Subject-Predicate-Object-Graph)로 조직화합니다. 아바타, 착용 에셋, 월드 포털 링크를 표준 어휘로 즉시 질의합니다.',
         code: `<span class="cm">// crates/wolin-storage/src/graph.rs — Embedded RDF Quad Store</span>
 <span class="kw">use</span> oxigraph::store::<span class="ty">Store</span>;
@@ -2848,6 +2961,7 @@ WHERE {
       {
         path: 'crates/wolin-storage/src/physical.rs',
         badges: ['Apache OpenDAL 0.51', 'NVMe / S3 / R2', 'Zero Lock-in'],
+        summaryKey: 'arch.l3Summary',
         summary: 'Apache OpenDAL 연산자를 통해 로컬 NVMe부터 AWS S3, Cloudflare R2, 사내 Ceph 클러스터까지 코드 변경 없이 물리 스토리지를 전환하고 무손실 이주를 보장합니다.',
         code: `<span class="cm">// crates/wolin-storage/src/physical.rs — Multi-Backend Persistence</span>
 <span class="kw">use</span> opendal::{services::<span class="ty">Fs</span>, <span class="ty">Operator</span>};
@@ -2863,15 +2977,18 @@ WHERE {
     ];
 
     function selectLayer(idx, btnEl) {
+      currentArchIdx = idx;
       document.querySelectorAll('.layer-btn').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
       });
-      btnEl.classList.add('active');
-      btnEl.setAttribute('aria-selected', 'true');
+      if (btnEl) {
+        btnEl.classList.add('active');
+        btnEl.setAttribute('aria-selected', 'true');
+      }
       const item = archLayers[idx];
       document.getElementById('arch-file-path').textContent = item.path;
-      document.getElementById('arch-summary').textContent = item.summary;
+      document.getElementById('arch-summary').textContent = tr(item.summaryKey, item.summary);
       document.getElementById('arch-code').innerHTML = '<code>' + item.code + '</code>';
       document.getElementById('arch-badges').innerHTML = item.badges
         .map(b => `<span class="std-chip">${b}</span>`)
@@ -2961,9 +3078,9 @@ WHERE {
 
       if (permit) {
         banner.className = 'decision-banner permit';
-        vTitle.textContent = 'ACCESS DECISION: PERMIT';
+        vTitle.textContent = tr('play.permitTitle', 'ACCESS DECISION: PERMIT');
         vRule.textContent = ruleTag;
-        lat.textContent = 'eval: 0.34 ms · selective disclosure active';
+        lat.textContent = tr('play.latencyPermit', 'eval: 0.34 ms · selective disclosure active');
 
         const piiRedacted = principal !== 'owner';
         const payload = {
@@ -2985,9 +3102,9 @@ WHERE {
         out.textContent = JSON.stringify(payload, null, 2);
       } else {
         banner.className = 'decision-banner deny';
-        vTitle.textContent = 'ACCESS DECISION: DENY';
+        vTitle.textContent = tr('play.denyTitle', 'ACCESS DECISION: DENY');
         vRule.textContent = ruleTag;
-        lat.textContent = 'eval: 0.11 ms · halted at PDP waterline';
+        lat.textContent = tr('play.latencyDeny', 'eval: 0.11 ms · halted at PDP waterline');
 
         const errPayload = {
           is_error: true,
@@ -3002,7 +3119,20 @@ WHERE {
       }
     }
 
-    runSimulation();
+    function syncDynamicI18n() {
+      const item = archLayers[currentArchIdx];
+      if (item) {
+        document.getElementById('arch-summary').textContent = tr(item.summaryKey, item.summary);
+      }
+      const ray = riverMeta[currentRiverIdx];
+      if (ray) {
+        document.getElementById('active-ray-label').textContent = tr(ray.key, ray.label);
+      }
+      runSimulation();
+    }
+
+    window.addEventListener('wolin:langchange', syncDynamicI18n);
+    syncDynamicI18n();
   </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-i18n-title="pricing.meta.title">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,7 +26,7 @@
       --line-strong: rgba(0, 0, 0, 0.14);
       --line-accent: rgba(0, 85, 255, 0.28);
 
-      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
       --font-serif-kr: "Noto Serif KR", Georgia, serif;
       --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -141,7 +141,7 @@
     .site-nav {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: clamp(0.9rem, 1.4vw, 1.5rem);
     }
 
     .site-nav a {
@@ -168,8 +168,42 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.65rem;
       flex-shrink: 0;
+    }
+
+    .lang-select {
+      appearance: none;
+      -webkit-appearance: none;
+      height: 36px;
+      min-height: 36px;
+      padding: 0 1.75rem 0 0.65rem;
+      border-radius: 7px;
+      border: 1px solid var(--line-strong);
+      background-color: var(--surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%2352525B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.55rem center;
+      background-size: 11px 11px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.16s ease, background-color 0.16s ease;
+      flex-shrink: 0;
+    }
+
+    .lang-select:hover {
+      border-color: var(--ink);
+      background-color: var(--bg);
+    }
+
+    .lang-select:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(0, 85, 255, 0.15);
     }
 
     .header-link-mobile {
@@ -180,6 +214,7 @@
       font-weight: 500;
       color: var(--muted);
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .header-cta {
@@ -203,24 +238,65 @@
       background: var(--accent);
     }
 
-    @media (max-width: 920px) {
-      .site-nav { display: none; }
-      .header-link-mobile { display: inline-flex; }
+    .mobile-subnav {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 0 1.15rem;
+      gap: 1.25rem;
+      align-items: center;
     }
 
-    @media (max-width: 640px) {
+    .mobile-subnav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.81rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .mobile-subnav a:hover,
+    .mobile-subnav a[aria-current="page"] {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    h1, h2, p {
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 980px) {
+      .site-nav { display: none; }
+      .header-link-mobile { display: inline-flex; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 680px) {
       .header-inner {
-        min-height: 60px;
+        min-height: 58px;
         padding: 0 1.15rem;
-        gap: 0.6rem;
+        gap: 0.5rem;
       }
       .brand-hanja { display: none; }
-      .header-actions { gap: 0.65rem; }
-      .header-link-mobile { font-size: 0.8rem; }
+      .header-link-mobile { display: none; }
+      .mobile-subnav { display: flex; }
+      .header-actions { gap: 0.5rem; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+        font-size: 0.78rem;
+        padding: 0 1.55rem 0 0.55rem;
+        background-position: right 0.45rem center;
+      }
       .header-cta {
         min-height: 44px;
-        padding: 0 0.78rem;
-        font-size: 0.79rem;
+        padding: 0 0.75rem;
+        font-size: 0.78rem;
       }
     }
 
@@ -717,27 +793,40 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
-        <a href="/#passport">Passport</a>
-        <a href="/#manifesto">Manifesto</a>
-        <a href="/#architecture">Architecture</a>
-        <a href="/pricing.html" aria-current="page">Pricing</a>
-        <a href="/prompts.html">Prompts</a>
+        <a href="/#passport" data-i18n="nav.passport">Passport</a>
+        <a href="/#manifesto" data-i18n="nav.manifesto">Manifesto</a>
+        <a href="/#architecture" data-i18n="nav.architecture">Architecture</a>
+        <a href="/pricing.html" aria-current="page" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
       </nav>
 
       <div class="header-actions">
-        <a href="/" class="header-link-mobile">Home</a>
-        <a href="/prompts.html" class="header-link-mobile">Prompts</a>
-        <a href="mailto:hello@wolin.id?subject=Wolin%20Pod%20Onboarding" class="header-cta">Get Started</a>
+        <a href="/" class="header-link-mobile" data-i18n="nav.home">Home</a>
+        <a href="/prompts.html" class="header-link-mobile" data-i18n="nav.prompts">Prompts</a>
+        <select class="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+        <a href="mailto:hello@wolin.id?subject=Wolin%20Pod%20Onboarding" class="header-cta" data-i18n="nav.getStarted">Get Started</a>
       </div>
     </div>
+    <nav class="mobile-subnav" aria-label="Mobile Navigation">
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/pricing.html" aria-current="page" data-i18n="nav.pricing">Pricing</a>
+      <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
+    </nav>
   </header>
 
   <main>
     <div class="container">
       <div class="pricing-header">
-        <span class="eyebrow-label">PRICING &amp; CLOUD QUOTAS</span>
-        <h1>Sovereign Pod Cloud &amp; Creator Plans</h1>
-        <p class="lead">
+        <span class="eyebrow-label" data-i18n="pricing.eyebrow">PRICING &amp; CLOUD QUOTAS</span>
+        <h1 data-i18n="pricing.title">Sovereign Pod Cloud &amp; Creator Plans</h1>
+        <p class="lead" data-i18n-html="pricing.lead">
           Digital cloud hosting for W3C Solid Pods, custom WebID domains, and metaverse media delivery. Zero egress fees on public 3D assets, full <code>.tar.zst</code> portability, and all services delivered digitally online with zero physical shipping.
         </p>
       </div>
@@ -748,38 +837,38 @@
         <article class="tier-card">
           <div>
             <div class="tier-top-row">
-              <span class="tier-name">Free Starter</span>
+              <span class="tier-name" data-i18n="pricing.free.name">Free Starter</span>
             </div>
             <div class="tier-price-row">
               <span class="tier-price">$0</span>
-              <span class="tier-period">/ month</span>
+              <span class="tier-period" data-i18n="pricing.period">/ month</span>
             </div>
-            <p class="tier-summary">For individuals claiming a portable metaverse identity, 3D avatar closet, and Wolin Passport.</p>
+            <p class="tier-summary" data-i18n="pricing.free.summary">For individuals claiming a portable metaverse identity, 3D avatar closet, and Wolin Passport.</p>
 
-            <a href="mailto:hello@wolin.id?subject=Claim%20Free%20Wolin%20Pod" class="btn-plan">Claim Free Pod</a>
+            <a href="mailto:hello@wolin.id?subject=Claim%20Free%20Wolin%20Pod" class="btn-plan" data-i18n="pricing.free.cta">Claim Free Pod</a>
 
             <div class="feature-divider">
-              <div class="feature-group-title">Included in Free</div>
+              <div class="feature-group-title" data-i18n="pricing.free.groupTitle">Included in Free</div>
               <ul class="check-list">
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>1 Sovereign Pod (1 GB cloud storage)</span>
+                  <span data-i18n="pricing.free.f1">1 Sovereign Pod (1 GB cloud storage)</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>4+ character handle (<code>{pod}.wolin.id</code>)</span>
+                  <span data-i18n-html="pricing.free.f2">4+ character handle (<code>{pod}.wolin.id</code>)</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Passwordless OAuth2, Passkey &amp; Magic Link</span>
+                  <span data-i18n="pricing.free.f3">Passwordless OAuth2, Passkey &amp; Magic Link</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Wolin Passport &amp; 1-click app consent switch</span>
+                  <span data-i18n="pricing.free.f4">Wolin Passport &amp; 1-click app consent switch</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Zero-loss Pod bundle export (<code>.tar.zst</code>)</span>
+                  <span data-i18n-html="pricing.free.f5">Zero-loss Pod bundle export (<code>.tar.zst</code>)</span>
                 </li>
               </ul>
             </div>
@@ -790,39 +879,39 @@
         <article class="tier-card pro-featured">
           <div>
             <div class="tier-top-row">
-              <span class="tier-name">Pro</span>
-              <span class="cobalt-badge">Most Popular</span>
+              <span class="tier-name" data-i18n="pricing.pro.name">Pro</span>
+              <span class="cobalt-badge" data-i18n="pricing.pro.badge">Most Popular</span>
             </div>
             <div class="tier-price-row">
               <span class="tier-price">$9</span>
-              <span class="tier-period">/ month</span>
+              <span class="tier-period" data-i18n="pricing.period">/ month</span>
             </div>
-            <p class="tier-summary">For builders, 3-character rare handle holders, and personal custom domain identities.</p>
+            <p class="tier-summary" data-i18n="pricing.pro.summary">For builders, 3-character rare handle holders, and personal custom domain identities.</p>
 
-            <a href="mailto:hello@wolin.id?subject=Wolin%20Pro%20Subscription" class="btn-plan primary">Upgrade to Pro →</a>
+            <a href="mailto:hello@wolin.id?subject=Wolin%20Pro%20Subscription" class="btn-plan primary" data-i18n="pricing.pro.cta">Upgrade to Pro →</a>
 
             <div class="feature-divider">
-              <div class="feature-group-title">Everything in Free, plus</div>
+              <div class="feature-group-title" data-i18n="pricing.pro.groupTitle">Everything in Free, plus</div>
               <ul class="check-list">
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>50 GB Cloud Storage (R2 Edge CDN, $0 egress)</span>
+                  <span data-i18n="pricing.pro.f1">50 GB Cloud Storage (R2 Edge CDN, $0 egress)</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Eligible for 3-character rare handle</span>
+                  <span data-i18n="pricing.pro.f2">Eligible for 3-character rare handle</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>1 Custom Domain (e.g. <code>id.yourdomain.com</code>)</span>
+                  <span data-i18n-html="pricing.pro.f3">1 Custom Domain (e.g. <code>id.yourdomain.com</code>)</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Auto-provisioned TLS &amp; Private Presigned R2</span>
+                  <span data-i18n="pricing.pro.f4">Auto-provisioned TLS &amp; Private Presigned R2</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Priority semantic SPARQL graph indexing</span>
+                  <span data-i18n="pricing.pro.f5">Priority semantic SPARQL graph indexing</span>
                 </li>
               </ul>
             </div>
@@ -833,38 +922,38 @@
         <article class="tier-card">
           <div>
             <div class="tier-top-row">
-              <span class="tier-name">Creator</span>
+              <span class="tier-name" data-i18n="pricing.creator.name">Creator</span>
             </div>
             <div class="tier-price-row">
               <span class="tier-price">$29</span>
-              <span class="tier-period">/ month</span>
+              <span class="tier-period" data-i18n="pricing.period">/ month</span>
             </div>
-            <p class="tier-summary">For 3D world hosts, live concert stages, and spatial commerce pop-up studios.</p>
+            <p class="tier-summary" data-i18n="pricing.creator.summary">For 3D world hosts, live concert stages, and spatial commerce pop-up studios.</p>
 
-            <a href="mailto:hello@wolin.id?subject=Wolin%20Creator%20Subscription" class="btn-plan ink">Start Creator Plan</a>
+            <a href="mailto:hello@wolin.id?subject=Wolin%20Creator%20Subscription" class="btn-plan ink" data-i18n="pricing.creator.cta">Start Creator Plan</a>
 
             <div class="feature-divider">
-              <div class="feature-group-title">Everything in Pro, plus</div>
+              <div class="feature-group-title" data-i18n="pricing.creator.groupTitle">Everything in Pro, plus</div>
               <ul class="check-list">
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>200 GB Cloud Storage for 3D scenes &amp; wearables</span>
+                  <span data-i18n="pricing.creator.f1">200 GB Cloud Storage for 3D scenes &amp; wearables</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>100 GB/mo Realtime SFU low-latency streaming</span>
+                  <span data-i18n="pricing.creator.f2">100 GB/mo Realtime SFU low-latency streaming</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Stream Boost viewer sponsorship room support</span>
+                  <span data-i18n="pricing.creator.f3">Stream Boost viewer sponsorship room support</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Up to 3 Custom Domains with origin isolation</span>
+                  <span data-i18n="pricing.creator.f4">Up to 3 Custom Domains with origin isolation</span>
                 </li>
                 <li>
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>Wolin Spatial AdSense host payouts</span>
+                  <span data-i18n="pricing.creator.f5">Wolin Spatial AdSense host payouts</span>
                 </li>
               </ul>
             </div>
@@ -878,82 +967,82 @@
         <div class="split-col">
           <div>
             <div class="split-head-row">
-              <span class="split-eyebrow">DEDICATED INFRASTRUCTURE</span>
-              <span class="split-tag">Custom Pricing</span>
+              <span class="split-eyebrow" data-i18n="pricing.ent.eyebrow">DEDICATED INFRASTRUCTURE</span>
+              <span class="split-tag" data-i18n="pricing.ent.tag">Custom Pricing</span>
             </div>
-            <h2>Enterprise</h2>
-            <p class="split-desc">
+            <h2 data-i18n="pricing.ent.title">Enterprise</h2>
+            <p class="split-desc" data-i18n="pricing.ent.desc">
               Physical single-tenant isolation, corporate IdP federation, and custom compliance guarantees for brands, studios, and public institutions.
             </p>
             <ul class="check-list">
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Dedicated Single-Tenant Pod Cluster (Cloud or On-Prem)</span>
+                <span data-i18n="pricing.ent.f1">Dedicated Single-Tenant Pod Cluster (Cloud or On-Prem)</span>
               </li>
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Verified Brand Handle &amp; DNS TXT Ownership Claim</span>
+                <span data-i18n="pricing.ent.f2">Verified Brand Handle &amp; DNS TXT Ownership Claim</span>
               </li>
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>ZITADEL / Keycloak SSO, Custom SLA &amp; Private KMS</span>
+                <span data-i18n="pricing.ent.f3">ZITADEL / Keycloak SSO, Custom SLA &amp; Private KMS</span>
               </li>
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>BYOK Realtime SFU &amp; Immutable Security Audit Logs</span>
+                <span data-i18n="pricing.ent.f4">BYOK Realtime SFU &amp; Immutable Security Audit Logs</span>
               </li>
             </ul>
           </div>
-          <a href="mailto:hello@wolin.id?subject=Wolin%20Enterprise%20Cluster%20Inquiry" class="split-cta solid">Contact Enterprise Sales →</a>
+          <a href="mailto:hello@wolin.id?subject=Wolin%20Enterprise%20Cluster%20Inquiry" class="split-cta solid" data-i18n="pricing.ent.cta">Contact Enterprise Sales →</a>
         </div>
 
         <!-- Right: Startups & Ecosystem Partners -->
         <div class="split-col">
           <div>
             <div class="split-head-row">
-              <span class="split-eyebrow">WORLD BUILDERS &amp; STUDIOS</span>
-              <span class="split-tag">Partner Credits</span>
+              <span class="split-eyebrow" data-i18n="pricing.eco.eyebrow">WORLD BUILDERS &amp; STUDIOS</span>
+              <span class="split-tag" data-i18n="pricing.eco.tag">Partner Credits</span>
             </div>
-            <h2>Startups &amp; Ecosystem Partners</h2>
-            <p class="split-desc">
+            <h2 data-i18n="pricing.eco.title">Startups &amp; Ecosystem Partners</h2>
+            <p class="split-desc" data-i18n="pricing.eco.desc">
               Launching an indie 3D world, university campus, or open-source Solid application? Qualified ecosystem builders receive cloud credits and directory placement.
             </p>
             <ul class="check-list">
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>6 months of Creator storage &amp; R2 asset delivery credits</span>
+                <span data-i18n="pricing.eco.f1">6 months of Creator storage &amp; R2 asset delivery credits</span>
               </li>
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Zero-review Solid-OIDC JSON-LD client onboarding</span>
+                <span data-i18n="pricing.eco.f2">Zero-review Solid-OIDC JSON-LD client onboarding</span>
               </li>
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Featured world portal listing on Wolin Passport</span>
+                <span data-i18n="pricing.eco.f3">Featured world portal listing on Wolin Passport</span>
               </li>
               <li>
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Starter world templates via the <a href="/prompts.html" class="inline-ref">Developer Prompts Hub</a></span>
+                <span data-i18n-html="pricing.eco.f4">Starter world templates via the <a href="/prompts.html" class="inline-ref">Developer Prompts Hub</a></span>
               </li>
             </ul>
           </div>
-          <a href="mailto:hello@wolin.id?subject=Wolin%20Ecosystem%20Partner%20Application" class="split-cta outline">Apply for Partner Credits →</a>
+          <a href="mailto:hello@wolin.id?subject=Wolin%20Ecosystem%20Partner%20Application" class="split-cta outline" data-i18n="pricing.eco.cta">Apply for Partner Credits →</a>
         </div>
       </section>
 
       <!-- Guarantee & Portability Strip -->
       <section class="guarantee-strip" aria-label="Platform Guarantees">
         <div class="guarantee-item">
-          <div class="guarantee-title">$0 Public Asset Egress</div>
-          <p class="guarantee-desc">3D avatars (<code>.glb</code>, <code>.vrm</code>) and world textures serve from Cloudflare R2 Edge CDN without surprise bandwidth bills.</p>
+          <div class="guarantee-title" data-i18n="pricing.g1.title">$0 Public Asset Egress</div>
+          <p class="guarantee-desc" data-i18n-html="pricing.g1.desc">3D avatars (<code>.glb</code>, <code>.vrm</code>) and world textures serve from Cloudflare R2 Edge CDN without surprise bandwidth bills.</p>
         </div>
         <div class="guarantee-item">
-          <div class="guarantee-title">Zero Lock-In Exit</div>
-          <p class="guarantee-desc">Export your full Pod graph, binary assets, and <code>.acl</code> permissions anytime to self-host on your own server.</p>
+          <div class="guarantee-title" data-i18n="pricing.g2.title">Zero Lock-In Exit</div>
+          <p class="guarantee-desc" data-i18n-html="pricing.g2.desc">Export your full Pod graph, binary assets, and <code>.acl</code> permissions anytime to self-host on your own server.</p>
         </div>
         <div class="guarantee-item">
-          <div class="guarantee-title">14-Day Refund Policy</div>
-          <p class="guarantee-desc">Cancel anytime with one click. Unused initial subscriptions are eligible for a 100% refund within 14 days (<a href="/refund.html" class="inline-ref">Refund Policy</a>).</p>
+          <div class="guarantee-title" data-i18n="pricing.g3.title">14-Day Refund Policy</div>
+          <p class="guarantee-desc" data-i18n-html="pricing.g3.desc">Cancel anytime with one click. Unused initial subscriptions are eligible for a 100% refund within 14 days (<a href="/refund.html" class="inline-ref">Refund Policy</a>).</p>
         </div>
       </section>
     </div>
@@ -963,22 +1052,23 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <div class="footer-quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
+        <div class="footer-quote" data-i18n="footer.quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
         <div class="footer-meta">
-          <strong>wolin.id</strong> · Sovereign Pod Cloud &amp; Identity Infrastructure<br>
-          79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea<br>
-          Contact: <a href="mailto:hello@wolin.id">hello@wolin.id</a> · Licensed under MIT OR Apache-2.0
+          <strong>wolin.id</strong> · <span data-i18n="footer.tagline">Sovereign Pod Cloud &amp; Identity Infrastructure</span><br>
+          <span data-i18n="footer.address">79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea</span><br>
+          <span data-i18n="footer.contactLabel">Contact:</span> <a href="mailto:hello@wolin.id">hello@wolin.id</a> · <span data-i18n="footer.license">Licensed under MIT OR Apache-2.0</span>
         </div>
       </div>
       <div class="footer-links">
-        <a href="/pricing.html">Pricing</a>
-        <a href="/prompts.html">Prompts</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/refund.html">Refund</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
+        <a href="/terms.html" data-i18n="footer.terms">Terms</a>
+        <a href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
+        <a href="/refund.html" data-i18n="footer.refund">Refund</a>
         <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
   </footer>
+  <script src="i18n.js"></script>
 </body>
 </html>
