@@ -414,3 +414,11 @@ Because users own their Pod, **never store cheat-sensitive economy/combat state 
 
 - **`/private/*` (Standard Envelope Encryption)**: Protected at rest on EBS/R2 while supporting SPARQL projection, `.acl` evaluation, and seamless multi-device social login without forcing recovery keys on casual users.
 - **`/vault/*` (Opt-in Zero-Knowledge Client E2EE)**: Client SDKs encrypt payloads locally with `AES-256-GCM` / `XChaCha20-Poly1305` (unlocked via WebAuthn Passkey `PRF` + mandatory Recovery Key backup confirmation) before upload. `/vault/wallet.enc` can optionally store embedded EVM/Solana keys for in-world micro-signing.
+
+---
+
+## 8. Local Development (`--in-memory`)
+
+Use the open-core binary or Docker locally for zero-config testing before deploying to Production (`https://pod.wolin.id` / `https://auth.wolin.id`):
+- Run `cargo run -p wolin-server -- --in-memory` (or `docker compose up`) on `http://127.0.0.1:4000`.
+- Free-tier Production Pods on `wolin.id` cost `$0`, so no separate public testnet/devnet is required.
