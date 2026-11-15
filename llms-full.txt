@@ -394,3 +394,23 @@ Coding agents integrating Wolin or raw W3C Solid HTTP endpoints **MUST** obey th
 - **Prevent Lost Updates (`If-Match`)**: Every Wolin `GET`, `HEAD`, `PUT`, and `POST` response returns a strong HTTP `ETag` header. Store `etag` alongside state and pass `If-Match: <etag>` on subsequent `PUT`, `PATCH` (`application/sparql-update`), or `DELETE` calls.
 - **Prevent Accidental Overwrites (`If-None-Match: *`)**: When initializing a default profile, inventory, or save slot for the first time, pass `If-None-Match: *` (`createOnly: true` in TS/Python, `.createOnly` in Swift, `createIfAbsent` in Kotlin).
 - **Handle `412 Precondition Failed` Gracefully**: If another tab or world updated the Pod resource concurrently, Wolin returns `412 Precondition Failed` (`WolinPreconditionError` in `@wolin-id/client`). Catch `412`, re-read the latest resource + `ETag` via `GET`, merge the RDF triples or state, and retry with the fresh `ETag`.
+
+---
+
+## 6. Game & Economy Data Integrity (3-Tier Boundary)
+
+Because users own their Pod, **never store cheat-sensitive economy/combat state as plain user-writable Pod files**. Partition metaverse data into 3 tiers:
+
+1. **Authoritative Game Server DB (Real-Time & Economy)**:
+   - Keep real-time coordinates/HP, PvP hit detection, leaderboards, and tradable currencies/consumables in your own game server DB to prevent save-editing and snapshot rollback double-spends.
+2. **Issuer-Signed Portable Proofs in Pod (`/badges/*.jsonld` — Tamper-Evident)**:
+   - For cross-metaverse achievements, seasonal trophies, or verified cosmetics, have the game server sign a Verifiable Credential / JSON-LD payload with its `Ed25519` private key and write it to the user's Pod. Any user tampering breaks the signature and is rejected (`INVALID_SIGNATURE`) by verifying worlds.
+3. **User-Writable Social & Profile Space (`/profile/card`, `/public/*`, `/private/*`)**:
+   - Avatar selection (`wolin:avatarGlbUrl`), Passport `worldLinks`, social posts, and single-player preferences belong in the user's Pod with full user control.
+
+---
+
+## 7. Two-Tier Storage Encryption (`/private/*` vs `/vault/*`)
+
+- **`/private/*` (Standard Envelope Encryption)**: Protected at rest on EBS/R2 while supporting SPARQL projection, `.acl` evaluation, and seamless multi-device social login without forcing recovery keys on casual users.
+- **`/vault/*` (Opt-in Zero-Knowledge Client E2EE)**: Client SDKs encrypt payloads locally with `AES-256-GCM` / `XChaCha20-Poly1305` (unlocked via WebAuthn Passkey `PRF` + mandatory Recovery Key backup confirmation) before upload. `/vault/wallet.enc` can optionally store embedded EVM/Solana keys for in-world micro-signing.

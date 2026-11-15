@@ -157,3 +157,12 @@
 2. **계층 B — `/vault/*` 개인 금고 (Zero-Knowledge 클라이언트 E2EE · Opt-in)**:
    * 신분증·계약서·비밀키 등 민감 자산은 SDK가 업로드 전 클라이언트에서 **`AES-256-GCM` (또는 `XChaCha20-Poly1305`)**으로 암호화해 서버·R2에는 암호문만 저장한다.
    * **해제 & 백업키 게이트**: Passwordless UX를 위해 **WebAuthn Passkey `PRF` 확장**으로 생체인증 1회 잠금해제를 지원하며, **운영자도 복호화 불가 고지 + Recovery Key 1회 저장/복사 확인을 완료해야만 `/vault/*` 활성화**를 허용한다.
+   * **후속 확장 (Embedded Hot Wallet)**: `/vault/wallet.enc`에 EVM(`secp256k1`)·Solana(`ed25519`) 키를 E2EE 보관하고 Passkey 생체인증 시 클라이언트 메모리에서만 트랜잭션 서명을 수행하는 소액/게임용 임베디드 지갑 플러그인을 지원한다(1단계 브랜드는 무코인·무가스비 유지).
+
+### 4.11 게임 · 메타버스 데이터 무결성 3단 분리 (치트/세이브 에딧 방어)
+1. **실시간 · 경제 데이터 (각 게임 서버 Authoritative DB)**:
+   * 실시간 위치/HP, PvP 판정, 랭킹, 거래 가능한 골드·소모품은 Pod 백업 복원(Double-Spend) 및 임의 수정을 막기 위해 각 게임 서버 DB가 직접 권위를 가진다.
+2. **교차 메타버스 아이템 · 업적 증명 (발행사 `Ed25519` 서명 + Pod 보관)**:
+   * 다른 메타버스에서도 호환되는 트로피·스킨·한정판 뱃지는 게임 서버의 비공개키(`Ed25519`)로 서명한 Verifiable Credential/JSON-LD를 유저 Pod(`/badges/*.jsonld`)에 저장한다. 유저가 수치를 수정하면 서명이 깨져 즉시 거부(`INVALID_SIGNATURE`)된다.
+3. **유저 자유 데이터 (유저 `Write`)**:
+   * 프로필, 아바타 선택(`.glb`/VRM), 친구 목록, SNS 글, Wolin Passport 링크트리는 유저가 자유롭게 수정한다.
