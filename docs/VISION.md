@@ -1,4 +1,4 @@
-# WOLIN (月印) : One Identity. Infinite Reflections.
+# Wolin (月印千江) : One Identity. Infinite Reflections.
 > **"애플리케이션은 생겨나고 사라지지만, 아이덴티티는 지속되고 데이터는 흐른다."**
 > *(Applications come and go. Identity persists. Data flows.)*
 
@@ -36,16 +36,16 @@
 
 ## 3. 시장 현황 및 기술적 기회 분석 (Market Landscape & Opportunity)
 
-| 기술 및 영역 | 현재 상태 및 한계 | WOLIN의 돌파구 (White Space) |
+| 기술 및 영역 | 현재 상태 및 한계 | Wolin의 돌파구 (White Space) |
 | :--- | :--- | :--- |
-| **W3C Solid 생태계** | • 공식 구현체(CSS, Node.js)는 학술/데모용으로 무겁고 느림 (RAM >300MB)<br>• 엔터프라이즈 멀티테넌시 및 실시간성 부재 | • **Rust 기반 단일 바이너리 엔진** 구축<br>• 메모리 30MB 이하 저자원 엣지/클라우드 구동<br>• 기업용 OpenDAL 스토리지 결합 |
-| **분산 신원 (DID / VC)** | • 지갑 설치 허들 및 기존 사내 IdP(SSO)와의 단절<br>• 실제 데이터 스토리지와의 연동 결여 | • **ZITADEL / Keycloak OIDC 페더레이션**<br>• WebID + DID(did:key, did:nostr) + DPoP 동시 지원 |
-| **AI 에이전트 인터페이스 (MCP)** | • 단순 REST/파일 도구 위주로 구성<br>• 데이터 거버넌스 및 세분화 권한 모델 전무 | • **Native MCP Semantic Gateway**<br>• 에이전트 전용 SPARQL/GraphQL 프로젝션 도구 제공 |
+| **W3C Solid 생태계** | • 공식 구현체(CSS, Node.js)는 학술/데모용으로 무겁고 느림 (RAM >300MB)<br>• 엔터프라이즈 멀티테넌시 및 실시간성 부재 | • **Rust 기반 단일 바이너리 엔진** 구축<br>• 메모리 30MB 이하 저자원 엣지/클라우드 구동<br>• 기업용 OpenDAL 스토리지 + Per-Pod RocksDB 격리 결합 |
+| **분산 신원 (DID / VC)** | • 지갑 설치 허들 및 기존 사내 IdP(SSO)와의 단절<br>• 실제 데이터 스토리지와의 연동 결여 | • **`auth.wolin.id` Passwordless Solid-OIDC & 엔터프라이즈 IdP 페더레이션**<br>• WebID + DID(did:key, did:web) + DPoP(`at+jwt`) 동시 지원 |
+| **AI 에이전트 인터페이스 (MCP)** | • 단순 REST/파일 도구 위주로 구성<br>• 데이터 거버넌스 및 세분화 권한 모델 전무 | • **Native MCP Semantic Gateway**<br>• 에이전트 전용 SPARQL/서브그래프 프로젝션 도구 제공 |
 | **블록체인 / 크립토** | • 온체인 트랜잭션 비용 및 확장성 한계<br>• 프라이버시(영지식) 구현의 복잡성 | • **오프체인 시맨틱 그래프 + 암호학적 서명 증명**<br>• 금융이 아닌 '데이터 흐름과 신뢰'에 집중 |
 
 ---
 
-## 4. WOLIN 아키텍처 비전 (System Architecture)
+## 4. Wolin 아키텍처 비전 (System Architecture)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -54,7 +54,7 @@
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ Model Context Protocol (MCP) / HTTP LDP
 ┌───────────────────────────────────▼────────────────────────────────────┐
-│                  WOLIN MCP & Policy Gateway (PDP / PEP)                │
+│                  Wolin MCP & Policy Gateway (PDP / PEP)                │
 │   • Semantic Projection: 요청 맥락에 맞는 가상 RDF 서브그래프 생성     │
 │   • Dynamic Consent: 시간/목적 제한 일회성 위임 (RFC 9449 DPoP)       │
 │   • Zero-PII Selective Disclosure: 민감 데이터 마스킹 및 선택적 공개   │
