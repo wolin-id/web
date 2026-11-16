@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Wolin (月印千江) — Brand &amp; Design System</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #FAFAFA;
+      --porcelain: #F5F2EB;
+      --obsidian: #090D16;
+      --ink: #171717;
+      --muted: #525252;
+      --line: #E5E5E5;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-vibrant: #10B981;
+      --accent-soft: #ECFDF5;
+      --slate: #94A3B8;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px 96px; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 48px;
+    }
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .brand-emblem { width: 38px; height: 38px; flex-shrink: 0; }
+    .brand-name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .brand-hanja { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 6px; }
+    .badge-private {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+    .lead {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 0 48px;
+    }
+    section {
+      margin-bottom: 64px;
+    }
+    .sec-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 8px;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+    }
+    .sec-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 24px;
+      max-width: 740px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 840px) {
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .card h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0; }
+    .logo-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .logo-stage { grid-template-columns: 1fr; } }
+    .stage-box {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      padding: 36px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .stage-box.light { background: #FFFFFF; color: var(--ink); }
+    .stage-box.dark { background: var(--obsidian); color: #F8FAFC; border-color: #1E293B; }
+    .ladder {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .dl-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-primary { background: var(--accent); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary { background: #FFFFFF; color: var(--ink); border-color: var(--line); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent-hover); }
+    .swatch {
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      text-align: left;
+      padding: 0;
+      width: 100%;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .swatch:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .swatch-chip { height: 76px; width: 100%; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .swatch-meta { padding: 12px 14px; }
+    .swatch-name { font-size: 13px; font-weight: 700; color: var(--ink); display: block; }
+    .swatch-hex {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      display: block;
+    }
+    .swatch-role { font-size: 12px; color: var(--muted); margin-top: 4px; display: block; }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .spec-table th, .spec-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    .spec-table th { background: var(--surface); font-weight: 600; color: var(--muted); width: 220px; }
+    .spec-table tr:last-child th, .spec-table tr:last-child td { border-bottom: 0; }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--obsidian);
+      color: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 50;
+    }
+    .toast.show { opacity: 1; }
+    footer {
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+  <script defer src="/analytics.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand-lockup" href="/">
+        <svg class="brand-emblem" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#090D16"/><circle cx="20" cy="13.2" r="5.5" fill="#F5F2EB"/><rect x="9.8" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/><rect x="21.4" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/><rect x="12.2" y="24.5" width="15.6" height="1.9" rx="0.5" fill="#10B981"/><rect x="14.5" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/><rect x="21.3" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/></svg>
+        <span class="brand-name">Wolin<span class="brand-hanja">月印千江</span></span>
+      </a>
+      <span class="badge-private">Brand &amp; Design System · Direct URL Only</span>
+    </header>
+
+    <h1>Wolin (月印千江) 브랜드 &amp; 디자인 시스템</h1>
+    <p class="lead">
+      “하나의 달이 천 개의 강물에 비친다(月印千江)”는 사상과 조선 백자 〈달항아리 이끼〉의 온기를 현대적 스위스 기하학으로 번역한 Wolin의 공식 시각 언어 기준입니다.
+    </p>
+
+    <section>
+      <p class="sec-kicker">01 · Philosophy</p>
+      <h2>세계관과 조형 원리</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>달항아리 · 유백색 그릇</h3>
+          <p>각 개인의 Pod는 남의 플랫폼에 종속되지 않고 기억·정체성·자산을 넉넉히 담아내는 순백의 달항아리(<code>#F5F2EB</code>)를 상징합니다.</p>
+        </div>
+        <div class="card">
+          <h3>이끼(Moss) · 자생적 연결</h3>
+          <p>프라이머리 컬러 <strong>Living Moss (<code>#059669</code> / <code>#10B981</code>)</strong>는 그릇 위에서 앱·사람·에이전트가 조화롭게 자생하는 연결과 생명력을 뜻합니다.</p>
+        </div>
+        <div class="card">
+          <h3>주역 감괘(☵) · 수면 반사</h3>
+          <p>달 아래로 갈수록 좁아지는 감괘(☵, 물·달) 삼효는 밤하늘의 달이 천 개의 강물(메타버스·앱)에 고요히 비치는 월인천강의 기하학적 인장입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="sec-kicker">02 · Emblem &amp; Scale</p>
+      <h2>대표 심볼 및 다중 스케일 검증</h2>
+      <p class="sec-desc">1024px 앱 아이콘부터 16px 파비콘까지 라이트·다크 배경에서 동일한 인지를 유지합니다.</p>
+      <div class="logo-stage">
+        <div class="stage-box light">
+          <img src="/wolin-icon-256.png" alt="Wolin Flagship Emblem on Light" width="144" height="144" style="border-radius:32px;" />
+          <div class="ladder">
+            <img src="/favicon.svg" alt="64px" width="64" height="64" />
+            <img src="/favicon.svg" alt="46px" width="46" height="46" />
+            <img src="/favicon.svg" alt="24px" width="24" height="24" />
+            <img src="/favicon.svg" alt="16px" width="16" height="16" />
+          </div>
+          <span style="font-size:12px;color:var(--muted);">Light Surface (#FFFFFF) · 144px / 64 / 46 / 24 / 16px</span>
+        </div>
+        <div class="stage-box dark">
+          <img src="/wolin-icon-256.png" alt="Wolin Flagship Emblem on Dark" width="144" height="144" style="border-radius:32px;border:1px solid rgba(255,255,255,0.12);" />
+          <div class="ladder">
+            <img src="/favicon.svg" alt="64px" width="64" height="64" />
+            <img src="/favicon.svg" alt="46px" width="46" height="46" />
+            <img src="/favicon.svg" alt="24px" width="24" height="24" />
+            <img src="/favicon.svg" alt="16px" width="16" height="16" />
+          </div>
+          <span style="font-size:12px;color:#94A3B8;">Obsidian Night (#090D16) · 144px / 64 / 46 / 24 / 16px</span>
+        </div>
+      </div>
+      <div class="dl-row">
+        <a class="btn btn-primary" href="/favicon.svg" download="wolin-emblem.svg">Download Vector SVG</a>
+        <a class="btn btn-secondary" href="/wolin-icon-1024.png" download="wolin-icon-1024.png">Download 1024×1024 PNG</a>
+        <a class="btn btn-secondary" href="/wolin-icon-256.png" download="wolin-icon-256.png">Download 256×256 PNG</a>
+      </div>
+    </section>
+
+    <section>
+      <p class="sec-kicker">03 · Color Tokens</p>
+      <h2>공식 컬러 팔레트 (클릭 시 Hex 복사)</h2>
+      <p class="sec-desc">Primary 브랜드 컬러는 <strong>Living Moss</strong> 계열이며, 모든 UI 버튼·링크·포커스 링에 일관 적용됩니다.</p>
+      <div class="grid-4">
+        <button class="swatch" type="button" data-copy="#059669">
+          <div class="swatch-chip" style="background:#059669;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Moss Primary</span>
+            <span class="swatch-hex">#059669</span>
+            <span class="swatch-role">Primary CTA · Links · Focus</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#047857">
+          <div class="swatch-chip" style="background:#047857;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Moss Deep</span>
+            <span class="swatch-hex">#047857</span>
+            <span class="swatch-role">Hover · Active State</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#10B981">
+          <div class="swatch-chip" style="background:#10B981;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Moss Vibrant</span>
+            <span class="swatch-hex">#10B981</span>
+            <span class="swatch-role">Emblem Yang · Highlights</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#ECFDF5">
+          <div class="swatch-chip" style="background:#ECFDF5;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Moss Mist</span>
+            <span class="swatch-hex">#ECFDF5</span>
+            <span class="swatch-role">Soft Badge · Surface Tint</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#F5F2EB">
+          <div class="swatch-chip" style="background:#F5F2EB;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Moon Jar Porcelain</span>
+            <span class="swatch-hex">#F5F2EB</span>
+            <span class="swatch-role">Emblem Moon · Warm Light</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#090D16">
+          <div class="swatch-chip" style="background:#090D16;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Night Obsidian</span>
+            <span class="swatch-hex">#090D16</span>
+            <span class="swatch-role">App Tile · 3D Sanctuary Sky</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#171717">
+          <div class="swatch-chip" style="background:#171717;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Primary Ink</span>
+            <span class="swatch-hex">#171717</span>
+            <span class="swatch-role">Headings · Body Text</span>
+          </div>
+        </button>
+        <button class="swatch" type="button" data-copy="#FFFFFF">
+          <div class="swatch-chip" style="background:#FFFFFF;"></div>
+          <div class="swatch-meta">
+            <span class="swatch-name">Pure Canvas</span>
+            <span class="swatch-hex">#FFFFFF</span>
+            <span class="swatch-role">Default Page Background</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section>
+      <p class="sec-kicker">04 · Brand SSOT &amp; UI Rules</p>
+      <h2>명칭 · 타이포그래피 · UI 원칙</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr><th>영문 / 한자 공식명</th><td><strong>Wolin</strong> / <strong>月印千江</strong> (단축 표기 <code>月印</code> 단독 사용 금지)</td></tr>
+          <tr><th>공식 도메인 / 메일</th><td><code>wolin.id</code> · <code>auth.wolin.id</code> · <code>pod.wolin.id</code> · <code>hello@wolin.id</code></td></tr>
+          <tr><th>운영 법인</th><td>엔트로피패러독스 주식회사 (Entropy Paradox, Inc.)</td></tr>
+          <tr><th>타이포그래피</th><td>Pretendard Variable (한글/영문 UI) · JetBrains Mono / SF Mono (코드·WebID)</td></tr>
+          <tr><th>일반 유저 UI 원칙</th><td><code>DPoP</code> · <code>JWK</code> · <code>RDF</code> · <code>Solid-OIDC</code> 등 프로토콜 은어 0%, 모바일 390px 가로 스크롤 0px, 터치 타깃 &ge;44px</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <span>&copy; Wolin 月印千江 · wolin.id</span>
+      <span>hello@wolin.id</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="copy-toast">Copied hex</div>
+  <script>
+    const toast = document.getElementById('copy-toast');
+    let timer;
+    document.querySelectorAll('.swatch').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const hex = btn.getAttribute('data-copy');
+        if (!hex) return;
+        navigator.clipboard?.writeText(hex).catch(() => {});
+        toast.textContent = 'Copied ' + hex;
+        toast.classList.add('show');
+        clearTimeout(timer);
+        timer = setTimeout(() => toast.classList.remove('show'), 1400);
+      });
+    });
+  </script>
+</body>
+</html>
