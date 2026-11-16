@@ -222,7 +222,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      color: var(--accent);
+      color: var(--accent-hover);
       margin-bottom: 0.85rem;
     }
 
@@ -342,7 +342,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--accent);
+      color: var(--accent-hover);
     }
     .agent-card h3 {
       font-family: var(--font-mono);
@@ -467,7 +467,7 @@
       color: #34D399;
       text-decoration: none;
       font-weight: 600;
-      min-height: 36px;
+      min-height: 44px;
       display: inline-flex;
       align-items: center;
     }
@@ -571,7 +571,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      color: var(--accent);
+      color: var(--accent-hover);
       margin-bottom: 0.35rem;
       display: block;
     }
@@ -770,6 +770,11 @@
       color: var(--ink);
     }
     .report-btn-primary { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
+    .report-btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+    @media (max-width: 480px) {
+      .report-dialog { padding: 1.2rem; }
+      .report-btn { flex: 1; }
+    }
   </style>
   <script src="https://rybbit.cycorld.com/api/script.js" data-site-id="15" defer></script>
   <script src="/analytics.js" defer></script>

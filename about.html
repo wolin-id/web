@@ -225,7 +225,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--accent);
+      color: var(--accent-hover);
       margin-bottom: 1rem;
     }
 
@@ -303,7 +303,7 @@
       font-family: var(--font-mono);
       font-size: 0.74rem;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--accent-hover);
     }
     .mission-card h3 {
       font-size: 1.08rem;
@@ -568,6 +568,11 @@
       color: var(--ink);
     }
     .report-btn-primary { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
+    .report-btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+    @media (max-width: 480px) {
+      .report-dialog { padding: 1.2rem; }
+      .report-btn { flex: 1; }
+    }
   </style>
   <script src="https://rybbit.cycorld.com/api/script.js" data-site-id="15" defer></script>
   <script src="/analytics.js" defer></script>
