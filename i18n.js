@@ -1,5 +1,5 @@
 /*!
- * WOLIN (月印) — 6-Language Institutional i18n Engine
+ * WOLIN (月印千江) — 6-Language Institutional i18n Engine
  * Order (Global Internet User Statistics):
  *   1) en (English)
  *   2) zh (中文)
@@ -19,9 +19,9 @@
        1. ENGLISH (en)
        ======================================================================== */
     en: {
-      'index.meta.title': 'WOLIN (月印) — One Identity. Infinite Reflections.',
-      'pricing.meta.title': 'Pricing — WOLIN (月印) · Entropy Paradox, Inc.',
-      'prompts.meta.title': 'Prompts — WOLIN (月印) · Entropy Paradox, Inc.',
+      'index.meta.title': 'WOLIN (月印千江) — One Identity. Infinite Reflections.',
+      'pricing.meta.title': 'Pricing — WOLIN (月印千江) · Entropy Paradox, Inc.',
+      'prompts.meta.title': 'Prompts — WOLIN (月印千江) · Entropy Paradox, Inc.',
 
       'nav.home': 'Home',
       'nav.passport': 'Passport',
@@ -110,7 +110,7 @@
       'manifesto.e3Verdict': 'Identity, avatars & data endure even after apps vanish',
       'manifesto.thDomain': 'Domain',
       'manifesto.thLegacy': 'Legacy Ecosystem Bottlenecks',
-      'manifesto.thWolin': 'WOLIN (月印) Architectural Resolution',
+      'manifesto.thWolin': 'WOLIN (月印千江) Architectural Resolution',
       'manifesto.r1Domain': 'W3C Solid Runtime',
       'manifesto.r1Legacy': 'Reference Node.js servers (CSS) consume 300MB+ RAM and struggle under dense multi-tenancy',
       'manifesto.r1Wolin': '<code>Single Rust AOT binary</code> — runs on home servers or cloud clusters in &lt;30MB RAM (<a href="docs/ARCHITECTURE.md" class="inline-ref">Spec</a>)',
@@ -193,7 +193,7 @@
       'play.latencyDeny': 'eval: 0.11 ms · halted at PDP waterline',
 
       'company.eyebrow': '06 · COMPANY & OPERATOR',
-      'company.sub': 'Seoul-based systems software and sovereign infrastructure engineering company. We design and operate Wolin (月印), the lock-in-free digital identity and Pod infrastructure built on W3C open standards and an ultra-lightweight Rust runtime.',
+      'company.sub': 'Seoul-based systems software and sovereign infrastructure engineering company. We design and operate Wolin (月印千江), the lock-in-free digital identity and Pod infrastructure built on W3C open standards and an ultra-lightweight Rust runtime.',
       'company.labelOperator': 'Operator',
       'company.labelLeadership': 'Leadership & Registration',
       'company.labelHq': 'Headquarters & Contact',
@@ -302,9 +302,9 @@
        2. SIMPLIFIED CHINESE (zh)
        ======================================================================== */
     zh: {
-      'index.meta.title': 'WOLIN (月印) — 单一身份，万千映现。',
-      'pricing.meta.title': '定价 — WOLIN (月印) · Entropy Paradox, Inc.',
-      'prompts.meta.title': '提示词中心 — WOLIN (月印) · Entropy Paradox, Inc.',
+      'index.meta.title': 'WOLIN (月印千江) — 单一身份，万千映现。',
+      'pricing.meta.title': '定价 — WOLIN (月印千江) · Entropy Paradox, Inc.',
+      'prompts.meta.title': '提示词中心 — WOLIN (月印千江) · Entropy Paradox, Inc.',
 
       'nav.home': '首页',
       'nav.passport': '通行证',
@@ -393,7 +393,7 @@
       'manifesto.e3Verdict': '即便外部应用消亡，身份、化身与数据依然永续留存',
       'manifesto.thDomain': '核心领域',
       'manifesto.thLegacy': '传统生态的结构性局限',
-      'manifesto.thWolin': 'WOLIN (月印) 架构解法',
+      'manifesto.thWolin': 'WOLIN (月印千江) 架构解法',
       'manifesto.r1Domain': 'W3C Solid 运行时',
       'manifesto.r1Legacy': '传统 Node.js 实现（CSS）占用超过 300MB 内存，多租户高并发存在瓶颈',
       'manifesto.r1Wolin': '<code>Rust AOT 单一二进制文件</code> — 低于 30MB 内存即可运行于家庭服务器与云集群（<a href="docs/ARCHITECTURE.md" class="inline-ref">架构规范</a>）',
@@ -476,7 +476,7 @@
       'play.latencyDeny': '耗时: 0.11 ms · 已在 PDP 水位线拦截',
 
       'company.eyebrow': '06 · 运营公司介绍',
-      'company.sub': '总部位于首尔的系统软件与主权基础设施技术企业。基于 W3C 开放标准与超轻量级 Rust 运行时，设计并运营无平台锁定的数字身份与 Pod 基础设施 Wolin（月印）。',
+      'company.sub': '总部位于首尔的系统软件与主权基础设施技术企业。基于 W3C 开放标准与超轻量级 Rust 运行时，设计并运营无平台锁定的数字身份与 Pod 基础设施 Wolin（月印千江）。',
       'company.labelOperator': '运营主体',
       'company.labelLeadership': '代表理事与商业登记号',
       'company.labelHq': '总部地址与联系邮箱',
@@ -585,9 +585,9 @@
        3. SPANISH (es)
        ======================================================================== */
     es: {
-      'index.meta.title': 'WOLIN (月印) — Una identidad. Infinitos reflejos.',
-      'pricing.meta.title': 'Precios — WOLIN (月印) · Entropy Paradox, Inc.',
-      'prompts.meta.title': 'Prompts — WOLIN (月印) · Entropy Paradox, Inc.',
+      'index.meta.title': 'WOLIN (月印千江) — Una identidad. Infinitos reflejos.',
+      'pricing.meta.title': 'Precios — WOLIN (月印千江) · Entropy Paradox, Inc.',
+      'prompts.meta.title': 'Prompts — WOLIN (月印千江) · Entropy Paradox, Inc.',
 
       'nav.home': 'Inicio',
       'nav.passport': 'Pasaporte',
@@ -676,7 +676,7 @@
       'manifesto.e3Verdict': 'Tu identidad, avatar y datos perduran aunque las apps cierren',
       'manifesto.thDomain': 'Dominio',
       'manifesto.thLegacy': 'Límites estructurales heredados',
-      'manifesto.thWolin': 'Solución arquitectónica WOLIN (月印)',
+      'manifesto.thWolin': 'Solución arquitectónica WOLIN (月印千江)',
       'manifesto.r1Domain': 'Runtime W3C Solid',
       'manifesto.r1Legacy': 'Los servidores Node.js de referencia (CSS) superan 300 MB de RAM y sufren en entornos multitenant',
       'manifesto.r1Wolin': '<code>Binario único en Rust AOT</code> — opera en servidores domésticos o nubes con &lt;30 MB de RAM (<a href="docs/ARCHITECTURE.md" class="inline-ref">Especificación</a>)',
@@ -759,7 +759,7 @@
       'play.latencyDeny': 'eval: 0.11 ms · detenido en la línea de flotación PDP',
 
       'company.eyebrow': '06 · EMPRESA Y OPERADOR',
-      'company.sub': 'Empresa de ingeniería de software de sistemas e infraestructura soberana con sede en Seúl. Diseñamos y operamos Wolin (月印), la infraestructura de identidad digital y Pods sin bloqueo de plataforma basada en estándares abiertos W3C y un runtime ultraligero en Rust.',
+      'company.sub': 'Empresa de ingeniería de software de sistemas e infraestructura soberana con sede en Seúl. Diseñamos y operamos Wolin (月印千江), la infraestructura de identidad digital y Pods sin bloqueo de plataforma basada en estándares abiertos W3C y un runtime ultraligero en Rust.',
       'company.labelOperator': 'Operador',
       'company.labelLeadership': 'Dirección y Registro Mercantil',
       'company.labelHq': 'Sede Central y Contacto',
@@ -868,9 +868,9 @@
        4. PORTUGUESE (pt)
        ======================================================================== */
     pt: {
-      'index.meta.title': 'WOLIN (月印) — Uma identidade. Infinitos reflexos.',
-      'pricing.meta.title': 'Preços — WOLIN (月印) · Entropy Paradox, Inc.',
-      'prompts.meta.title': 'Prompts — WOLIN (月印) · Entropy Paradox, Inc.',
+      'index.meta.title': 'WOLIN (月印千江) — Uma identidade. Infinitos reflexos.',
+      'pricing.meta.title': 'Preços — WOLIN (月印千江) · Entropy Paradox, Inc.',
+      'prompts.meta.title': 'Prompts — WOLIN (月印千江) · Entropy Paradox, Inc.',
 
       'nav.home': 'Início',
       'nav.passport': 'Passaporte',
@@ -959,7 +959,7 @@
       'manifesto.e3Verdict': 'Identidade, avatar e dados permanecem mesmo se os apps sumirem',
       'manifesto.thDomain': 'Domínio',
       'manifesto.thLegacy': 'Limitações dos ecossistemas legados',
-      'manifesto.thWolin': 'Solução arquitetural WOLIN (月印)',
+      'manifesto.thWolin': 'Solução arquitetural WOLIN (月印千江)',
       'manifesto.r1Domain': 'Runtime W3C Solid',
       'manifesto.r1Legacy': 'Implementações Node.js (CSS) consomem mais de 300 MB de RAM e sofrem com multitenancy denso',
       'manifesto.r1Wolin': '<code>Binário único em Rust AOT</code> — roda em servidores domésticos ou nuvem com &lt;30 MB de RAM (<a href="docs/ARCHITECTURE.md" class="inline-ref">Especificação</a>)',
@@ -1042,7 +1042,7 @@
       'play.latencyDeny': 'eval: 0.11 ms · bloqueado na linha d’água do PDP',
 
       'company.eyebrow': '06 · EMPRESA E OPERADORA',
-      'company.sub': 'Empresa de engenharia de software de sistemas e infraestrutura soberana sediada em Seul. Projetamos e operamos o Wolin (月印), infraestrutura de identidade digital e Pods sem aprisionamento tecnológico, construída sobre padrões abertos W3C e runtime Rust ultraleve.',
+      'company.sub': 'Empresa de engenharia de software de sistemas e infraestrutura soberana sediada em Seul. Projetamos e operamos o Wolin (月印千江), infraestrutura de identidade digital e Pods sem aprisionamento tecnológico, construída sobre padrões abertos W3C e runtime Rust ultraleve.',
       'company.labelOperator': 'Operadora',
       'company.labelLeadership': 'Diretoria e Registro Empresarial',
       'company.labelHq': 'Sede e Contato',
@@ -1151,9 +1151,9 @@
        5. JAPANESE (ja)
        ======================================================================== */
     ja: {
-      'index.meta.title': 'WOLIN (月印) — 一つのアイデンティティ、無限の映現。',
-      'pricing.meta.title': '料金プラン — WOLIN (月印) · Entropy Paradox, Inc.',
-      'prompts.meta.title': 'プロンプト — WOLIN (月印) · Entropy Paradox, Inc.',
+      'index.meta.title': 'WOLIN (月印千江) — 一つのアイデンティティ、無限の映現。',
+      'pricing.meta.title': '料金プラン — WOLIN (月印千江) · Entropy Paradox, Inc.',
+      'prompts.meta.title': 'プロンプト — WOLIN (月印千江) · Entropy Paradox, Inc.',
 
       'nav.home': 'ホーム',
       'nav.passport': 'パスポート',
@@ -1242,7 +1242,7 @@
       'manifesto.e3Verdict': 'アプリが消えてもID・アバター・データは永続する',
       'manifesto.thDomain': '領域 (Domain)',
       'manifesto.thLegacy': '既存エコシステムの構造的限界',
-      'manifesto.thWolin': 'WOLIN (月印) アーキテクチャによる解決',
+      'manifesto.thWolin': 'WOLIN (月印千江) アーキテクチャによる解決',
       'manifesto.r1Domain': 'W3C Solid ランタイム',
       'manifesto.r1Legacy': '既存のNode.js実装（CSS）は300MB以上のRAMを消費し、高密度マルチテナントでボトルネック化',
       'manifesto.r1Wolin': '<code>Rust AOT 単一バイナリ</code> — 30MB未満のメモリで自宅サーバーからクラウドまで即稼働（<a href="docs/ARCHITECTURE.md" class="inline-ref">仕様書</a>）',
@@ -1325,7 +1325,7 @@
       'play.latencyDeny': 'eval: 0.11 ms · PDP境界で遮断',
 
       'company.eyebrow': '06 · 運営会社について',
-      'company.sub': 'ソウルを拠点とするシステムソフトウェアおよびソブリンインフラ専門企業です。W3Cオープン標準と超軽量Rustランタイムにより、プラットフォームに縛られない次世代デジタルアイデンティティ基盤「Wolin（月印）」を設計・運営しています。',
+      'company.sub': 'ソウルを拠点とするシステムソフトウェアおよびソブリンインフラ専門企業です。W3Cオープン標準と超軽量Rustランタイムにより、プラットフォームに縛られない次世代デジタルアイデンティティ基盤「Wolin（月印千江）」を設計・運営しています。',
       'company.labelOperator': '運営法人',
       'company.labelLeadership': '代表取締役・事業者登録番号',
       'company.labelHq': '本社所在地・お問い合わせ',
@@ -1434,9 +1434,9 @@
        6. KOREAN (ko)
        ======================================================================== */
     ko: {
-      'index.meta.title': 'WOLIN (月印) — 하나의 정체성, 무한한 투영.',
-      'pricing.meta.title': '요금제 — WOLIN (月印) · 엔트로피패러독스 주식회사',
-      'prompts.meta.title': '프롬프트 — WOLIN (月印) · 엔트로피패러독스 주식회사',
+      'index.meta.title': 'WOLIN (月印千江) — 하나의 정체성, 무한한 투영.',
+      'pricing.meta.title': '요금제 — WOLIN (月印千江) · 엔트로피패러독스 주식회사',
+      'prompts.meta.title': '프롬프트 — WOLIN (月印千江) · 엔트로피패러독스 주식회사',
 
       'nav.home': '홈',
       'nav.passport': '패스포트',
@@ -1525,7 +1525,7 @@
       'manifesto.e3Verdict': '서비스가 사라져도 신원 · 아바타 · 데이터 영구 존속',
       'manifesto.thDomain': '영역 (Domain)',
       'manifesto.thLegacy': '기존 생태계의 구조적 한계',
-      'manifesto.thWolin': 'WOLIN (月印) 아키텍처 해법',
+      'manifesto.thWolin': 'WOLIN (月印千江) 아키텍처 해법',
       'manifesto.r1Domain': 'W3C Solid 런타임',
       'manifesto.r1Legacy': '기존 Node.js 구현체(CSS)는 300MB 이상의 RAM 점유 및 멀티테넌시 병목',
       'manifesto.r1Wolin': '<code>Rust AOT 단일 바이너리</code> — 30MB 미만 메모리로 홈서버·클라우드 즉시 구동 (<a href="docs/ARCHITECTURE.md" class="inline-ref">명세</a>)',
