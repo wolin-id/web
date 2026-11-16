@@ -1,23 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <radialGradient id="bgB" cx="50%" cy="32%" r="72%">
-      <stop offset="0%" stop-color="#111827"/>
+    <radialGradient id="bg" cx="50%" cy="32%" r="72%">
+      <stop offset="0%" stop-color="#131924"/>
       <stop offset="100%" stop-color="#090D16"/>
     </radialGradient>
-    <linearGradient id="cobaltB" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0055FF"/>
-      <stop offset="100%" stop-color="#2563EB"/>
+    <linearGradient id="moss" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="50%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#059669"/>
     </linearGradient>
   </defs>
-  <rect x="0" y="0" width="1024" height="1024" rx="224" fill="url(#bgB)"/>
+  <rect x="0" y="0" width="1024" height="1024" rx="224" fill="url(#bg)"/>
   <!-- Milky Joseon Porcelain Moon -->
-  <circle cx="512" cy="336" r="144" fill="#F5F2EB"/>
-  <!-- Kan Trigram (☵): Broken Yin (Porcelain Mist) -->
-  <rect x="262" y="544" width="214" height="46" rx="10" fill="#E2E8F0"/>
-  <rect x="548" y="544" width="214" height="46" rx="10" fill="#E2E8F0"/>
-  <!-- Kan Trigram (☵): Solid Yang (Cobalt River) -->
-  <rect x="262" y="630" width="500" height="48" rx="10" fill="url(#cobaltB)"/>
-  <!-- Kan Trigram (☵): Broken Yin (Living Moss Emerald) -->
-  <rect x="262" y="718" width="214" height="46" rx="10" fill="#10B981"/>
-  <rect x="548" y="718" width="214" height="46" rx="10" fill="#10B981"/>
+  <circle cx="512" cy="336" r="142" fill="#F5F2EB"/>
+  <!-- 1st line (Top Yin ⚋): widest (total 520px: 224 + 72 gap + 224) -->
+  <rect x="252" y="542" width="224" height="46" rx="10" fill="#E2E8F0"/>
+  <rect x="548" y="542" width="224" height="46" rx="10" fill="#E2E8F0"/>
+  <!-- 2nd line (Middle Yang ━): medium (400px), Living Moss Green -->
+  <rect x="312" y="628" width="400" height="48" rx="10" fill="url(#moss)"/>
+  <!-- 3rd line (Bottom Yin ⚋): narrowest (total 280px: 108 + 64 gap + 108) -->
+  <rect x="372" y="716" width="108" height="46" rx="10" fill="#94A3B8"/>
+  <rect x="544" y="716" width="108" height="46" rx="10" fill="#94A3B8"/>
 </svg>
