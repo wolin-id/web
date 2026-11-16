@@ -21,7 +21,7 @@
 | :--- | :--- | :--- |
 | **Brand & Dev Hub** | `https://wolin.id` | 공식 포털, 6개 국어(`en/zh/es/pt/ja/ko`), `/llms.txt`, `/llms-full.txt` |
 | **Solid-OIDC & Passport** | `https://auth.wolin.id` | D1 기반 Passwordless Auth (AWS SES 매직링크, GitHub OAuth 라이브 + 5개 소셜 프로바이더 준비 완료), 6개 국어 UI, Rybbit + D1 무-PII 에러/피드백 루프, 서명 에셋 엣지 스트리밍(`/assets/:pod_id/*`) |
-| **Pod Cloud Data Plane** | `https://pod.wolin.id` | Rust 단일 바이너리 Solid 0.11 LDP + WAC/ACP + Native MCP, Per-Pod RocksDB(`LRU 256`, `1 GiB` 쿼터), ~180개 예약 핸들 + Tombstone(`410`), HMAC-SHA256 `302` 에셋 오프로딩, JWKS `at+jwt` 검증 |
+| **Pod Cloud Data Plane** | `https://pod.wolin.id` | Rust 단일 바이너리 Solid 0.11 LDP + WAC/ACP + Native MCP, Per-Pod RocksDB(`LRU 256`, `1 GiB` 쿼터), ~180개 예약 핸들 + 영구 Tombstone(`409` 재가입 차단), HMAC-SHA256 `302` 에셋 오프로딩, JWKS `at+jwt` 검증 |
 | **User Sovereign Pod** | `https://{handle}.wolin.id/` | 서브도메인 오리진 격리 Pod 루트 및 Wolin Passport(`/profile/card#me`) |
 
 ---

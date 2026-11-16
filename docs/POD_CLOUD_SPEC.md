@@ -18,7 +18,7 @@
 ### 2.2 핸들(`pod_id`) 제약 · ~180개 예약어 · 영구 Tombstone
 * **구문 규칙**: `3~32`자 소문자 영문(`a-z`), 숫자(`0-9`), 단일 내부 하이픈(`-`)만 허용합니다(`$0` Free Tier는 `4~32`자, Pro/Creator 유료 티어는 `3`자 허용; 선행/후행 `-`, 연속 `--`, Punycode `xn--` 전면 차단).
 * **이중 예약어 차단 (~180개)**: RFC 2142 시스템 계정, DNS/OAuth/Solid/MCP 예약 경로, 인프라 서브도메인(`pod`, `pods`, `api`, `auth`, `login`, `id`, `www`, `mcp`) 및 주요 브랜드 핸들 약 180개를 `wolin-cloud`와 `wolin-server` 양쪽에서 기본 차단하며 `--reserved-pods`(`WOLIN_RESERVED_PODS`)로 추가 지정할 수 있습니다.
-* **영구 Tombstone 동결 (`410 Gone`)**: 삭제·은퇴 처리된 `pod_id`(`DELETE /api/pods/{pod_id}`)는 물리 데이터가 즉시 파기된 후 영구 Tombstone 상태로 전환되어 타인의 재가입(Identity Hijacking)을 영구 차단하고 `410 Gone`을 응답합니다.
+* **영구 Tombstone 동결 (`409 Conflict` 재가입 차단)**: 삭제·은퇴 처리된 `pod_id`(`DELETE /api/pods/{pod_id}`)는 물리 데이터와 `.acl` 규칙이 즉시 파기(이후 비인가 조회 차단)된 후 영구 Tombstone 상태로 전환되어 타인의 재가입(Identity Hijacking) 시도를 `409 Conflict`로 영구 차단합니다.
 
 ---
 
@@ -37,7 +37,7 @@
 ├── private/                 # 소유자 및 인가된 앱/에이전트 전용 컨테이너
 │   └── .acl                 # 소유자 단독 접근 (WAC/ACP 위임 가능)
 └── .well-known/
-    └── wolin                # Pod 런타임 메타데이터 및 Native MCP 디스커버리
+    └── wolin.json           # Pod 런타임 메타데이터 및 Native MCP 디스커버리 매니페스트
 ```
 
 ---
@@ -45,7 +45,7 @@
 ## 4. 물리 스토리지 격리 · 쿼터 · 서명 에셋 오프로딩
 
 ### 4.1 Per-Pod 물리 RocksDB 격리 & Bounded LRU (`256`)
-* **독립 그래프 스토어**: 공유 단일 DB 대신 `graph/pods/{pod_id}/` 경로에 테넌트별 독립 Oxigraph(RocksDB) 인스턴스를 생성하여 교차 테넌트 쿼리 누출을 물리적으로 원천 차단합니다.
+* **독립 그래프 스토어**: 공유 단일 DB 대신 `pods/{pod_id}/graph/` 경로에 테넌트별 독립 Oxigraph(RocksDB) 인스턴스를 생성하여 교차 테넌트 쿼리 누출을 물리적으로 원천 차단합니다.
 * **Bounded LRU 핸들 캐시**: `WOLIN_MAX_OPEN_PODS=256`(기본값) 상한 내에서 활성 Hot Pod 핸들만 메모리에 유지하고 비활성 Pod 핸들은 자동 축출(Eviction)합니다.
 * **스토리지 쿼터**: Pod당 기본 **`1 GiB` (`WOLIN_DEFAULT_POD_QUOTA_BYTES=1073741824`, `$0` Free Tier 포함)** 쿼터를 원자적으로 추적·적용하며 한도 초과 시 `413`/`507`로 거부합니다.
 

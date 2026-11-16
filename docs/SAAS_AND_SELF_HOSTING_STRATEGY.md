@@ -11,7 +11,7 @@
 
 1. **`wolin-engine` (`wolin-id/wolin` · Open Core / MIT OR Apache-2.0 · `https://pod.wolin.id`)**
    * **역할**: 홈서버 셀프호스팅 본체이자 Wolin Cloud의 멀티테넌트 데이터 플레인(Data Plane).
-   * **포함 (구현 및 프로덕션 가동 완료)**: Solid 0.11 LDP, WAC/ACP 듀얼 PDP, Per-Pod Oxigraph RocksDB(`LRU 256` + `1 GiB` 기본 쿼터), ~180개 예약 핸들 차단 + Tombstone(`410 Gone`), 단기(60초) `HMAC-SHA256` 서명 `302` 에셋 오프로딩, `JwksSignatureVerifier` + DPoP `at+jwt` 검증, `Dockerfile` / `deploy/docker-compose.yml` / `docs/SELF_HOSTING.md`.
+   * **포함 (구현 및 프로덕션 가동 완료)**: Solid 0.11 LDP, WAC/ACP 듀얼 PDP, Per-Pod Oxigraph RocksDB(`LRU 256` + `1 GiB` 기본 쿼터), ~180개 예약 핸들 차단 + 영구 Tombstone(`409 Conflict` 재가입 차단), 단기(60초) `HMAC-SHA256` 서명 `302` 에셋 오프로딩, `JwksSignatureVerifier` + DPoP `at+jwt` 검증, `Dockerfile` / `deploy/docker-compose.yml` / `docs/SELF_HOSTING.md`.
    * **원칙**: 결제·마케팅·어드민 UI 등 SaaS 전용 비즈니스 로직을 배제하고, 단일 Rust 바이너리(`<30MB`)로 어디서나 즉시(`--in-memory` 기준 ~6ms) 구동되도록 유지한다.
 
 2. **`wolin-cloud` (`wolin-id/cloud` · 비공개 상용 Control Plane · `https://auth.wolin.id`)**
@@ -41,8 +41,8 @@
 
 ### 2.2 Wolin SaaS 4계층 격리 아키텍처 (프로덕션 적용 완료)
 1. **Origin 격리 (브라우저 보안)**: `{pod_id}.wolin.id` 유저별 독립 서브도메인 라우팅(`https://pod.wolin.id` 및 `*.wolin.id` 가동 중). 타인 Pod의 HTML/JS에 의한 Same-Origin XSS를 원천 차단한다.
-2. **DB 격리 (Database-per-Tenant · 구현 완료)**: `graph/pods/{pod_id}/` 형태로 유저마다 독립된 물리 Oxigraph(RocksDB) 인스턴스를 분리하고 **Bounded LRU 캐시(기본 `256`개 오픈 상한)**로 파일 디스크립터와 메모리를 정밀 제어한다.
-   * *장점*: 교차 테넌트 유출 원천 불가, 탈퇴/은퇴 시 폴더 단위 O(1) 정리 + 영구 Tombstone(`410 Gone`) 처리, Noisy Neighbor 차단.
+2. **DB 격리 (Database-per-Tenant · 구현 완료)**: `pods/{pod_id}/graph/` 형태로 유저마다 독립된 물리 Oxigraph(RocksDB) 인스턴스를 분리하고 **Bounded LRU 캐시(기본 `256`개 오픈 상한)**로 파일 디스크립터와 메모리를 정밀 제어한다.
+   * *장점*: 교차 테넌트 유출 원천 불가, 탈퇴/은퇴 시 폴더 단위 O(1) 정리 + 영구 Tombstone(`409 Conflict` 재점유 차단) 처리, Noisy Neighbor 차단.
 3. **물리 스토리지 & 서명 에셋 격리 (구현 완료)**: OpenDAL 백엔드 및 Cloudflare R2 `blobs/pods/{pod_id}/...` 경로로 분리하고, `256 KiB` 이상 비공개/바이너리 에셋은 엔진 인가 후 60초 만료 `HMAC-SHA256`(`wolin-asset-v1`) 서명 URL로 `302` 리다이렉트해 R2에서 직접 스트리밍하며 유저별 DEK(Envelope Encryption) 확장을 지원한다.
 4. **쿼터 & Rate Limit (구현 완료)**: 기본 **`1 GiB` (`$0` Free Tier)** 등 플랜별 스토리지 용량 제한(`413`/`507`) 및 Cloudflare WAF + 서버 요청 본문/속도 제한.
 
@@ -118,7 +118,7 @@
      * **엔진/클라우드 공통 정적 블록리스트 (~180개 프로덕션 적용 완료)**: RFC 2142 시스템 예약어, DNS/메일/OAuth/Solid/MCP 프로토콜 경로, 인프라 서브도메인(`pod`, `pods`, `api`, `auth`, `login`, `id`, `www`, `mcp`) 및 주요 글로벌·국내 브랜드 핸들을 즉시 차단하며 `--reserved-pods`(`WOLIN_RESERVED_PODS`) 확장을 지원한다. (일반 개인 핸들은 즉시 1초 자동 발급)
      * **동적 DB (`D1`)**: 운영 중 신규 브랜드 보호 대상 및 은퇴/탈퇴 계정을 무중단 즉시 잠금(`pod_tombstones`).
   3. **브랜드 소유권 검증 승인**: 보호 핸들은 공식 도메인 DNS TXT(`_wolin-verify.<domain>`) 또는 공식 도메인 이메일 매직링크 검증 + 운영자 승인을 거쳐 공식 인증 배지(✓)와 함께 해제·발급한다.
-  4. **Tombstone 영구 보류 (`410 Gone` · 구현 완료)**: 탈퇴·삭제된 `pod_id`는 D1 `pod_tombstones`와 엔진 Tombstone 마커에 동시 기록되어 영구 재사용이 금지되며, 이후 접근 시 `410 Gone`을 반환해 Identity Hijacking을 원천 차단한다.
+  4. **Tombstone 영구 보류 (`409 Conflict` · 구현 완료)**: 탈퇴·삭제된 `pod_id`는 물리 데이터와 ACL이 즉시 파기된 뒤 D1 `pod_tombstones`와 엔진 Tombstone 카탈로그에 영구 기록되어 재가입/재점유 시 `409 Conflict`로 차단함으로써 Identity Hijacking을 원천 방지한다.
   5. **개인·기업 커스텀 도메인 연동 (Cloudflare for SaaS)**:
      * 기업뿐 아니라 일반 유저(Pro/Creator 등)도 CNAME(`cname.wolin.id`) + TXT 검증만으로 자기 도메인(`id.alice.dev`, `id.brand.com`)을 Pod에 연결할 수 있다(자동 SSL 발급).
 
