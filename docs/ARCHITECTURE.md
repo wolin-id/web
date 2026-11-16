@@ -22,7 +22,7 @@ Wolin은 **단일 Open-Core Rust 데이터 플레인(`wolin-id/wolin`)**과 **�
 │  • GitHub OAuth Live + 5 Providers Ready │ │  • Per-Pod Oxigraph RocksDB     │
 │    (Google/Kakao/Apple/Naver/Discord)    │ │    (Bounded LRU 256, 1 GiB Cap) │
 │  • 1:N Verified-Email Account Linking    │ │  • ~180 Reserved Handles +      │
-│  • 6-Lang i18n (en/zh/es/pt/ja/ko)       │ │    Permanent Tombstone (410)    │
+│  • 6-Lang i18n (en/zh/es/pt/ja/ko)       │ │    Permanent Tombstone (409)    │
 │  • Rybbit + Zero-PII D1 Error/Feedback   │ │  • JWKS Signature Verifier +    │
 │  • /assets/:pod_id/* HMAC R2 Streaming   │ │    DPoP at+jwt typ Guard        │
 │  • Wolin Passport (/passport/:pod_id)    │ │  • 302 HMAC-SHA256 Asset Offload│
@@ -46,11 +46,11 @@ Wolin은 **단일 Open-Core Rust 데이터 플레인(`wolin-id/wolin`)**과 **�
 
 ### 2.2 Sovereign Pod Data Plane (`https://pod.wolin.id` & `*.wolin.id`)
 * **Per-Pod 물리 격리 + Bounded LRU + 쿼터**:
-  * 유저마다 독립된 물리 디렉터리(`graph/pods/{pod_id}/` Oxigraph RocksDB + `blobs/pods/{pod_id}/` OpenDAL)를 분리합니다.
+  * 유저마다 독립된 물리 디렉터리(`pods/{pod_id}/graph/` Oxigraph RocksDB + `blobs/pods/{pod_id}/` OpenDAL)를 분리합니다.
   * `PodStoreManager`가 동시 오픈 RocksDB 핸들을 **최대 `256`개 Bounded LRU 캐시**로 관리하고, Pod당 기본 **`1 GiB` 스토리지 쿼터**(`$0` Free Tier 기본 제공, 초과 시 `413`/`507`)를 강제합니다.
 * **핸들 보안 제약 (~180개 예약어 + 영구 Tombstone)**:
   * `3~32`자 소문자 영숫자·하이픈 규칙(무료 `4~32`자, 유료 `3`자, Punycode `xn--` 및 연속 `--` 차단)을 검증합니다.
-  * RFC 2142·DNS·OAuth·핵심 브랜드·인프라 서브도메인 등 **약 180개 예약 핸들**을 엔진과 컨트롤 플레인 양쪽에서 이중 차단하며, 삭제/은퇴 처리된 Pod는 **영구 Tombstone(`410 Gone`)**으로 동결해 신원 하이재킹을 원천 방지합니다.
+  * RFC 2142·DNS·OAuth·핵심 브랜드·인프라 서브도메인 등 **약 180개 예약 핸들**을 엔진과 컨트롤 플레인 양쪽에서 이중 차단(`400`)하며, 삭제/은퇴 처리된 Pod는 데이터 및 ACL이 즉시 파기된 뒤 **영구 Tombstone(`409 Conflict` 재가입 원천 차단)**으로 동결해 신원 하이재킹을 원천 방지합니다.
 * **단기 HMAC-SHA256 서명 에셋 오프로딩 (`302 Found` → R2 `$0` Egress)**:
   * 비공개/대용량 바이너리(`NonRDFSource`, 기본 `>= 256 KiB`) `GET` 요청 시 `wolin-server`가 먼저 DPoP + WAC/ACP 권한을 검증한 뒤, `wolin-asset-v1` 도메인 분리된 **60초 만료 `HMAC-SHA256` 서명 URL**(`https://auth.wolin.id/assets/{pod_id}/{path}?exp=...&sig=...`)로 `302 Found` 리다이렉트하여 Cloudflare R2에서 직접 스트리밍합니다.
 * **암호학적 JWKS 서명 검증 & `at+jwt` 혼동 방어**:
