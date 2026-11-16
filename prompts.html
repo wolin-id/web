@@ -830,7 +830,7 @@
       </div>
       <div class="setup-item">
         <span class="setup-label" data-i18n="prompts.s2Label">02 · Connect Docs MCP</span>
-        <code class="setup-code"><a href="https://docs.wolin.id/mcp">https://docs.wolin.id/mcp</a></code>
+        <code class="setup-code"><a href="https://wolin.id/mcp">https://wolin.id/mcp</a></code>
       </div>
       <div class="setup-item">
         <span class="setup-label" data-i18n="prompts.s3Label">03 · Single-File Reference</span>
@@ -860,7 +860,7 @@
             <span class="prompt-filename">cat-cafe-world.prompt.md</span>
             <button type="button" class="copy-btn" data-target="prompt-cat-cafe" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
           </div>
-          <pre class="prompt-pre" id="prompt-cat-cafe">Build a "Cozy Cat Cafe 3D World" web app powered by Wolin Sovereign Pods. First connect to https://docs.wolin.id/mcp (and read https://wolin.id/llms-full.txt), and use context7 for verified React Three Fiber, @react-three/drei, and @wolin-id/react APIs.
+          <pre class="prompt-pre" id="prompt-cat-cafe">Build a "Cozy Cat Cafe 3D World" web app powered by Wolin Sovereign Pods. First connect to https://wolin.id/mcp (and read https://wolin.id/llms-full.txt), and use context7 for verified React Three Fiber, @react-three/drei, and @wolin-id/react APIs.
 
 1. Scaffold with `pnpm create wolin-world cozy-cat-cafe` (from `wolin-id/metaverse-starter`) and emit `public/client-id.jsonld` + `public/_headers` so Solid-OIDC works with zero app review (`client_id` origin MUST match `redirect_uri` origin, issuer `https://auth.wolin.id`).
 2. Authenticate users via `<WolinProvider>` and `useWolinSession()`. Dereference their WebID Turtle profile and spawn their 3D avatar from `https://wolin.id/ns#avatarGlbUrl` + `https://wolin.id/ns#displayName` (with a cozy capsule fallback if unset).
@@ -891,7 +891,7 @@
             <span class="prompt-filename">vtuber-concert-stage.prompt.md</span>
             <button type="button" class="copy-btn" data-target="prompt-vtuber-stage" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
           </div>
-          <pre class="prompt-pre" id="prompt-vtuber-stage">Build a "VTuber Live Concert Stage" 3D web venue on Wolin with $0 streaming server cost. Query https://docs.wolin.id/mcp (and https://wolin.id/llms-full.txt) first, and use context7 for Three.js CSS3DRenderer, @pixiv/three-vrm, React Three Fiber, and @wolin-id/react docs.
+          <pre class="prompt-pre" id="prompt-vtuber-stage">Build a "VTuber Live Concert Stage" 3D web venue on Wolin with $0 streaming server cost. Query https://wolin.id/mcp (and https://wolin.id/llms-full.txt) first, and use context7 for Three.js CSS3DRenderer, @pixiv/three-vrm, React Three Fiber, and @wolin-id/react docs.
 
 1. Initialize from `create-wolin-world` (`pnpm create wolin-world vtuber-stage`) with a static Solid-OIDC `public/client-id.jsonld` (`token_endpoint_auth_method: "none"`, PKCE `S256`, issuer `https://auth.wolin.id`).
 2. Sign fans in via `useWolinSession()`, parse their WebID profile (`https://wolin.id/ns#`), and load `wolin:avatarVrmUrl` (falling back to `wolin:avatarGlbUrl` or a stylized silhouette) with `wolin:displayName` floating nametags and keyboard wave/cheer emotes.
@@ -922,7 +922,7 @@
             <span class="prompt-filename">commerce-popup-store.prompt.md</span>
             <button type="button" class="copy-btn" data-target="prompt-popup-store" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
           </div>
-          <pre class="prompt-pre" id="prompt-popup-store">Create a minimalist architectural "3D Commerce Pop-up Store" using Wolin Sovereign Identity & Pods. Consult https://docs.wolin.id/mcp (and https://wolin.id/llms-full.txt) before coding, and use context7 for React Three Fiber, @react-three/drei, and @wolin-id/client APIs.
+          <pre class="prompt-pre" id="prompt-popup-store">Create a minimalist architectural "3D Commerce Pop-up Store" using Wolin Sovereign Identity & Pods. Consult https://wolin.id/mcp (and https://wolin.id/llms-full.txt) before coding, and use context7 for React Three Fiber, @react-three/drei, and @wolin-id/client APIs.
 
 1. Bootstrap with `pnpm create wolin-world popup-store` and configure `public/client-id.jsonld` + `public/_headers` (`Access-Control-Allow-Origin: *`) for passwordless Solid-OIDC sign-in against `https://auth.wolin.id`.
 2. Render a sunlit gallery showroom with 4 interactive `.glb` product pedestals (hat, glasses, jacket, companion drone) and a 3D mirror station displaying the shopper's `https://wolin.id/ns#avatarGlbUrl` avatar.
@@ -953,7 +953,7 @@
             <span class="prompt-filename">indie-game-lobby.prompt.md</span>
             <button type="button" class="copy-btn" data-target="prompt-game-lobby" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
           </div>
-          <pre class="prompt-pre" id="prompt-game-lobby">Build an "Indie Game Lobby" 3D multiplayer hub where player identity, save files, and world portals live in Wolin Solid Pods. Connect to https://docs.wolin.id/mcp (and check https://wolin.id/llms-full.txt), and use context7 for React Three Fiber, Rapier/BVH collisions, and @wolin-id/client.
+          <pre class="prompt-pre" id="prompt-game-lobby">Build an "Indie Game Lobby" 3D multiplayer hub where player identity, save files, and world portals live in Wolin Solid Pods. Connect to https://wolin.id/mcp (and check https://wolin.id/llms-full.txt), and use context7 for React Three Fiber, Rapier/BVH collisions, and @wolin-id/client.
 
 1. Start from `create-wolin-world` (`pnpm create wolin-world indie-lobby`) with `public/client-id.jsonld` bound to the app origin (`openid webid offline_access`, PKCE `S256`, issuer `https://auth.wolin.id`).
 2. Spawn the player's `https://wolin.id/ns#avatarGlbUrl` + `wolin:displayName` in a floating low-poly plaza with 3rd-person camera controller and 4-player squad WebRTC P2P proximity voice.
@@ -969,7 +969,7 @@
       <div class="ref-links">
         <a href="/llms.txt">/llms.txt</a>
         <a href="/llms-full.txt">/llms-full.txt</a>
-        <a href="https://docs.wolin.id/mcp">docs.wolin.id/mcp</a>
+        <a href="https://wolin.id/mcp">wolin.id/mcp</a>
         <a href="https://github.com/wolin-id/metaverse-starter">wolin-id/metaverse-starter</a>
         <a href="https://github.com/wolin-id/skills">wolin-id/skills</a>
       </div>
