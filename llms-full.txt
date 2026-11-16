@@ -16,6 +16,15 @@
 - **Wolin Passport Showcase**: Navigating a browser (`Accept: text/html`) to `https://{handle}.wolin.id` renders the user's 3D avatar card and world links; querying with `Accept: text/turtle` returns the standard W3C WebID RDF profile.
 - **Zero Backend Required for Worlds**: Static web worlds (Vite / Next.js / React Three Fiber / Unity WebGL) deploy for `$0/mo` on Cloudflare Pages. Authentication uses a static `client-id.jsonld` file, and persistent state lives inside each player's Wolin Pod.
 
+### 0.1 Data Boundary Rule: User Pod vs. Your Authoritative Server (CRITICAL)
+Because users hold read/write ownership over their own Pod (`PUT`/`PATCH`), **never store cheat-sensitive game economy or progression directly in a Pod as authoritative truth**:
+
+| Store in **User Pod** (`https://{handle}.wolin.id`) | Store in **Your Authoritative Game/App Server** |
+|---|---|
+| Profiles, display names, avatar GLB/skins, portal bookmarks | XP, levels, combat stats, quest state |
+| User-generated content (UGC: notes, wish lanterns, photos, room builds) | In-game currency, gold, balances, tradeable item ledgers |
+| **Server-signed badges, achievements & tickets** (verifiable across worlds) | Leaderboards, rankings, win/loss records, anti-cheat state |
+
 ---
 
 ## 1. 5-Language SDK 10-Line Quickstarts
