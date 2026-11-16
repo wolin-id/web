@@ -28,6 +28,7 @@
       /* Living Moss Primary Tokens */
       --accent: #059669;
       --accent-hover: #047857;
+      --accent-text: #047857;
       --accent-vibrant: #10B981;
       --accent-soft: #ECFDF5;
       --warn: #B45309;
@@ -372,10 +373,10 @@
       gap: 0.55rem;
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 500;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      color: var(--accent);
+      color: var(--accent-text);
       margin-bottom: 1rem;
       flex-wrap: wrap;
     }
@@ -800,7 +801,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      color: var(--accent);
+      color: var(--accent-text);
       margin-bottom: 0.8rem;
       display: block;
     }
@@ -1410,7 +1411,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--accent);
+      color: var(--accent-text);
     }
 
     .badge-soon {
@@ -1514,7 +1515,7 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-text);
       margin-bottom: 0.55rem;
       display: block;
     }
@@ -2042,8 +2043,8 @@
               <rect x="228" y="114" width="26" height="3.2" rx="1.5" fill="#CBD5E1"/>
               <rect x="266" y="114" width="26" height="3.2" rx="1.5" fill="#CBD5E1"/>
               <rect x="236" y="123" width="48" height="3.6" rx="1.8" fill="#10B981"/>
-              <rect x="242" y="133" width="15" height="3.2" rx="1.5" fill="#64748B"/>
-              <rect x="263" y="133" width="15" height="3.2" rx="1.5" fill="#64748B"/>
+              <rect x="242" y="133" width="15" height="3.2" rx="1.5" fill="#94A3B8"/>
+              <rect x="263" y="133" width="15" height="3.2" rx="1.5" fill="#94A3B8"/>
 
               <!-- Left & Right Handle Callouts -->
               <g transform="translate(24, 42)">
@@ -2553,16 +2554,30 @@
     (function () {
       'use strict';
 
-      var RESERVED_LOCAL = {
-        admin: 1, api: 1, app: 1, assets: 1, auth: 1, billing: 1, blog: 1, brand: 1,
-        cdn: 1, cloud: 1, console: 1, dashboard: 1, dev: 1, docs: 1, email: 1, ftp: 1,
-        git: 1, help: 1, host: 1, id: 1, imap: 1, inbox: 1, legal: 1, login: 1,
-        logout: 1, mail: 1, mcp: 1, media: 1, ns: 1, oauth: 1, oidc: 1, pay: 1,
-        pod: 1, pods: 1, pop: 1, pricing: 1, privacy: 1, profile: 1, prompts: 1,
-        refund: 1, register: 1, root: 1, security: 1, settings: 1, signin: 1,
-        signup: 1, smtp: 1, solid: 1, status: 1, support: 1, system: 1, terms: 1,
-        vault: 1, webid: 1, wolin: 1, www: 1
-      };
+      var RESERVED_LIST = [
+        'about','abuse','admin','administrator','ads','api','app','apps','assets','auth',
+        'authorize','autoconfig','autodiscover','backup','beta','billing','blog','brand',
+        'calendar','cdn','chat','cloud','consent','console','contact','control','corp',
+        'dashboard','data','dev','dns','doc','docs','download','downloads','edge','email',
+        'engine','enterprise','entropy','events','files','forum','ftp','gateway','git',
+        'graphql','health','healthz','help','home','host','hostmaster','id','idp','images',
+        'imap','img','inbox','info','internal','journal','jwks','legal','local','localhost',
+        'login','logout','logs','mail','mailer','manage','mcp','media','metrics','mta-sts',
+        'mx','net','news','no-reply','noreply','notify','ns','ns1','ns2','ns3','ns4',
+        'oauth','official','oidc','ops','org','origin','passport','pay','payment','payments',
+        'pod','pods','pop','pop3','portal','postmaster','press','pricing','privacy','private',
+        'prod','production','profile','prompts','proxy','pub','public','refund','register',
+        'registry','relay','root','rpc','rss','sandbox','search','secure','security','server',
+        'service','services','session','settings','sftp','signin','signout','signup','smtp',
+        'solid','sparql','ssh','sso','stage','staging','static','stats','status','storage',
+        'store','support','sync','sys','system','team','telemetry','terms','test','testing',
+        'token','trust','updates','upload','uploads','userinfo','vault','verify','vpn','wac',
+        'web','webhook','webhooks','webid','webmail','webmaster','well-known','wolin','ws','wss','www'
+      ];
+      var RESERVED_LOCAL = Object.create(null);
+      for (var rIdx = 0; rIdx < RESERVED_LIST.length; rIdx++) {
+        RESERVED_LOCAL[RESERVED_LIST[rIdx]] = 1;
+      }
 
       var currentWorldIdx = 0;
       var checkTimer = null;
@@ -2683,10 +2698,12 @@
             inputEl.value = cleaned;
           }
           clearTimeout(checkTimer);
-          if (!cleaned) {
-            checkHandleLive('');
+          var local = validateHandleLocal(cleaned);
+          if (local.state !== 'valid') {
+            checkHandleLive(cleaned);
             return;
           }
+          setStatus('checking', tr('hero.statusChecking', 'Checking ') + cleaned + '.wolin.id…');
           checkTimer = setTimeout(function () {
             checkHandleLive(cleaned);
           }, 220);
