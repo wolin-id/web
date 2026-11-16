@@ -1,4 +1,4 @@
-# Wolin (月印) — Complete Zero-Hallucination Developer Reference (`llms-full.txt`)
+# Wolin (月印千江) — Complete Zero-Hallucination Developer Reference (`llms-full.txt`)
 
 > Canonical Reference URL: `https://wolin.id/llms-full.txt`
 > Concise Index: `https://wolin.id/llms.txt`

@@ -1,4 +1,4 @@
-# Wolin (月印)
+# Wolin (月印千江)
 
 > Sovereign W3C Solid 0.11 Pod Cloud, Passwordless Solid-OIDC + RFC 9449 ES256 DPoP Identity, and Cross-World Metaverse Infrastructure (`<30MB` Rust Engine + Cloudflare R2 Edge).
 
