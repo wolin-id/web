@@ -2,7 +2,7 @@
 
 > Canonical Reference URL: `https://wolin.id/llms-full.txt`
 > Concise Index: `https://wolin.id/llms.txt`
-> Docs MCP Endpoint: `https://docs.wolin.id/mcp`
+> Docs MCP Endpoint: `https://wolin.id/mcp`
 > Copy-Paste Prompt Hub: `https://wolin.id/prompts.html`
 > Standards: W3C Solid Protocol 0.11 · W3C Solid-OIDC · RFC 9449 DPoP (`ES256`) · RFC 7638 JWK Thumbprint · W3C RDF 1.1 Turtle / JSON-LD · WAC & ACP
 
