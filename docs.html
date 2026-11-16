@@ -932,9 +932,9 @@ export const App = () =&gt; (
 
 function WorldHud() {
   const { isAuthenticated, session, login } = useWolinSession();
-  const { save } = usePodResource(isAuthenticated ? '/private/world-save.ttl' : null);
+  const { save } = usePodResource(isAuthenticated ? '/private/apps/world/appearance.json' : null);
   return isAuthenticated
-    ? &lt;button onClick={() =&gt; void save('&lt;#save&gt; &lt;https://wolin.id/ns#score&gt; 42 .')}&gt;Save ({session?.webId})&lt;/button&gt;
+    ? &lt;button onClick={() =&gt; void save('{"preset":"moss-wanderer"}', 'application/json')}&gt;Save Look ({session?.webId})&lt;/button&gt;
     : &lt;button onClick={() =&gt; void login()}&gt;Continue with Wolin&lt;/button&gt;;
 }</code></pre>
         </div>
@@ -1176,13 +1176,13 @@ wolin import --bundle ./alice-pod-backup.tar.zst \
           install: 'pnpm add @wolin-id/client @wolin-id/react',
           repoUrl: 'https://github.com/wolin-id/sdk-js',
           repoLabel: 'github.com/wolin-id/sdk-js ↗',
-          code: 'import { WolinProvider, usePodResource, useWolinSession } from \'@wolin-id/react\';\n\nexport const App = () => (\n  <WolinProvider\n    clientId={`${location.origin}/client-id.jsonld`}\n    redirectUri={`${location.origin}/auth/callback`}\n    defaultOidcIssuer="https://auth.wolin.id"\n  >\n    <WorldHud />\n  </WolinProvider>\n);\n\nfunction WorldHud() {\n  const { isAuthenticated, session, login } = useWolinSession();\n  const { save } = usePodResource(isAuthenticated ? \'/private/world-save.ttl\' : null);\n  return isAuthenticated\n    ? <button onClick={() => void save(\'<#save> <https://wolin.id/ns#score> 42 .\')}>Save ({session?.webId})</button>\n    : <button onClick={() => void login()}>Continue with Wolin</button>;\n}'
+          code: 'import { WolinProvider, usePodResource, useWolinSession } from \'@wolin-id/react\';\n\nexport const App = () => (\n  <WolinProvider\n    clientId={`${location.origin}/client-id.jsonld`}\n    redirectUri={`${location.origin}/auth/callback`}\n    defaultOidcIssuer="https://auth.wolin.id"\n  >\n    <WorldHud />\n  </WolinProvider>\n);\n\nfunction WorldHud() {\n  const { isAuthenticated, session, login } = useWolinSession();\n  const { save } = usePodResource(isAuthenticated ? \'/private/apps/world/appearance.json\' : null);\n  return isAuthenticated\n    ? <button onClick={() => void save(\'{"preset":"moss-wanderer"}\', \'application/json\')}>Save Look ({session?.webId})</button>\n    : <button onClick={() => void login()}>Continue with Wolin</button>;\n}'
         },
         {
           install: '"id.wolin.unity": "https://github.com/wolin-id/sdk-unity.git#v0.1.0"',
           repoUrl: 'https://github.com/wolin-id/sdk-unity',
           repoLabel: 'github.com/wolin-id/sdk-unity ↗',
-          code: 'using System;\nusing Wolin.Unity;\n\nusing var client = new WolinClient();\nclient.SetAccessToken(accessToken, "https://alice.wolin.id/profile/card#me");\nUri storageRoot = await client.DiscoverStorageAsync("https://alice.wolin.id/profile/card#me");\nUri saveUri = new Uri(storageRoot, "games/indie-lobby/save.ttl");\nPodResource loaded = await client.GetAsync(saveUri);\nawait client.PutAsync(\n    saveUri,\n    "<#player> <https://wolin.id/ns#level> 7 .",\n    "text/turtle",\n    ifMatch: loaded.ETag\n);'
+          code: 'using System;\nusing Wolin.Unity;\n\nusing var client = new WolinClient();\nclient.SetAccessToken(accessToken, "https://alice.wolin.id/profile/card#me");\nUri storageRoot = await client.DiscoverStorageAsync("https://alice.wolin.id/profile/card#me");\nUri prefUri = new Uri(storageRoot, "private/apps/indie-lobby/appearance.ttl");\nPodResource loaded = await client.GetAsync(prefUri);\nawait client.PutAsync(\n    prefUri,\n    "<#player> <https://wolin.id/ns#displayName> \\"Alice\\" .",\n    "text/turtle",\n    ifMatch: loaded.ETag\n);'
         },
         {
           install: '.package(url: "https://github.com/wolin-id/sdk-swift.git", from: "0.1.0")',

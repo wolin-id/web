@@ -957,7 +957,7 @@
 
 1. Start from `create-wolin-world` (`pnpm create wolin-world indie-lobby`) with `public/client-id.jsonld` bound to the app origin (`openid webid offline_access`, PKCE `S256`, issuer `https://auth.wolin.id`).
 2. Spawn the player's `https://wolin.id/ns#avatarGlbUrl` + `wolin:displayName` in a floating low-poly plaza with 3rd-person camera controller and 4-player squad WebRTC P2P proximity voice.
-3. Sync player XP, unlocked badges, and inventory to `/private/games/indie-lobby/save.ttl` via `WolinPodClient`: create `/private/games/indie-lobby/` with trailing `/` (`createContainer`), initialize `save.ttl` with `createOnly: true` (`If-None-Match: *`), and guard every checkpoint write with `ifMatch: lastEtag` + ES256 DPoP `ath` proof.
+3. Sync player appearance preferences, portal bookmarks, and server-signed achievement badges under `pim:storage` (`/private/apps/indie-lobby/appearance.json`) via `WolinPodClient` (keeping XP, currency, and match authority on your game server): create `/private/apps/indie-lobby/` with trailing `/` (`createContainer`), initialize `appearance.json` with `createOnly: true` (`If-None-Match: *`), and guard every write with `ifMatch: lastEtag` + ES256 DPoP `ath` proof.
 4. Read `https://wolin.id/ns#worldLinks` (`wolin:WorldLink` with `schema:name` and `schema:url`) from the player's WebID profile and dynamically spawn glowing 3D portal arches in the plaza that teleport into linked partner worlds.
 5. Add an arcade scoreboard `<WolinAdSlot slotId="lobby-arcade-board" format="billboard-16x9" worldTheme="indie-game-lobby" />` and verify static `pnpm build` for 1-click Cloudflare Pages deploy.</pre>
         </div>
