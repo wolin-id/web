@@ -27,7 +27,13 @@ Because users hold read/write ownership over their own Pod (`PUT`/`PATCH`), **ne
 
 ---
 
-## 1. 5-Language SDK 10-Line Quickstarts
+### 0.2 Multi-Proportion Avatars (`wolin:avatarVariants`) & Server Integration
+- **One `webid`, Multiple Body Variants**: There is no universal 3D standard for head-to-body ratios (`8-head` vs `3-head`). Keep `wolin:avatarVrmUrl` / `wolin:avatarGlbUrl` as the global default and store app/proportion-specific variants under `wolin:avatarVariants` (`app`, `catalogId`, `skeleton: "vrm-1.0"`, `heightMeters`, `url`).
+- **3-Tier Cross-World Fallback**: (1) Exact `app`/`catalogId` match -> load editable `appearance.json` or compiled VRM; (2) Matching `skeleton` (`vrm-1.0`) only -> retarget animations onto the compiled VRM without mixing incompatible clothing parts; (3) Incompatible proportions -> use your world's default body and display `signedCredential` badges/titles.
+- **Discovery via `pim:storage`**: Always discover the Pod storage root from the WebID profile (`pim:storage`) before resolving `<storage>/private/apps/<app>/appearance.json`.
+- **Server DB Binding**: Verify `id_token` via `https://auth.wolin.id/.well-known/jwks.json` and key your game DB (`XP`, `gold`, `inventory`) by the verified `webid` claim. To grant portable badges, either use delegated `access_token` + `DPoP` or issue a **server-signed credential** for the client to save in their Pod (`wolin:equipped` alone is user preference, not proof of purchase).
+
+## 1. 5-Language SDK Quickstarts
 
 All 5 official Wolin SDKs implement RFC 9449 `ES256` (NIST P-256) DPoP proof signing, RFC 7638 `cnf.jkt` thumbprints, automatic `DPoP-Nonce` retry, W3C WebID `pim:storage` discovery, and `ETag` (`If-Match` / `If-None-Match`) optimistic concurrency with **zero third-party cryptography bloat**.
 
