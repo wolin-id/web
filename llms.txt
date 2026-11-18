@@ -10,6 +10,7 @@ Wolin (`https://wolin.id`) gives every user a portable WebID (`https://{handle}.
 - [Complete Zero-Hallucination Developer Reference](https://wolin.id/llms-full.txt): Single-file technical specification covering 5-language 10-line SDK quickstarts, `client-id.jsonld` template, official `https://wolin.id/ns#` RDF vocabulary, 4 Metaverse Lego Blocks, and DPoP / LDP trailing-slash / ETag `If-Match` pitfall rules. Also available at `/llms-full.txt`.
 - [Copy-Paste Vibe-Coding Prompt Hub](https://wolin.id/prompts.html): Ready-to-paste prompts for scaffolding a Cozy Cat Cafe 3D World, VTuber Live Concert Stage, 3D Commerce Pop-up Store, and Indie Game Lobby with `create-wolin-world`, Context7, and MCP. Also available at `/prompts.html`.
 - [Wolin Docs MCP Server](https://wolin.id/mcp): Read-only Model Context Protocol (MCP) HTTP endpoint for querying Wolin schemas, Solid-OIDC flows, and SDK examples directly from Claude Code, Cursor, Windsurf, or OpenCode.
+- [Multi-Proportion Avatar & Server Integration Spec](https://github.com/wolin-id/docs/blob/main/AVATAR_INTEROP.md): `wolin:avatarVariants`, 3-tier VRM fallback, `appearance.json` recipes, `signedCredential` vs `equipped`, and `id_token.webid` server DB binding.
 
 ## Official SDKs (5 Languages)
 

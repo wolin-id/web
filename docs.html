@@ -1042,9 +1042,31 @@ function WorldHud() {
             <span class="plane-kicker">YOUR GAME / APP SERVER (AUTHORITATIVE)</span>
             <h3>Anti-Cheat &amp; Economy Ledger</h3>
             <ul>
-              <li><strong>XP, Levels &amp; Progression:</strong> Combat stats, quest flags, and skill trees stay authoritative on your server.</li>
+              <li><strong>XP, Levels &amp; Progression:</strong> Combat stats, quest flags, and skill trees stay authoritative on your server, keyed by verified <code>id_token.webid</code>.</li>
               <li><strong>In-Game Currency &amp; Balances:</strong> Gold, points, and tradeable item ledgers — never trust client-writable Pod files for currency.</li>
               <li><strong>Competitive Rankings &amp; Match State:</strong> Leaderboards, matchmaking, and real-time room state remain server-validated.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="plane-grid" style="margin-top: 20px;" id="avatar-interop">
+          <div class="plane-card">
+            <span class="plane-kicker">CROSS-WORLD AVATARS (`wolin:avatarVariants`)</span>
+            <h3>Multi-Proportion &amp; 3-Tier Fallback</h3>
+            <ul>
+              <li><strong>One WebID, Many Bodies:</strong> Keep <code>wolin:avatarVrmUrl</code> as default and store per-app variants (<code>app</code>, <code>catalogId</code>, <code>skeleton: "vrm-1.0"</code>, <code>heightMeters</code>) for 8-head vs. chibi worlds.</li>
+              <li><strong>3-Tier Fallback:</strong> Exact <code>catalogId</code> match → VRM humanoid retargeting on compatible <code>skeleton</code> → world default body + Pod badges.</li>
+              <li><strong>Recipes vs. Ownership:</strong> Store editable parts under <code>&lt;pim:storage&gt;/private/apps/&lt;app&gt;/appearance.json</code>; use server-signed credentials for provable badges (<code>wolin:equipped</code> is preference only).</li>
+            </ul>
+          </div>
+
+          <div class="plane-card">
+            <span class="plane-kicker">SERVER-SIDE INTEGRATION</span>
+            <h3>WebID Binding &amp; Pod Writes</h3>
+            <ul>
+              <li><strong>Verify <code>id_token</code> via JWKS:</strong> Validate <code>https://auth.wolin.id/.well-known/jwks.json</code> and key your DB by the verified <code>webid</code> claim — never trust raw client strings.</li>
+              <li><strong>Pattern A (Delegated DPoP):</strong> Backend exchanges OIDC code + DPoP and writes scoped <code>private/apps/&lt;app&gt;/</code> files on the user's behalf.</li>
+              <li><strong>Pattern B (Signed Credential):</strong> Backend signs a JSON badge/ticket with its server key; the client writes it to their Pod with zero backend token storage.</li>
             </ul>
           </div>
         </div>
