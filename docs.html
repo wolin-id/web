@@ -302,6 +302,7 @@
       background: var(--accent-soft);
       padding: 0.1rem 0.36rem;
       border-radius: 4px;
+      white-space: nowrap;
     }
 
     /* 01. AI Agent & LLM Context Hub */
@@ -574,6 +575,11 @@
       color: var(--accent-hover);
       margin-bottom: 0.35rem;
       display: block;
+    }
+    .plane-kicker code {
+      text-transform: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.01em;
     }
     .plane-card h3 {
       font-size: 1.12rem;
@@ -881,7 +887,7 @@
             <div>
               <span class="agent-card-tag">LIVE HTTP · MCP</span>
               <h3>wolin.id/mcp</h3>
-              <p data-i18n="docs.aiCard4">Read-only Model Context Protocol server for live schema &amp; SDK lookups inside your IDE.</p>
+              <p data-i18n="docs.aiCard4">Streamable HTTP Model Context Protocol server for semantic Pod queries &amp; resource operations inside your IDE.</p>
             </div>
             <span class="agent-card-cta">Connect MCP ↗</span>
           </a>
@@ -943,7 +949,7 @@ function WorldHud() {
 }</code></pre>
         </div>
 
-        <p class="sec-desc" style="margin-top: 0.9rem; margin-bottom: 1.5rem; font-size: 0.9rem;">
+        <p class="sec-desc" style="margin-top: 0.9rem; margin-bottom: 1.5rem; font-size: 0.9rem;" data-i18n-html="docs.pkgAvail">
           <strong>Package Availability:</strong> <code>@wolin-id/client</code> is live on npm (<code>pnpm add @wolin-id/client</code>), while <code>@wolin-id/react</code> (<a href="https://github.com/wolin-id/sdk-js" target="_blank" rel="noopener">wolin-id/sdk-js</a>) and <code>create-wolin-world</code> (<a href="https://github.com/wolin-id/metaverse-starter" target="_blank" rel="noopener">wolin-id/metaverse-starter</a>) are currently sourced from the GitHub SDK monorepos.
         </p>
 
@@ -981,7 +987,7 @@ function WorldHud() {
               </div>
               <div class="vocab-row">
                 <code>wolin:avatarVariants</code>
-                <span>Turtle IRI in <code>/profile/card</code> (e.g. <code>&lt;/public/avatars/variants.json&gt;</code>) → JSON manifest of per-world body variants</span>
+                <span data-i18n-html="docs.nsVariants">Turtle IRI in <code>/profile/card</code> (e.g. <code>&lt;/public/avatars/variants.json&gt;</code>) → JSON manifest of per-world body variants</span>
               </div>
               <div class="vocab-row">
                 <code>wolin:worldLinks · wolin:wearableItem</code>
@@ -1041,7 +1047,7 @@ function WorldHud() {
 
         <div class="plane-grid" style="margin-top: 28px;" id="data-boundary">
           <div class="plane-card">
-            <span class="plane-kicker">USER POD (`https://{handle}.wolin.id`)</span>
+            <span class="plane-kicker">USER POD (<code>https://{handle}.wolin.id</code>)</span>
             <h3>User-Owned &amp; Portable Data</h3>
             <ul>
               <li><strong>Identity &amp; Cosmetics:</strong> In-world profile, avatar GLB/skins, bio, and cross-world portal bookmarks (<code>wolin:worldLinks</code>).</li>
@@ -1063,7 +1069,7 @@ function WorldHud() {
 
         <div class="plane-grid" style="margin-top: 20px;" id="avatar-interop">
           <div class="plane-card">
-            <span class="plane-kicker">CROSS-WORLD AVATARS (`wolin:avatarVariants`)</span>
+            <span class="plane-kicker">CROSS-WORLD AVATARS (<code>wolin:avatarVariants</code>)</span>
             <h3>Multi-Proportion &amp; 3-Tier Fallback</h3>
             <ul>
               <li><strong><code>/profile/card</code> Turtle IRI → JSON Document:</strong> In <code>/profile/card</code>, <code>&lt;#me&gt; wolin:avatarVariants &lt;/public/avatars/variants.json&gt; .</code> points via Turtle IRI to a JSON manifest (<code>{ default, variants: [{ app, catalogId, skeleton: "vrm-1.0", heightMeters, url }] }</code>) alongside global <code>wolin:avatarVrmUrl</code> / <code>wolin:avatarGlbUrl</code>.</li>
