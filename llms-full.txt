@@ -28,8 +28,8 @@ Because users hold read/write ownership over their own Pod (`PUT`/`PATCH`), **ne
 ---
 
 ### 0.2 Multi-Proportion Avatars (`wolin:avatarVariants`) & Server Integration
-- **One `webid`, Multiple Body Variants**: There is no universal 3D standard for head-to-body ratios (`8-head` vs `3-head`). Keep `wolin:avatarVrmUrl` / `wolin:avatarGlbUrl` as the global default and store app/proportion-specific variants under `wolin:avatarVariants` (`app`, `catalogId`, `skeleton: "vrm-1.0"`, `heightMeters`, `url`).
-- **3-Tier Cross-World Fallback**: (1) Exact `app`/`catalogId` match -> load editable `appearance.json` or compiled VRM; (2) Matching `skeleton` (`vrm-1.0`) only -> retarget animations onto the compiled VRM without mixing incompatible clothing parts; (3) Incompatible proportions -> use your world's default body and display `signedCredential` badges/titles.
+- **One `webid`, Multiple Body Variants (`/profile/card` Turtle IRI -> JSON Document)**: There is no universal 3D standard for head-to-body ratios (`8-head` vs `3-head`). Keep `wolin:avatarVrmUrl` / `wolin:avatarGlbUrl` as the global default on `<#me>` in `/profile/card`, and link `<#me> wolin:avatarVariants </public/avatars/variants.json> .` (a Turtle IRI in `/profile/card` pointing to an `application/json` manifest document `{ "default": { ... }, "variants": [{ "app", "catalogId", "skeleton": "vrm-1.0", "heightMeters", "url" }] }`). `parseWebIdProfile()` / `fetchWebIdProfile()` in `@wolin-id/client` extracts `profile.avatarVariants` (whether present as a resolved IRI or inline JSON literal) alongside `profile.displayName`, `profile.avatarGlbUrl`, and `profile.avatarVrmUrl`.
+- **3-Tier Cross-World Fallback**: Dereference `profile.avatarVariants` (`Accept: application/json`): (1) Exact `app`/`catalogId` match -> load editable `appearance.json` or compiled VRM; (2) Matching `skeleton` (`vrm-1.0`) only -> retarget animations onto the compiled VRM without mixing incompatible clothing parts; (3) Incompatible proportions -> use your world's default body and display `signedCredential` badges/titles.
 - **Discovery via `pim:storage`**: Always discover the Pod storage root from the WebID profile (`pim:storage`) before resolving `<storage>/private/apps/<app>/appearance.json`.
 - **Server DB Binding**: Verify `id_token` via `https://auth.wolin.id/.well-known/jwks.json` and key your game DB (`XP`, `gold`, `inventory`) by the verified `webid` claim. To grant portable badges, either use delegated `access_token` + `DPoP` or issue a **server-signed credential** for the client to save in their Pod (`wolin:equipped` alone is user preference, not proof of purchase).
 
@@ -39,7 +39,9 @@ All 5 official Wolin SDKs implement RFC 9449 `ES256` (NIST P-256) DPoP proof sig
 
 ### 1.1 TypeScript / JavaScript (`@wolin-id/client` & `@wolin-id/react`)
 - **Repo**: `https://github.com/wolin-id/sdk-js`
-- **Install**: `pnpm add @wolin-id/client @wolin-id/react`
+- **Package Registry Status**:
+  - `@wolin-id/client` is **live on npm**: `pnpm add @wolin-id/client`
+  - `@wolin-id/react` (`packages/react` in `https://github.com/wolin-id/sdk-js`) and `create-wolin-world` (`https://github.com/wolin-id/metaverse-starter`) are currently in the GitHub SDK/starter monorepos (install via workspace/git rather than public npm).
 
 ```ts
 import { WolinPodClient, fetchWebIdProfile, generateDPoPKeyPair } from '@wolin-id/client';
@@ -58,7 +60,7 @@ await pod.putResource('/private/notes.ttl', '<#n1> <https://wolin.id/ns#displayN
 });
 ```
 
-**React 18 / 19 Hook Quickstart (`@wolin-id/react`)**:
+**React 18 / 19 Hook Quickstart (`@wolin-id/react` — from `wolin-id/sdk-js` monorepo)**:
 ```tsx
 import { WolinProvider, usePodResource, useWolinSession } from '@wolin-id/react';
 
@@ -72,7 +74,7 @@ function WorldHud() {
   const { isAuthenticated, session, login, logout } = useWolinSession();
   const { data, save } = usePodResource(isAuthenticated ? '/private/apps/world/appearance.json' : null);
   return isAuthenticated
-    ? <button onClick={() => void save('{"preset":"moss-wanderer"}', 'application/json')}>Save Look ({session?.webId})</button>
+    ? <button onClick={() => void save('{"preset":"moss-wanderer"}', { contentType: 'application/json' })}>Save Look ({session?.webId})</button>
     : <button onClick={() => void login()}>Continue with Wolin</button>;
 }
 ```
@@ -200,6 +202,7 @@ All cross-world Wolin apps share the canonical `https://wolin.id/ns#` (`PREFIX w
 | `wolin:displayName` | `https://wolin.id/ns#displayName` | `xsd:string` | Canonical cross-world 3D nametag & Passport display name (falls back to `foaf:name`). |
 | `wolin:avatarGlbUrl` | `https://wolin.id/ns#avatarGlbUrl` | `xsd:anyURI` | glTF 2.0 binary (`.glb`) 3D avatar URL for Three.js / R3F / Unity / Vision Pro worlds. |
 | `wolin:avatarVrmUrl` | `https://wolin.id/ns#avatarVrmUrl` | `xsd:anyURI` | VRM 0.x / 1.0 (`.vrm`) humanoid avatar URL with blendshapes & spring bones for VTuber worlds. |
+| `wolin:avatarVariants` | `https://wolin.id/ns#avatarVariants` | `xsd:anyURI` (JSON doc) | Links `#me` in `/profile/card` via Turtle IRI (e.g. `</public/avatars/variants.json>`) to an `application/json` multi-proportion manifest (`{ default, variants[] }`). |
 | `wolin:worldLinks` | `https://wolin.id/ns#worldLinks` | `wolin:WorldLink` | Links a user's WebID (`#me`) to favorite or hosted 3D worlds & social portals shown on Wolin Passport. |
 | `wolin:wearableItem` | `https://wolin.id/ns#wearableItem` | `wolin:Wearable` | Links `#me` or `/public/inventory.ttl` to portable 3D wearable items owned/equipped by the user. |
 | `wolin:passportTheme` | `https://wolin.id/ns#passportTheme` | `xsd:string` | Optional Passport theme / accent token (e.g. `"cobalt-220"`). |
@@ -232,6 +235,7 @@ All cross-world Wolin apps share the canonical `https://wolin.id/ns#` (`PREFIX w
    wolin:passportTheme "cobalt-220" ;
    wolin:avatarGlbUrl <https://cdn.wolin.id/pods/alice/public/avatar.glb> ;
    wolin:avatarVrmUrl <https://cdn.wolin.id/pods/alice/public/avatar.vrm> ;
+   wolin:avatarVariants </public/avatars/variants.json> ;
    wolin:worldLinks <#link-cat-cafe>, <#link-concert> ;
    wolin:wearableItem <#item-beret> .
 
@@ -252,11 +256,35 @@ All cross-world Wolin apps share the canonical `https://wolin.id/ns#` (`PREFIX w
    wolin:equipped true .
 ```
 
+**Linked `wolin:avatarVariants` JSON Document (`/public/avatars/variants.json`)**:
+Dereferencing `profile.avatarVariants` (`GET https://alice.wolin.id/public/avatars/variants.json` with `Accept: application/json`) returns the multi-proportion manifest linked from `/profile/card`:
+
+```json
+{
+  "default": {
+    "url": "https://alice.wolin.id/public/avatars/default.vrm",
+    "format": "vrm-1.0",
+    "skeleton": "vrm-1.0",
+    "heightMeters": 1.65
+  },
+  "variants": [
+    {
+      "app": "jongno",
+      "catalogId": "jongno-humanoid-v1",
+      "format": "vrm-1.0",
+      "skeleton": "vrm-1.0",
+      "heightMeters": 1.80,
+      "url": "https://alice.wolin.id/public/apps/jongno/avatar.vrm"
+    }
+  ]
+}
+```
+
 ---
 
 ## 4. The 4 Metaverse Lego Blocks
 
-Scaffold all 4 blocks together with `pnpm create wolin-world my-world` (`https://github.com/wolin-id/metaverse-starter`), or compose them individually in any Three.js / React Three Fiber app.
+Scaffold all 4 blocks from the starter monorepo (`git clone https://github.com/wolin-id/metaverse-starter my-world` — `create-wolin-world` lives in the monorepo alongside `@wolin-id/react` in `wolin-id/sdk-js`, while `@wolin-id/client` is live on npm), or compose them individually in any Three.js / React Three Fiber app.
 
 ### Block 1: Passwordless Login + Portable GLB / VRM Avatar Spawn
 Dereference the signed-in player's WebID profile, extract `wolin:avatarGlbUrl` (or `wolin:avatarVrmUrl`) and `wolin:displayName`, and spawn their 3D avatar with a zero-crash procedural fallback when unset.
@@ -367,9 +395,9 @@ import { WolinAdSlot } from '@wolin-id/metaverse-starter';
 Because authentication (`https://auth.wolin.id`) and user storage (`https://{handle}.wolin.id/`) are externalized to Wolin, your 3D world is 100% static HTML/JS/WASM/GLB assets with `$0` backend compute:
 
 ```bash
-# 1. Scaffold starter with client-id.jsonld + _headers preconfigured
-pnpm create wolin-world my-world
-cd my-world
+# 1. Clone the create-wolin-world starter from the monorepo (client-id.jsonld + _headers preconfigured)
+git clone https://github.com/wolin-id/metaverse-starter my-world
+cd my-world && pnpm install
 
 # 2. Build static bundle (sets client_id origin from VITE_PUBLIC_ORIGIN)
 VITE_PUBLIC_ORIGIN="https://my-world.pages.dev" pnpm build

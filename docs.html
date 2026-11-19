@@ -913,14 +913,16 @@
           </div>
 
           <div class="sdk-meta-strip">
-            <span id="sdk-install-cmd">pnpm add @wolin-id/client @wolin-id/react</span>
+            <span id="sdk-install-cmd">pnpm add @wolin-id/client  # @wolin-id/react &amp; create-wolin-world in GitHub monorepos</span>
             <div class="sdk-meta-right">
               <a id="sdk-repo-url" class="sdk-repo-link" href="https://github.com/wolin-id/sdk-js" target="_blank" rel="noopener">github.com/wolin-id/sdk-js ↗</a>
               <button type="button" class="copy-pill" onclick="copyTextById('sdk-code-box', this)" data-i18n="docs.copyCode">Copy Code</button>
             </div>
           </div>
 
-          <pre class="sdk-pre" id="sdk-code-box"><code>import { WolinProvider, usePodResource, useWolinSession } from '@wolin-id/react';
+          <pre class="sdk-pre" id="sdk-code-box"><code>// Registry status: @wolin-id/client is live on npm (`pnpm add @wolin-id/client`).
+// @wolin-id/react lives in github.com/wolin-id/sdk-js; create-wolin-world is in the SDK/starter monorepo.
+import { WolinProvider, usePodResource, useWolinSession } from '@wolin-id/react';
 
 export const App = () =&gt; (
   &lt;WolinProvider
@@ -936,10 +938,14 @@ function WorldHud() {
   const { isAuthenticated, session, login } = useWolinSession();
   const { save } = usePodResource(isAuthenticated ? '/private/apps/world/appearance.json' : null);
   return isAuthenticated
-    ? &lt;button onClick={() =&gt; void save('{"preset":"moss-wanderer"}', 'application/json')}&gt;Save Look ({session?.webId})&lt;/button&gt;
+    ? &lt;button onClick={() =&gt; void save('{"preset":"moss-wanderer"}', { contentType: 'application/json' })}&gt;Save Look ({session?.webId})&lt;/button&gt;
     : &lt;button onClick={() =&gt; void login()}&gt;Continue with Wolin&lt;/button&gt;;
 }</code></pre>
         </div>
+
+        <p class="sec-desc" style="margin-top: 0.9rem; margin-bottom: 1.5rem; font-size: 0.9rem;">
+          <strong>Package Availability:</strong> <code>@wolin-id/client</code> is live on npm (<code>pnpm add @wolin-id/client</code>), while <code>@wolin-id/react</code> (<a href="https://github.com/wolin-id/sdk-js" target="_blank" rel="noopener">wolin-id/sdk-js</a>) and <code>create-wolin-world</code> (<a href="https://github.com/wolin-id/metaverse-starter" target="_blank" rel="noopener">wolin-id/metaverse-starter</a>) are currently sourced from the GitHub SDK monorepos.
+        </p>
 
         <div class="split-2">
           <div class="doc-panel">
@@ -972,6 +978,10 @@ function WorldHud() {
               <div class="vocab-row">
                 <code>wolin:avatarVrmUrl</code>
                 <span data-i18n="docs.ns3">Humanoid VRM (.vrm) avatar URL with blendshapes for VTuber stages</span>
+              </div>
+              <div class="vocab-row">
+                <code>wolin:avatarVariants</code>
+                <span>Turtle IRI in <code>/profile/card</code> (e.g. <code>&lt;/public/avatars/variants.json&gt;</code>) → JSON manifest of per-world body variants</span>
               </div>
               <div class="vocab-row">
                 <code>wolin:worldLinks · wolin:wearableItem</code>
@@ -1056,8 +1066,8 @@ function WorldHud() {
             <span class="plane-kicker">CROSS-WORLD AVATARS (`wolin:avatarVariants`)</span>
             <h3>Multi-Proportion &amp; 3-Tier Fallback</h3>
             <ul>
-              <li><strong>One WebID, Many Bodies:</strong> Keep <code>wolin:avatarVrmUrl</code> as default and store per-app variants (<code>app</code>, <code>catalogId</code>, <code>skeleton: "vrm-1.0"</code>, <code>heightMeters</code>) for 8-head vs. chibi worlds.</li>
-              <li><strong>3-Tier Fallback:</strong> Exact <code>catalogId</code> match → VRM humanoid retargeting on compatible <code>skeleton</code> → world default body + Pod badges.</li>
+              <li><strong><code>/profile/card</code> Turtle IRI → JSON Document:</strong> In <code>/profile/card</code>, <code>&lt;#me&gt; wolin:avatarVariants &lt;/public/avatars/variants.json&gt; .</code> points via Turtle IRI to a JSON manifest (<code>{ default, variants: [{ app, catalogId, skeleton: "vrm-1.0", heightMeters, url }] }</code>) alongside global <code>wolin:avatarVrmUrl</code> / <code>wolin:avatarGlbUrl</code>.</li>
+              <li><strong>3-Tier Fallback:</strong> Dereference <code>profile.avatarVariants</code> from <code>fetchWebIdProfile()</code>: exact <code>catalogId</code> match → VRM humanoid retargeting on compatible <code>skeleton</code> → world default body + Pod badges.</li>
               <li><strong>Recipes vs. Ownership:</strong> Store editable parts under <code>&lt;pim:storage&gt;/private/apps/&lt;app&gt;/appearance.json</code>; use server-signed credentials for provable badges (<code>wolin:equipped</code> is preference only).</li>
             </ul>
           </div>
@@ -1197,10 +1207,10 @@ wolin import --bundle ./alice-pod-backup.tar.zst \
 
       var SDK_ITEMS = [
         {
-          install: 'pnpm add @wolin-id/client @wolin-id/react',
+          install: 'pnpm add @wolin-id/client  # @wolin-id/react & create-wolin-world in GitHub monorepos',
           repoUrl: 'https://github.com/wolin-id/sdk-js',
           repoLabel: 'github.com/wolin-id/sdk-js ↗',
-          code: 'import { WolinProvider, usePodResource, useWolinSession } from \'@wolin-id/react\';\n\nexport const App = () => (\n  <WolinProvider\n    clientId={`${location.origin}/client-id.jsonld`}\n    redirectUri={`${location.origin}/auth/callback`}\n    defaultOidcIssuer="https://auth.wolin.id"\n  >\n    <WorldHud />\n  </WolinProvider>\n);\n\nfunction WorldHud() {\n  const { isAuthenticated, session, login } = useWolinSession();\n  const { save } = usePodResource(isAuthenticated ? \'/private/apps/world/appearance.json\' : null);\n  return isAuthenticated\n    ? <button onClick={() => void save(\'{"preset":"moss-wanderer"}\', \'application/json\')}>Save Look ({session?.webId})</button>\n    : <button onClick={() => void login()}>Continue with Wolin</button>;\n}'
+          code: '// Registry status: @wolin-id/client is live on npm (`pnpm add @wolin-id/client`).\n// @wolin-id/react lives in github.com/wolin-id/sdk-js; create-wolin-world is in the SDK/starter monorepo.\nimport { WolinProvider, usePodResource, useWolinSession } from \'@wolin-id/react\';\n\nexport const App = () => (\n  <WolinProvider\n    clientId={`${location.origin}/client-id.jsonld`}\n    redirectUri={`${location.origin}/auth/callback`}\n    defaultOidcIssuer="https://auth.wolin.id"\n  >\n    <WorldHud />\n  </WolinProvider>\n);\n\nfunction WorldHud() {\n  const { isAuthenticated, session, login } = useWolinSession();\n  const { save } = usePodResource(isAuthenticated ? \'/private/apps/world/appearance.json\' : null);\n  return isAuthenticated\n    ? <button onClick={() => void save(\'{"preset":"moss-wanderer"}\', { contentType: \'application/json\' })}>Save Look ({session?.webId})</button>\n    : <button onClick={() => void login()}>Continue with Wolin</button>;\n}'
         },
         {
           install: '"id.wolin.unity": "https://github.com/wolin-id/sdk-unity.git#v0.1.0"',
