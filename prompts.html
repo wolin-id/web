@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="prompts.meta.title">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompts — WOLIN (月印千江)</title>
+  <meta name="description" content="Copy-paste developer prompts to scaffold Wolin 3D worlds, live stages, pop-up stores, and game lobbies with Solid-OIDC and Sovereign Pods." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #FAFAFA;
+      --ink: #171717;
+      --ink-secondary: #262626;
+      --muted: #52525B;
+      --dim: #71717A;
+      --line: rgba(0, 0, 0, 0.08);
+      --line-strong: rgba(0, 0, 0, 0.14);
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-soft: #ECFDF5;
+      --ok: #15803D;
+      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+      --font-serif-kr: "Noto Serif KR", Georgia, serif;
+      --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { max-width: 100%; overflow-x: hidden; background: var(--bg); color: var(--ink); }
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 1.15rem; }
+    }
+
+    /* ==========================================================================
+       SHARED INSTITUTIONAL HEADER
+       ========================================================================== */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      max-width: var(--max-w);
+      min-height: 64px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: var(--ink);
+      flex-shrink: 0;
+      min-height: 44px;
+    }
+
+    .brand-emblem {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .brand-wordmark {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+    }
+
+    .brand-hanja {
+      font-family: var(--font-serif-kr);
+      font-size: 0.86rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.9rem, 1.4vw, 1.5rem);
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .site-nav a:hover,
+    .site-nav a[aria-current="page"] {
+      color: var(--ink);
+    }
+
+    .site-nav a[aria-current="page"] {
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .lang-select {
+      appearance: none;
+      -webkit-appearance: none;
+      height: 36px;
+      min-height: 36px;
+      padding: 0 1.75rem 0 0.65rem;
+      border-radius: 7px;
+      border: 1px solid var(--line-strong);
+      background-color: var(--surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%2352525B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.55rem center;
+      background-size: 11px 11px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.16s ease, background-color 0.16s ease;
+      flex-shrink: 0;
+    }
+
+    .lang-select:hover {
+      border-color: var(--ink);
+      background-color: var(--bg);
+    }
+
+    .lang-select:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(0, 85, 255, 0.15);
+    }
+
+    .header-link-mobile {
+      display: none;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 0.95rem;
+      border-radius: 7px;
+      background: var(--ink);
+      color: #FFFFFF;
+      font-size: 0.83rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: background 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      background: var(--accent);
+    }
+
+    .mobile-subnav {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 0 1.15rem;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .mobile-subnav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.81rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .mobile-subnav a:hover,
+    .mobile-subnav a[aria-current="page"] {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    h1, h2, p {
+      overflow-wrap: break-word;
+    }
+
+    .card-desc code, .ref-bar code {
+      font-family: var(--font-mono);
+      font-size: 0.8em;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 0.08rem 0.32rem;
+      color: var(--ink-secondary);
+    }
+
+    @media (max-width: 980px) {
+      .site-nav { display: none; }
+      .header-link-mobile { display: inline-flex; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        min-height: 58px;
+        padding: 0 1.15rem;
+        gap: 0.5rem;
+      }
+      .brand-hanja { display: none; }
+      .header-link-mobile { display: none; }
+      .mobile-subnav { display: flex; }
+      .header-actions { gap: 0.5rem; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+        font-size: 0.78rem;
+        padding: 0 1.55rem 0 0.55rem;
+        background-position: right 0.45rem center;
+      }
+      .header-cta {
+        min-height: 44px;
+        padding: 0 0.75rem;
+        font-size: 0.78rem;
+      }
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT
+       ========================================================================== */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4.5rem 2rem 5.5rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+
+    h1 {
+      font-size: clamp(2.15rem, 3.8vw, 3.15rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.85rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 740px;
+      margin-bottom: 2.25rem;
+      font-size: 0.98rem;
+    }
+
+    /* Setup Hairline Strip */
+    .setup-strip {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      margin-bottom: 2.25rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+    }
+
+    .setup-item {
+      min-width: 0;
+      padding: 1.15rem 1.25rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .setup-item:last-child { border-right: none; }
+
+    .setup-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--dim);
+    }
+
+    .setup-code {
+      font-family: var(--font-mono);
+      font-size: 0.79rem;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.48rem 0.65rem;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .setup-code a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .setup-code a:hover { text-decoration: underline; }
+
+    /* Prompt Cards Grid */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .prompt-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.15rem;
+      transition: border-color 0.16s ease;
+    }
+
+    .prompt-card:hover {
+      border-color: rgba(0, 85, 255, 0.38);
+    }
+
+    .card-top {
+      min-width: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-size: 1.22rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0.3rem 0 0.4rem;
+    }
+
+    .card-desc {
+      font-size: 0.89rem;
+      color: var(--muted);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 0.16rem 0.48rem;
+    }
+
+    .prompt-box-wrap {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .prompt-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .prompt-filename {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--muted);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      appearance: none;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 0.79rem;
+      font-weight: 600;
+      min-height: 44px;
+      padding: 0 0.88rem;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .copy-btn.copied {
+      background: var(--ok);
+      border-color: var(--ok);
+    }
+
+    .prompt-pre {
+      font-family: var(--font-mono);
+      font-size: 0.77rem;
+      line-height: 1.58;
+      color: var(--ink);
+      padding: 0.95rem 1rem;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-height: 310px;
+      overflow-y: auto;
+    }
+
+    .ref-bar {
+      margin-top: 2.5rem;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1.25rem 1.45rem;
+      background: var(--surface);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.89rem;
+      color: var(--muted);
+    }
+
+    .ref-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .ref-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .ref-links a:hover { text-decoration: underline; }
+
+    /* ==========================================================================
+       SHARED INSTITUTIONAL FOOTER
+       ========================================================================== */
+    footer.site-footer {
+      padding: 3.25rem 0;
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-quote {
+      font-family: var(--font-serif-kr);
+      font-size: 1.06rem;
+      color: var(--ink-secondary);
+      margin-bottom: 0.55rem;
+    }
+
+    .footer-meta {
+      font-size: 0.8rem;
+      color: var(--dim);
+      line-height: 1.65;
+    }
+
+    .footer-meta strong {
+      color: var(--ink-secondary);
+      font-weight: 600;
+    }
+
+    .footer-meta a {
+      color: var(--ink-secondary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 0.35rem 1.25rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-links .footer-report-btn:hover {
+      color: var(--accent);
+    }
+
+    .footer-links .footer-report-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links .footer-report-btn:focus-visible,
+    .report-textarea:focus-visible,
+    .report-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .report-backdrop[hidden],
+    .report-status[hidden] {
+      display: none !important;
+    }
+
+    .report-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(23, 23, 23, 0.48);
+      backdrop-filter: blur(2px);
+    }
+
+    .report-dialog {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      color: var(--ink);
+      border-radius: 14px;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 20px 40px -12px rgba(23, 23, 23, 0.18);
+      padding: 1.5rem;
+    }
+
+    .report-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .report-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0.9rem;
+    }
+
+    .report-textarea {
+      width: 100%;
+      min-height: 112px;
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--line-strong);
+      background: #FFFFFF;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-status {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+      overflow-wrap: anywhere;
+    }
+
+    .report-status-ok {
+      background: var(--accent-soft);
+      color: var(--ink);
+      border: 1px solid var(--line-accent);
+    }
+
+    .report-status-fallback {
+      background: var(--surface-muted);
+      color: var(--ink-secondary);
+      border: 1px solid var(--line-strong);
+    }
+
+    .report-status a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .report-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1.1rem;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--line-strong);
+      background: #FFFFFF;
+      color: var(--ink);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .report-btn:hover {
+      background: var(--surface);
+    }
+
+    .report-btn-primary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #FFFFFF;
+    }
+
+    .report-btn-primary:hover {
+      background: #2E2E2E;
+      border-color: #2E2E2E;
+    }
+
+    .report-btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    @media (max-width: 480px) {
+      .report-dialog { padding: 1.2rem; }
+      .report-actions { flex-direction: row; }
+      .report-btn { flex: 1; }
+    }
+
+    @media (max-width: 900px) {
+      .setup-strip { grid-template-columns: minmax(0, 1fr); }
+      .setup-item {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .setup-item:last-child { border-bottom: none; }
+      .prompt-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 2.75rem 1.15rem 4rem; }
+      .prompt-card { padding: 1.2rem; }
+      .prompt-pre { font-size: 0.74rem; padding: 0.85rem; }
+      .copy-btn { min-height: 44px; }
+      .ref-bar { padding: 1.1rem 1.15rem; }
+    }
+  </style>
+  <script src="https://rybbit.cycorld.com/api/script.js" data-site-id="15" defer></script>
+  <script src="analytics.js" defer></script>
+</head>
+<body>
+  <!-- Institutional Top Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand-link">
+        <svg class="brand-emblem" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#090D16"/><circle cx="20" cy="13.2" r="5.5" fill="#F5F2EB"/><rect x="9.8" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/><rect x="21.4" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/><rect x="12.2" y="24.5" width="15.6" height="1.9" rx="0.5" fill="#10B981"/><rect x="14.5" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/><rect x="21.3" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/></svg>
+        <div class="brand-wordmark">
+          <span class="brand-title">WOLIN</span>
+          <span class="brand-hanja">月印千江</span>
+        </div>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/#passport" data-i18n="nav.passport">Passport</a>
+        <a href="/#creators" data-i18n="nav.creators">Creators</a>
+        <a href="/docs.html" data-i18n="nav.docs">Docs</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" aria-current="page" data-i18n="nav.prompts">Prompts</a>
+        <a href="/about.html" data-i18n="nav.about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/" class="header-link-mobile" data-i18n="nav.home">Home</a>
+        <a href="/pricing.html" class="header-link-mobile" data-i18n="nav.pricing">Pricing</a>
+        <select class="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+        <a href="/pricing.html" class="header-cta" data-i18n="nav.claimPod">Claim your Pod</a>
+      </div>
+    </div>
+    <nav class="mobile-subnav" aria-label="Mobile Navigation">
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+      <a href="/prompts.html" aria-current="page" data-i18n="nav.prompts">Prompts</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow" data-i18n="prompts.eyebrow">WOLIN PROMPT HUB · ZERO BACKEND WORLDS</div>
+    <h1 data-i18n="prompts.title">Copy-Paste Vibe-Coding Prompts</h1>
+    <p class="lead" data-i18n="prompts.lead">Paste any prompt below into Claude Code, Cursor, Windsurf, or Codex to scaffold a production 3D world with passwordless Solid-OIDC login, portable Pod avatars, and zero server bills.</p>
+
+    <section class="setup-strip" aria-label="Developer Context Endpoints">
+      <div class="setup-item">
+        <span class="setup-label" data-i18n="prompts.s1Label">01 · Scaffold Starter</span>
+        <code class="setup-code">pnpm create wolin-world my-world</code>
+      </div>
+      <div class="setup-item">
+        <span class="setup-label" data-i18n="prompts.s2Label">02 · Connect Docs MCP</span>
+        <code class="setup-code"><a href="https://wolin.id/mcp">https://wolin.id/mcp</a></code>
+      </div>
+      <div class="setup-item">
+        <span class="setup-label" data-i18n="prompts.s3Label">03 · Single-File Reference</span>
+        <code class="setup-code"><a href="/llms-full.txt">https://wolin.id/llms-full.txt</a></code>
+      </div>
+    </section>
+
+    <div class="prompt-grid">
+      <!-- Prompt 1: Cozy Cat Cafe 3D World -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag" data-i18n="prompts.c1.tag">01 · Social Hangout</span>
+          </div>
+          <h2 class="card-title" data-i18n="prompts.c1.title">Cozy Cat Cafe 3D World</h2>
+          <p class="card-desc" data-i18n="prompts.c1.desc">Warm sunlit 3D cafe with portable GLB avatar spawn, P2P table voice chat, Pod-persisted guestbook notes, and contextual wall poster slot.</p>
+          <div class="badge-row">
+            <span class="badge">create-wolin-world</span>
+            <span class="badge">@wolin-id/react</span>
+            <span class="badge">WebRTC P2P Voice</span>
+            <span class="badge">WolinAdSlot</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">cat-cafe-world.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-cat-cafe" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-cat-cafe">Build a "Cozy Cat Cafe 3D World" web app powered by Wolin Sovereign Pods. First connect to https://wolin.id/mcp (and read https://wolin.id/llms-full.txt), and use context7 for verified React Three Fiber, @react-three/drei, and @wolin-id/react APIs.
+
+1. Scaffold with `pnpm create wolin-world cozy-cat-cafe` (from `wolin-id/metaverse-starter`) and emit `public/client-id.jsonld` + `public/_headers` so Solid-OIDC works with zero app review (`client_id` origin MUST match `redirect_uri` origin, issuer `https://auth.wolin.id`).
+2. Authenticate users via `<WolinProvider>` and `useWolinSession()`. Dereference their WebID Turtle profile and spawn their 3D avatar from `https://wolin.id/ns#avatarGlbUrl` + `https://wolin.id/ns#displayName` (with a cozy capsule fallback if unset).
+3. Build a warm sunlit cafe interior in React Three Fiber with wooden tables, espresso bar, 3 wandering procedural cats, WASD/touch movement, and 1–4p WebRTC P2P HRTF proximity voice per table (`stun:stun.cloudflare.com:3478`).
+4. Add a cafe corkboard guestbook backed by `/public/cat-cafe/guestbook.ttl` in the player's Pod using `@wolin-id/client` (`WolinPodClient`): enforce trailing `/` on LDP containers (`/public/cat-cafe/`), RFC 9449 ES256 DPoP `ath` SHA-256 binding, `createOnly: true` (`If-None-Match: *`) on first init, and `ETag` `If-Match` optimistic concurrency on updates.
+5. Mount `<WolinAdSlot slotId="cafe-wall-poster-01" format="poster-2x3" worldTheme="cozy-cat-cafe" />` on the brick wall and include a 1-click `wrangler pages deploy dist` script.</pre>
+        </div>
+      </article>
+
+      <!-- Prompt 2: VTuber Live Concert Stage -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag" data-i18n="prompts.c2.tag">02 · Live Broadcast</span>
+          </div>
+          <h2 class="card-title" data-i18n="prompts.c2.title">VTuber Live Concert Stage</h2>
+          <p class="card-desc" data-i18n="prompts.c2.desc">Zero-egress YouTube Live &amp; CHZZK 3D stage screen using CSS3DRenderer, VRM fan avatar spawn, synced lightsticks, and LED sponsor banners.</p>
+          <div class="badge-row">
+            <span class="badge">CSS3DRenderer</span>
+            <span class="badge">YouTube / CHZZK</span>
+            <span class="badge">avatarVrmUrl</span>
+            <span class="badge">$0 Streaming Cost</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">vtuber-concert-stage.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-vtuber-stage" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-vtuber-stage">Build a "VTuber Live Concert Stage" 3D web venue on Wolin with $0 streaming server cost. Query https://wolin.id/mcp (and https://wolin.id/llms-full.txt) first, and use context7 for Three.js CSS3DRenderer, @pixiv/three-vrm, React Three Fiber, and @wolin-id/react docs.
+
+1. Initialize from `create-wolin-world` (`pnpm create wolin-world vtuber-stage`) with a static Solid-OIDC `public/client-id.jsonld` (`token_endpoint_auth_method: "none"`, PKCE `S256`, issuer `https://auth.wolin.id`).
+2. Sign fans in via `useWolinSession()`, parse their WebID profile (`https://wolin.id/ns#`), and load `wolin:avatarVrmUrl` (falling back to `wolin:avatarGlbUrl` or a stylized silhouette) with `wolin:displayName` floating nametags and keyboard wave/cheer emotes.
+3. Mount a giant main-stage LED screen using Three.js `CSS3DRenderer` / `@react-three/drei` `<Html transform>` that embeds a configurable YouTube Live or CHZZK (`chzzk.naver.com/live/...`) stream URL stored in the host's `/public/stage/config.ttl` Pod resource.
+4. Let each fan pick a custom penlight/glowstick hex color and save it to `/private/concert/lightstick.ttl` in their own Pod via `WolinPodClient` with `ETag` `If-Match` concurrency, trailing `/` container checks (`/private/concert/`), and automatic ES256 DPoP `ath` signing.
+5. Place two stage-wing `<WolinAdSlot format="billboard-16x9" worldTheme="vtuber-concert" />` banners and output static Cloudflare Pages deployment config.</pre>
+        </div>
+      </article>
+
+      <!-- Prompt 3: 3D Commerce Pop-up Store -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag" data-i18n="prompts.c3.tag">03 · Spatial Commerce</span>
+          </div>
+          <h2 class="card-title" data-i18n="prompts.c3.title">3D Commerce Pop-up Store</h2>
+          <p class="card-desc" data-i18n-html="prompts.c3.desc">Interactive showroom where shoppers preview 3D <code>.glb</code> wearables on their own Wolin Pod avatar and save wishlists &amp; equipped items.</p>
+          <div class="badge-row">
+            <span class="badge">wearableItem</span>
+            <span class="badge">3D Try-On</span>
+            <span class="badge">Pod Wishlist</span>
+            <span class="badge">R2 Edge GLB</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">commerce-popup-store.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-popup-store" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-popup-store">Create a minimalist architectural "3D Commerce Pop-up Store" using Wolin Sovereign Identity & Pods. Consult https://wolin.id/mcp (and https://wolin.id/llms-full.txt) before coding, and use context7 for React Three Fiber, @react-three/drei, and @wolin-id/client APIs.
+
+1. Bootstrap with `pnpm create wolin-world popup-store` and configure `public/client-id.jsonld` + `public/_headers` (`Access-Control-Allow-Origin: *`) for passwordless Solid-OIDC sign-in against `https://auth.wolin.id`.
+2. Render a sunlit gallery showroom with 4 interactive `.glb` product pedestals (hat, glasses, jacket, companion drone) and a 3D mirror station displaying the shopper's `https://wolin.id/ns#avatarGlbUrl` avatar.
+3. Implement 1-click "Try On Avatar" on each pedestal and persist wishlisted or equipped items to `/private/commerce/wishlist.ttl` and `/public/inventory.ttl` using `https://wolin.id/ns#wearableItem` (`wolin:assetGlbUrl`, `wolin:slot`, `wolin:equipped`).
+4. Enforce Wolin LDP & DPoP invariants: containers MUST end with `/` (`/private/commerce/`), documents MUST NOT end with `/`, initial file creation uses `createOnly: true` (`If-None-Match: *`), and every update passes `ifMatch: etag` with `412 Precondition Failed` retry.
+5. Add a featured brand `<WolinAdSlot slotId="showroom-pedestal-ad" format="poster-2x3" worldTheme="fashion-popup" />` display and Cloudflare Pages static build script.</pre>
+        </div>
+      </article>
+
+      <!-- Prompt 4: Indie Game Lobby -->
+      <article class="prompt-card">
+        <div>
+          <div class="card-top">
+            <span class="card-tag" data-i18n="prompts.c4.tag">04 · Multiplayer Game</span>
+          </div>
+          <h2 class="card-title" data-i18n="prompts.c4.title">Indie Game Lobby</h2>
+          <p class="card-desc" data-i18n-html="prompts.c4.desc">Cross-game 3D hub with portable player saves, achievement badges, <code>wolin:worldLinks</code> portal teleporters, and squad P2P voice.</p>
+          <div class="badge-row">
+            <span class="badge">worldLinks Portals</span>
+            <span class="badge">ETag Save Sync</span>
+            <span class="badge">Cross-Game Inventory</span>
+            <span class="badge">Cloudflare Pages</span>
+          </div>
+        </div>
+
+        <div class="prompt-box-wrap">
+          <div class="prompt-toolbar">
+            <span class="prompt-filename">indie-game-lobby.prompt.md</span>
+            <button type="button" class="copy-btn" data-target="prompt-game-lobby" onclick="copyPrompt(this)" data-i18n="prompts.copyBtn">Copy Prompt</button>
+          </div>
+          <pre class="prompt-pre" id="prompt-game-lobby">Build an "Indie Game Lobby" 3D multiplayer hub where player identity, save files, and world portals live in Wolin Solid Pods. Connect to https://wolin.id/mcp (and check https://wolin.id/llms-full.txt), and use context7 for React Three Fiber, Rapier/BVH collisions, and @wolin-id/client.
+
+1. Start from `create-wolin-world` (`pnpm create wolin-world indie-lobby`) with `public/client-id.jsonld` bound to the app origin (`openid webid offline_access`, PKCE `S256`, issuer `https://auth.wolin.id`).
+2. Spawn the player's `https://wolin.id/ns#avatarGlbUrl` + `wolin:displayName` in a floating low-poly plaza with 3rd-person camera controller and 4-player squad WebRTC P2P proximity voice.
+3. Sync player appearance preferences, portal bookmarks, and server-signed achievement badges under `pim:storage` (`/private/apps/indie-lobby/appearance.json`) via `WolinPodClient` (keeping XP, currency, and match authority on your game server): create `/private/apps/indie-lobby/` with trailing `/` (`createContainer`), initialize `appearance.json` with `createOnly: true` (`If-None-Match: *`), and guard every write with `ifMatch: lastEtag` + ES256 DPoP `ath` proof.
+4. Read `https://wolin.id/ns#worldLinks` (`wolin:WorldLink` with `schema:name` and `schema:url`) from the player's WebID profile and dynamically spawn glowing 3D portal arches in the plaza that teleport into linked partner worlds.
+5. Add an arcade scoreboard `<WolinAdSlot slotId="lobby-arcade-board" format="billboard-16x9" worldTheme="indie-game-lobby" />` and verify static `pnpm build` for 1-click Cloudflare Pages deploy.</pre>
+        </div>
+      </article>
+    </div>
+
+    <div class="ref-bar">
+      <div data-i18n-html="prompts.refText">Need raw protocol specs or 5-language SDK snippets (<code>TS</code>, <code>Unity C#</code>, <code>Swift 6</code>, <code>Kotlin</code>, <code>Python</code>)?</div>
+      <div class="ref-links">
+        <a href="/llms.txt">/llms.txt</a>
+        <a href="/llms-full.txt">/llms-full.txt</a>
+        <a href="https://wolin.id/mcp">wolin.id/mcp</a>
+        <a href="https://github.com/wolin-id/metaverse-starter">wolin-id/metaverse-starter</a>
+        <a href="https://github.com/wolin-id/skills">wolin-id/skills</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Institutional Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-quote" data-i18n="footer.quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
+        <div class="footer-meta">
+          <strong>wolin.id</strong> · <span data-i18n="footer.tagline">Sovereign Pod Cloud &amp; Identity Infrastructure</span><br>
+          <span data-i18n="footer.address">79-4 Duteopbawi-ro, Yongsan-gu, Seoul, Republic of Korea</span><br>
+          <span data-i18n="footer.contactLabel">Contact:</span> <a href="mailto:hello@wolin.id">hello@wolin.id</a> · <span data-i18n="footer.license">Licensed under MIT OR Apache-2.0</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="/docs.html" data-i18n="nav.docs">Docs</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
+        <a href="/about.html" data-i18n="nav.about">About</a>
+        <a href="/terms.html" data-i18n="footer.terms">Terms</a>
+        <a href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
+        <a href="/refund.html" data-i18n="footer.refund">Refund</a>
+        <button type="button" class="footer-report-btn" data-report-open data-i18n="footer.reportIssue">Report an issue</button>
+        <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="wolin-report-modal" class="report-backdrop" role="dialog" aria-modal="true" aria-labelledby="wolin-report-title" aria-describedby="wolin-report-desc" hidden>
+    <div class="report-dialog">
+      <h2 id="wolin-report-title" class="report-title" data-i18n="report.title">Report an issue</h2>
+      <p id="wolin-report-desc" class="report-desc" data-i18n="report.desc">Spot something broken or confusing? Tell us what happened.</p>
+      <form id="wolin-report-form" novalidate>
+        <textarea id="wolin-report-message" class="report-textarea" name="message" rows="4" maxlength="2000" required aria-labelledby="wolin-report-title" data-i18n-placeholder="report.placeholder" placeholder="What were you trying to do, and what happened instead?"></textarea>
+        <div id="wolin-report-status" class="report-status" role="status" aria-live="polite" hidden></div>
+        <div class="report-actions">
+          <button type="button" class="report-btn" data-report-close data-i18n="report.cancel">Cancel</button>
+          <button type="submit" id="wolin-report-submit" class="report-btn report-btn-primary" data-i18n="report.submit">Send report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script>
+    function fallbackExecCopy(text) {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.top = '0';
+      area.style.left = '-9999px';
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+      area.setSelectionRange(0, text.length);
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (_) {
+        copied = false;
+      }
+      document.body.removeChild(area);
+      return copied;
+    }
+
+    function setCopyFeedback(btn, ok) {
+      const tr = window.wolinT || function (k) { return k; };
+      btn.textContent = ok ? tr('prompts.copiedBtn') : tr('prompts.copyFailedBtn');
+      if (ok) {
+        btn.classList.add('copied');
+      } else {
+        btn.classList.remove('copied');
+      }
+      clearTimeout(btn._copyTimer);
+      btn._copyTimer = setTimeout(() => {
+        btn.textContent = tr('prompts.copyBtn');
+        btn.classList.remove('copied');
+      }, 1800);
+    }
+
+    function copyPrompt(btn) {
+      const targetId = btn.getAttribute('data-target');
+      const pre = targetId ? document.getElementById(targetId) : null;
+      if (!pre) return;
+      const text = pre.textContent || '';
+
+      const syncOk = fallbackExecCopy(text);
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(text).then(
+          () => setCopyFeedback(btn, true),
+          () => setCopyFeedback(btn, syncOk)
+        );
+      } else {
+        setCopyFeedback(btn, syncOk);
+      }
+    }
+  </script>
+</body>
+</html>

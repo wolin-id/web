@@ -1,0 +1,31 @@
+# Wolin (月印千江)
+
+> Sovereign W3C Solid 0.11 Pod Cloud, Passwordless Solid-OIDC + RFC 9449 ES256 DPoP Identity, and Cross-World Metaverse Infrastructure (`<30MB` Rust Engine + Cloudflare R2 Edge).
+
+Wolin (`https://wolin.id`) gives every user a portable WebID (`https://{handle}.wolin.id/profile/card#me`) and a sovereign Solid Pod storing 3D avatars (`.glb` / `.vrm`), wearables, social/world links, and app data. Applications authenticate users in 5 minutes via a static Solid-OIDC Client ID Document (`client-id.jsonld`) with zero API keys and zero app review, while user state lives in the user's Pod rather than a bespoke backend database.
+
+## Core Documentation & AI Developer Endpoints
+
+- [Developer & AI Agent Documentation Hub](https://wolin.id/docs.html): Interactive 5-language SDK quickstarts (TS/React, Unity, Swift, Kotlin, Python), Sovereign Pod architecture, and self-hosting binary guide. Also available at `/docs.html`.
+- [Complete Zero-Hallucination Developer Reference](https://wolin.id/llms-full.txt): Single-file technical specification covering 5-language 10-line SDK quickstarts, `client-id.jsonld` template, official `https://wolin.id/ns#` RDF vocabulary, 4 Metaverse Lego Blocks, and DPoP / LDP trailing-slash / ETag `If-Match` pitfall rules. Also available at `/llms-full.txt`.
+- [Copy-Paste Vibe-Coding Prompt Hub](https://wolin.id/prompts.html): Ready-to-paste prompts for scaffolding a Cozy Cat Cafe 3D World, VTuber Live Concert Stage, 3D Commerce Pop-up Store, and Indie Game Lobby with `create-wolin-world`, Context7, and MCP. Also available at `/prompts.html`.
+- [Wolin Docs MCP Server](https://wolin.id/mcp): Read-only Model Context Protocol (MCP) HTTP endpoint for querying Wolin schemas, Solid-OIDC flows, and SDK examples directly from Claude Code, Cursor, Windsurf, or OpenCode.
+- [Multi-Proportion Avatar & Server Integration Spec](https://github.com/wolin-id/docs/blob/main/AVATAR_INTEROP.md): `wolin:avatarVariants`, 3-tier VRM fallback, `appearance.json` recipes, `signedCredential` vs `equipped`, and `id_token.webid` server DB binding.
+
+## Official SDKs (5 Languages)
+
+- [TypeScript & React SDK (`wolin-id/sdk-js`)](https://github.com/wolin-id/sdk-js): `@wolin-id/client` (zero-dependency Web Crypto ES256 DPoP, Solid-OIDC PKCE, WebID Turtle parser, ETag LDP CRUD) and `@wolin-id/react` (`<WolinProvider>`, `useWolinSession`, `usePodResource` for React 18 & 19).
+- [Unity C# SDK (`wolin-id/sdk-unity`)](https://github.com/wolin-id/sdk-unity): `id.wolin.unity` zero-dependency `.NET Standard 2.1` UPM package (`WolinClient`, `DPoPSigner`, `WebIdParser`) for Unity 2022.3+ games and XR spatial apps.
+- [Swift 6 SDK (`wolin-id/sdk-swift`)](https://github.com/wolin-id/sdk-swift): `WolinKit` actor-isolated Swift Package Manager SDK built on Apple `CryptoKit` (`P256`) and `URLSession` for iOS 16+, macOS 13+, and visionOS 1+.
+- [Kotlin, Android & JVM SDK (`wolin-id/sdk-kotlin`)](https://github.com/wolin-id/sdk-kotlin): `id.wolin:sdk-kotlin` zero-dependency Kotlin 2.1+ / JVM 17+ client with NIST P-256 DPoP proof signing and `If-Match` optimistic concurrency.
+- [Python Async SDK (`wolin-id/sdk-python`)](https://github.com/wolin-id/sdk-python): `wolin-id` strictly typed Python 3.11+ `httpx` async client for Solid LDP CRUD, DPoP proof-of-possession, and multi-tenant Pod provisioning.
+
+## Starters & Agent Skills
+
+- [Metaverse Starter (`wolin-id/metaverse-starter`)](https://github.com/wolin-id/metaverse-starter): `create-wolin-world` template with React Three Fiber, GLB/VRM avatar spawn, `CSS3DRenderer` YouTube/CHZZK live stage, WebRTC P2P voice, `<WolinAdSlot />`, and 1-click Cloudflare Pages deploy.
+- [Agent Skills (`wolin-id/skills`)](https://github.com/wolin-id/skills): Official `SKILL.md` and `AGENTS.md` packs enforcing zero-hallucination Wolin Solid-OIDC, RDF, and LDP patterns in coding agents.
+
+## Optional
+
+- [Wolin Core Engine (`wolin-id/wolin`)](https://github.com/wolin-id/wolin): Open-core `<30MB` Rust W3C Solid 0.11 Pod server powered by Axum, Oxigraph, OpenDAL, and WAC/ACP policy evaluation.
+- [Pricing & Cloud Tiers](https://wolin.id/pricing.html): Free Starter (`1 GB`), Pro (`50 GB` + custom domain), Creator (`200 GB` + Realtime SFU + Spatial AdSense payouts), and Dedicated Enterprise plans.

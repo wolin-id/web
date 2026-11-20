@@ -1,0 +1,2820 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="index.meta.title">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WOLIN (月印千江) — One Identity. Infinite Reflections.</title>
+  <meta name="description" content="One Identity. Infinite Reflections. Claim your personal .wolin.id Digital Passport and Pod in 5 seconds — carry your avatar, worlds, and data everywhere.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      /* Living Moss × Moon Jar × Night Obsidian Official Palette */
+      --bg: #FFFFFF;
+      --surface: #FAFAFA;
+      --surface-muted: #F4F4F5;
+      --porcelain: #F5F2EB;
+      --porcelain-deep: #EBE5D8;
+      --obsidian: #090D16;
+      --obsidian-soft: #111827;
+      --ink: #171717;
+      --ink-secondary: #262626;
+      --muted: #52525B;
+      --dim: #71717A;
+
+      /* Living Moss Primary Tokens */
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-text: #047857;
+      --accent-vibrant: #10B981;
+      --accent-soft: #ECFDF5;
+      --warn: #B45309;
+      --warn-soft: #FFFBEB;
+      --revoke: #DC2626;
+      --revoke-soft: rgba(220, 38, 38, 0.07);
+
+      /* Structural Hairlines */
+      --line: rgba(0, 0, 0, 0.08);
+      --line-strong: rgba(0, 0, 0, 0.14);
+      --line-accent: rgba(5, 150, 105, 0.28);
+
+      /* Typography */
+      --font-sans: "Geist", "Pretendard", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+      --font-serif-kr: "Noto Serif KR", Georgia, serif;
+      --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--ink);
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Architectural Guide Grid */
+    .meridian-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(to right, rgba(5, 150, 105, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.022) 1px, transparent 1px);
+      background-size: 96px 96px;
+      mask-image: radial-gradient(ellipse 85% 60% at 50% 14%, black 15%, transparent 86%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 60% at 50% 14%, black 15%, transparent 86%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1.15rem;
+      }
+    }
+
+    a.inline-ref {
+      color: var(--ink);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(5, 150, 105, 0.6);
+      transition: color 0.16s ease, border-color 0.16s ease;
+    }
+
+    a.inline-ref:hover {
+      color: var(--accent);
+      border-bottom-style: solid;
+      border-bottom-color: var(--accent);
+    }
+
+    h1, h2, h3, h4, p {
+      overflow-wrap: break-word;
+    }
+
+    /* ==========================================================================
+       SHARED TOP HEADER
+       ========================================================================== */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      max-width: var(--max-w);
+      min-height: 64px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.15rem;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: var(--ink);
+      flex-shrink: 0;
+      min-height: 44px;
+    }
+
+    .brand-emblem {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .brand-wordmark {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+    }
+
+    .brand-hanja {
+      font-family: var(--font-serif-kr);
+      font-size: 0.86rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.85rem, 1.35vw, 1.45rem);
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .site-nav a:hover,
+    .site-nav a[aria-current="page"] {
+      color: var(--ink);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .lang-select {
+      appearance: none;
+      -webkit-appearance: none;
+      height: 38px;
+      min-height: 38px;
+      padding: 0 1.75rem 0 0.65rem;
+      border-radius: 7px;
+      border: 1px solid var(--line-strong);
+      background-color: var(--surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%2352525B' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.55rem center;
+      background-size: 11px 11px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.16s ease, background-color 0.16s ease;
+      flex-shrink: 0;
+    }
+
+    .lang-select:hover {
+      border-color: var(--ink);
+      background-color: var(--bg);
+    }
+
+    .lang-select:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.18);
+    }
+
+    .header-link-mobile {
+      display: none;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1rem;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.83rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: background 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      background: var(--accent-hover);
+    }
+
+    .mobile-subnav {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 0 1.15rem;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-subnav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .mobile-subnav a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 980px) {
+      .site-nav { display: none; }
+      .header-link-mobile { display: inline-flex; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        min-height: 58px;
+        padding: 0 1.15rem;
+        gap: 0.5rem;
+      }
+      .brand-hanja { display: none; }
+      .header-link-mobile { display: none; }
+      .mobile-subnav { display: flex; }
+      .header-actions { gap: 0.45rem; }
+      .lang-select {
+        height: 44px;
+        min-height: 44px;
+        font-size: 0.78rem;
+        padding: 0 1.5rem 0 0.52rem;
+        background-position: right 0.42rem center;
+      }
+      .header-cta {
+        min-height: 44px;
+        padding: 0 0.78rem;
+        font-size: 0.78rem;
+      }
+    }
+
+    /* ==========================================================================
+       01. HERO + LIVE HANDLE CLAIM BAR
+       ========================================================================== */
+    section.hero {
+      position: relative;
+      padding: 4.25rem 0 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 3rem;
+      align-items: center;
+      padding-bottom: 3.75rem;
+    }
+
+    .hero-grid > *,
+    .passport-grid > *,
+    .creators-grid > *,
+    .story-grid > *,
+    .worldview-grid > * {
+      min-width: 0;
+    }
+
+    @media (max-width: 1024px) {
+      section.hero { padding-top: 2.5rem; }
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.25rem;
+        padding-bottom: 2.5rem;
+      }
+    }
+
+    .eyebrow-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent-text);
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow-seal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.14rem 0.48rem;
+      border-radius: 5px;
+      border: 1px solid var(--line-accent);
+      background: var(--accent-soft);
+      font-family: var(--font-serif-kr);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--accent-hover);
+      letter-spacing: 0.04em;
+    }
+
+    h1.hero-display {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(2.35rem, 4.4vw, 4.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.032em;
+      color: var(--ink);
+      margin-bottom: 0.7rem;
+    }
+
+    h1.hero-display .accent-line {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-bilingual {
+      font-family: var(--font-serif-kr);
+      font-size: 1.04rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+      font-size: 0.99rem;
+      color: var(--muted);
+      line-height: 1.68;
+      max-width: 540px;
+      margin-bottom: 1.65rem;
+      word-break: keep-all;
+    }
+
+    html:not([lang="ko"]) .hero-subtitle,
+    html:not([lang="ko"]) h2.section-title,
+    html:not([lang="ko"]) .section-sub {
+      word-break: normal;
+    }
+
+    /* Live Handle Claim Bar */
+    .claim-shell {
+      background: var(--bg);
+      border: 1.5px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 0.42rem;
+      box-shadow: 0 12px 28px -14px rgba(5, 150, 105, 0.18), 0 2px 8px rgba(0, 0, 0, 0.04);
+      max-width: 560px;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .claim-shell:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.14), 0 14px 32px -16px rgba(5, 150, 105, 0.22);
+    }
+
+    .claim-form {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      width: 100%;
+    }
+
+    .claim-url-field {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 0.75rem;
+      min-height: 48px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .claim-prefix {
+      color: var(--dim);
+      user-select: none;
+      flex-shrink: 0;
+      font-size: 0.84rem;
+    }
+
+    .claim-input {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0 0.22rem;
+      outline: none;
+    }
+
+    .claim-input::placeholder {
+      color: #A1A1AA;
+      font-weight: 500;
+    }
+
+    .claim-suffix {
+      color: var(--accent-hover);
+      font-weight: 600;
+      user-select: none;
+      flex-shrink: 0;
+      font-size: 0.86rem;
+    }
+
+    .claim-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 48px;
+      padding: 0 1.25rem;
+      border-radius: 8px;
+      border: 0;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.16s ease, transform 0.14s ease;
+    }
+
+    .claim-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 560px) {
+      .claim-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .claim-submit {
+        width: 100%;
+      }
+      .claim-prefix {
+        font-size: 0.78rem;
+      }
+      .claim-suffix {
+        font-size: 0.8rem;
+      }
+    }
+
+    .claim-meta-row {
+      max-width: 560px;
+      margin-top: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      min-height: 28px;
+    }
+
+    .claim-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      font-size: 0.81rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .claim-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .claim-status.available {
+      color: var(--accent-hover);
+    }
+    .claim-status.available .claim-dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.16);
+    }
+
+    .claim-status.taken {
+      color: var(--revoke);
+    }
+    .claim-status.taken .claim-dot {
+      background: var(--revoke);
+    }
+
+    .claim-status.checking {
+      color: var(--muted);
+    }
+    .claim-status.checking .claim-dot {
+      background: var(--warn);
+    }
+
+    .claim-suggestions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .sample-chip {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.52rem;
+      min-height: 30px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .sample-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+    }
+
+    @media (max-width: 680px) {
+      .sample-chip {
+        min-height: 44px;
+        padding: 0 0.72rem;
+      }
+    }
+
+    /* Right Hero Visual: Moon Jar Reflection Stage */
+    .reflection-stage {
+      border-radius: 16px;
+      background: var(--obsidian);
+      color: #F8FAFC;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.25rem 1.3rem 1.15rem;
+      box-shadow: 0 22px 48px -22px rgba(9, 13, 22, 0.45);
+      overflow: hidden;
+    }
+
+    .stage-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding-bottom: 0.8rem;
+      margin-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+
+    .stage-live-pill {
+      color: #34D399;
+      font-weight: 600;
+    }
+
+    .stage-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .world-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 560px) {
+      .reflection-stage { padding: 1rem; }
+      .world-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    .world-tab {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.5rem 0.55rem;
+      min-height: 46px;
+      text-align: left;
+      cursor: pointer;
+      color: #CBD5E1;
+      transition: border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .world-tab:hover,
+    .world-tab.active {
+      border-color: var(--accent-vibrant);
+      background: rgba(16, 185, 129, 0.14);
+      color: #FFFFFF;
+    }
+
+    .world-tab-title {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .world-tab-sub {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: #34D399;
+    }
+
+    /* Hero Value Strip */
+    .value-strip {
+      border-top: 1px solid var(--line);
+      background: var(--porcelain);
+    }
+
+    .value-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .value-cell {
+      padding: 1.15rem 1.35rem;
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+    }
+
+    .value-cell:first-child { padding-left: 0; }
+    .value-cell:last-child { border-right: none; }
+
+    @media (max-width: 820px) {
+      .value-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 0 1.15rem;
+      }
+      .value-cell { padding: 0.95rem 0.75rem; }
+      .value-cell:nth-child(odd) { padding-left: 0; }
+      .value-cell:nth-child(2n) { border-right: none; }
+      .value-cell:nth-child(1),
+      .value-cell:nth-child(2) { border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+    }
+
+    .value-num {
+      font-family: var(--font-mono);
+      font-size: 1.26rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .value-num span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-left: 0.2rem;
+    }
+
+    .value-lbl {
+      font-size: 0.79rem;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       SHARED SECTION LAYOUT
+       ========================================================================== */
+    section.band {
+      position: relative;
+      padding: 5.5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section.band.surface-band {
+      background: var(--surface);
+    }
+
+    section.band.porcelain-band {
+      background: var(--porcelain);
+    }
+
+    @media (max-width: 768px) {
+      section.band { padding: 3.75rem 0; }
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent-text);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .section-heading-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 2.75rem;
+      flex-wrap: wrap;
+    }
+
+    h2.section-title {
+      font-family: var(--font-sans);
+      font-size: clamp(1.8rem, 3vw, 2.55rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.028em;
+      color: var(--ink);
+      max-width: 680px;
+      word-break: keep-all;
+    }
+
+    .section-sub {
+      font-size: 0.96rem;
+      color: var(--muted);
+      max-width: 470px;
+      line-height: 1.66;
+      word-break: keep-all;
+    }
+
+    .section-sub code {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+      padding: 0.1rem 0.36rem;
+      border-radius: 4px;
+    }
+
+    /* ==========================================================================
+       02. DIGITAL PASSPORT SHOWCASE (ZERO PROTOCOL JARGON)
+       ========================================================================== */
+    .passport-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .passport-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.25rem;
+      }
+    }
+
+    .provider-strip {
+      margin-top: 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.42rem;
+    }
+
+    .provider-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.36rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .provider-pill.magic {
+      background: var(--accent-soft);
+      border-color: var(--line-accent);
+      color: var(--accent-hover);
+    }
+
+    .passport-feature-list {
+      margin-top: 1.75rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .passport-feature-row {
+      padding: 1.05rem 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .pf-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      padding-top: 0.18rem;
+    }
+
+    .pf-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .pf-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.58;
+      word-break: keep-all;
+    }
+
+    /* Passport Showcase Card */
+    .passport-showcase-shell {
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      background: var(--bg);
+      box-shadow: 0 20px 44px -22px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .passport-url-bar {
+      padding: 0.72rem 1rem;
+      background: var(--porcelain);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .passport-url-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      padding: 0.26rem 0.72rem;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .passport-url-pill svg {
+      width: 12px;
+      height: 12px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .passport-tag {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+      border: 1px solid var(--line-accent);
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .passport-id-header {
+      padding: 1.2rem 1.3rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .passport-person-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .passport-person-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .passport-avatar-frame {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--obsidian);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .passport-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .passport-name {
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .verified-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.62rem;
+      font-weight: 700;
+    }
+
+    .passport-bio {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.12rem;
+    }
+
+    .passport-avatar-badge {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 600;
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+      border: 1px solid var(--line-accent);
+      border-radius: 6px;
+      padding: 0.28rem 0.58rem;
+      white-space: nowrap;
+    }
+
+    .passport-bento {
+      padding: 1.05rem 1.3rem;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .bento-tile {
+      min-width: 0;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.88rem 0.95rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.55rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.16s ease, transform 0.16s ease;
+    }
+
+    .bento-tile:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .bento-tile.featured-world {
+      grid-column: span 2;
+      background: linear-gradient(180deg, #FFFFFF 0%, #ECFDF5 140%);
+      border-color: var(--line-accent);
+    }
+
+    .bento-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .bento-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+    }
+
+    .bento-visitors {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+      padding: 0.14rem 0.46rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .featured-world-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .bento-title {
+      font-size: 0.93rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .bento-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.14rem;
+    }
+
+    .bento-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.25rem;
+    }
+
+    .world-mini-svg {
+      width: 76px;
+      height: 58px;
+      flex-shrink: 0;
+    }
+
+    /* Connected App Permissions Drawer */
+    .permissions-drawer {
+      padding: 0.95rem 1.3rem 1.15rem;
+      background: var(--bg);
+    }
+
+    .perm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+    }
+
+    .perm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .perm-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .perm-app-name {
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .perm-app-scope {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .perm-toggle {
+      appearance: none;
+      border: 1px solid var(--line-accent);
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0 0.75rem;
+      min-height: 36px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .perm-toggle.off {
+      background: var(--surface-muted);
+      border-color: var(--line-strong);
+      color: var(--dim);
+    }
+
+    @media (max-width: 680px) {
+      .perm-toggle { min-height: 44px; }
+    }
+
+    @media (max-width: 640px) {
+      .passport-id-header { padding: 1rem; }
+      .passport-bento {
+        padding: 0.9rem 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .bento-tile.featured-world {
+        grid-column: span 2;
+      }
+      .permissions-drawer {
+        padding: 0.9rem 1rem 1.05rem;
+      }
+      .world-mini-svg {
+        width: 64px;
+        height: 50px;
+      }
+    }
+
+    /* ==========================================================================
+       03. CREATORS & VIBE CODERS SECTION
+       ========================================================================== */
+    .creators-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      .creators-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .sdk-window {
+      border-radius: 14px;
+      background: var(--obsidian);
+      color: #F8FAFC;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: 0 20px 44px -24px rgba(9, 13, 22, 0.45);
+    }
+
+    .sdk-topbar {
+      padding: 0.8rem 1.15rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .sdk-file {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: #CBD5E1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .sdk-dots {
+      display: inline-flex;
+      gap: 5px;
+    }
+
+    .sdk-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      display: inline-block;
+    }
+
+    .sdk-copy-btn {
+      appearance: none;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.14);
+      color: #6EE7B7;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0 0.75rem;
+      min-height: 36px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .sdk-copy-btn:hover {
+      background: rgba(16, 185, 129, 0.26);
+    }
+
+    @media (max-width: 680px) {
+      .sdk-copy-btn { min-height: 44px; }
+    }
+
+    .sdk-code {
+      padding: 1.35rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.72;
+      color: #F1F5F9;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .sdk-code .kw { color: #6EE7B7; }
+    .sdk-code .str { color: #FDE68A; }
+    .sdk-code .fn { color: #93C5FD; }
+    .sdk-code .cm { color: #94A3B8; }
+
+    .sdk-footer {
+      padding: 0.95rem 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-size: 0.81rem;
+      color: #94A3B8;
+    }
+
+    .sdk-footer a {
+      color: #34D399;
+      font-weight: 600;
+      text-decoration: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .sdk-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .creator-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 620px) {
+      .creator-cards {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .creator-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .creator-card.coming-soon {
+      background: var(--surface);
+      border-style: dashed;
+      border-color: var(--line-strong);
+    }
+
+    .creator-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .creator-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-text);
+    }
+
+    .badge-soon {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--warn-soft);
+      border: 1px solid rgba(180, 83, 9, 0.28);
+      color: var(--warn);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .creator-card h3 {
+      font-size: 1.03rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+      margin-bottom: 0.35rem;
+    }
+
+    .creator-card p {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    /* ==========================================================================
+       04. SIR TIM BERNERS-LEE STORYTELLING BAND
+       ========================================================================== */
+    .story-lead-box {
+      max-width: 820px;
+      margin-bottom: 2.75rem;
+    }
+
+    .story-quote {
+      font-family: var(--font-serif-kr);
+      font-size: clamp(1.12rem, 2vw, 1.38rem);
+      color: var(--ink-secondary);
+      line-height: 1.62;
+      margin-top: 1rem;
+      padding-left: 1.1rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 14px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .story-chapter {
+      padding: 1.6rem 1.45rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.1rem;
+    }
+
+    .story-chapter:last-child {
+      border-right: none;
+    }
+
+    .story-chapter.wolin-now {
+      background: linear-gradient(180deg, var(--accent-soft) 0%, #FFFFFF 65%);
+    }
+
+    @media (max-width: 980px) {
+      .story-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .story-chapter:nth-child(2n) { border-right: none; }
+      .story-chapter:nth-child(1),
+      .story-chapter:nth-child(2) { border-bottom: 1px solid var(--line); }
+    }
+
+    @media (max-width: 600px) {
+      .story-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .story-chapter {
+        border-right: none !important;
+        border-bottom: 1px solid var(--line) !important;
+      }
+      .story-chapter:last-child {
+        border-bottom: none !important;
+      }
+    }
+
+    .chapter-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      margin-bottom: 0.55rem;
+      display: block;
+    }
+
+    .story-chapter h3 {
+      font-size: 1.06rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.015em;
+    }
+
+    .story-chapter p {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.64;
+      word-break: keep-all;
+    }
+
+    .chapter-foot {
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    /* ==========================================================================
+       05. 〈달항아리 이끼〉 WORLDVIEW + LIGHTWEIGHT AI AGENT BADGES
+       ========================================================================== */
+    .worldview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @media (max-width: 860px) {
+      .worldview-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .wv-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.6rem;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .wv-card.porcelain-card {
+      background: var(--porcelain);
+    }
+
+    .wv-card.moss-card {
+      background: var(--accent-soft);
+      border-color: var(--line-accent);
+    }
+
+    .wv-swatch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .wv-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .wv-token {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .wv-card h3 {
+      font-family: var(--font-serif-kr);
+      font-size: 1.14rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .wv-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    /* Lightweight AI Agent Ready Strip */
+    .agent-strip {
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 1.05rem 1.35rem;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .agent-strip-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .agent-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+      border: 1px solid var(--line-accent);
+      padding: 0.2rem 0.52rem;
+      border-radius: 5px;
+    }
+
+    .agent-text {
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      font-weight: 500;
+    }
+
+    .agent-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .agent-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-height: 40px;
+      padding: 0 0.78rem;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    }
+
+    .agent-badge:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+      background: var(--accent-soft);
+    }
+
+    @media (max-width: 680px) {
+      .agent-badge {
+        min-height: 44px;
+      }
+    }
+
+    /* ==========================================================================
+       SHARED FOOTER (NO COMPANY LEGAL NAME IN LANDING / FOOTER)
+       ========================================================================== */
+    footer.site-footer {
+      padding: 3.25rem 0;
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-quote {
+      font-family: var(--font-serif-kr);
+      font-size: 1.06rem;
+      color: var(--ink-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-meta {
+      font-size: 0.82rem;
+      color: var(--dim);
+      line-height: 1.68;
+    }
+
+    .footer-meta strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .footer-meta a {
+      color: var(--accent-hover);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 0.35rem 1.2rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-links .footer-report-btn:hover {
+      color: var(--accent);
+    }
+
+    .footer-links .footer-report-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links .footer-report-btn:focus-visible,
+    .report-textarea:focus-visible,
+    .report-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    .report-backdrop[hidden],
+    .report-status[hidden] {
+      display: none !important;
+    }
+
+    .report-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(9, 13, 22, 0.52);
+      backdrop-filter: blur(2px);
+    }
+
+    .report-dialog {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      color: var(--ink);
+      border-radius: 14px;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 20px 40px -12px rgba(23, 23, 23, 0.18);
+      padding: 1.5rem;
+    }
+
+    .report-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .report-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 0.9rem;
+    }
+
+    .report-textarea {
+      width: 100%;
+      min-height: 112px;
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid var(--line-strong);
+      background: #FFFFFF;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-status {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+      overflow-wrap: anywhere;
+    }
+
+    .report-status-ok {
+      background: var(--accent-soft);
+      color: var(--ink);
+      border: 1px solid var(--line-accent);
+    }
+
+    .report-status-fallback {
+      background: var(--surface-muted);
+      color: var(--ink-secondary);
+      border: 1px solid var(--line-strong);
+    }
+
+    .report-status a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .report-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1.1rem;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--line-strong);
+      background: #FFFFFF;
+      color: var(--ink);
+      transition: background 0.15s ease;
+    }
+
+    .report-btn:hover {
+      background: var(--surface);
+    }
+
+    .report-btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .report-btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    @media (max-width: 480px) {
+      .report-dialog { padding: 1.2rem; }
+      .report-btn { flex: 1; }
+    }
+  </style>
+  <script src="https://rybbit.cycorld.com/api/script.js" data-site-id="15" defer></script>
+  <script src="/analytics.js" defer></script>
+</head>
+<body>
+  <div class="meridian-bg" aria-hidden="true"></div>
+
+  <!-- Shared Top Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand-link">
+        <svg class="brand-emblem" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#090D16"/><circle cx="20" cy="13.2" r="5.5" fill="#F5F2EB"/><rect x="9.8" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/><rect x="21.4" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/><rect x="12.2" y="24.5" width="15.6" height="1.9" rx="0.5" fill="#10B981"/><rect x="14.5" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/><rect x="21.3" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/></svg>
+        <div class="brand-wordmark">
+          <span class="brand-title">WOLIN</span>
+          <span class="brand-hanja">月印千江</span>
+        </div>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#passport" data-i18n="nav.passport">Passport</a>
+        <a href="#creators" data-i18n="nav.creators">Creators</a>
+        <a href="#story" data-i18n="nav.story">Story</a>
+        <a href="/docs.html" data-i18n="nav.docs">Docs</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/about.html" data-i18n="nav.about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/docs.html" class="header-link-mobile" data-i18n="nav.docs">Docs</a>
+        <a href="/about.html" class="header-link-mobile" data-i18n="nav.about">About</a>
+        <select class="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+        <a href="https://auth.wolin.id/login" class="header-cta" data-i18n="nav.claimPod">Claim your Pod</a>
+      </div>
+    </div>
+    <nav class="mobile-subnav" aria-label="Mobile Navigation">
+      <a href="#passport" data-i18n="nav.passport">Passport</a>
+      <a href="#creators" data-i18n="nav.creators">Creators</a>
+      <a href="/docs.html" data-i18n="nav.docs">Docs</a>
+      <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+      <a href="/about.html" data-i18n="nav.about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 01. Hero + Live Handle Claim Bar -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left: Messaging + Live Handle Claim Bar -->
+          <div>
+            <div class="eyebrow-label">
+              <span class="eyebrow-seal">月印千江</span>
+              <span data-i18n="hero.eyebrow">Digital Passport · Personal Pod</span>
+            </div>
+
+            <h1 class="hero-display">
+              <span data-i18n="hero.titleLine1">One Identity.</span>
+              <span class="accent-line" data-i18n="hero.titleLine2">Infinite Reflections.</span>
+            </h1>
+
+            <p class="hero-bilingual" data-i18n="hero.bilingual">하나의 주소, 천 개의 세계.</p>
+
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+              Claim your personal .wolin.id address in 5 seconds. Carry your 3D avatar, favorite worlds, and personal Pod everywhere — apps only borrow access while you allow it.
+            </p>
+
+            <!-- Interactive Handle Claim Bar -->
+            <div class="claim-shell">
+              <form class="claim-form" id="handle-claim-form" action="https://auth.wolin.id/login" method="get" novalidate>
+                <label class="claim-url-field" for="handle-input">
+                  <span class="claim-prefix">https://</span>
+                  <input
+                    id="handle-input"
+                    name="handle"
+                    type="text"
+                    class="claim-input"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    maxlength="32"
+                    placeholder="alice"
+                    aria-label="Choose your Wolin handle"
+                  />
+                  <span class="claim-suffix">.wolin.id</span>
+                </label>
+                <button type="submit" class="claim-submit" id="handle-claim-btn">
+                  <span data-i18n="hero.claimBtn">Claim Handle</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+              </form>
+            </div>
+
+            <div class="claim-meta-row">
+              <div class="claim-status" id="handle-status" role="status" aria-live="polite">
+                <span class="claim-dot" aria-hidden="true"></span>
+                <span id="handle-status-text" data-i18n="hero.claimHint">4+ letters free forever · 1 GB personal Pod included</span>
+              </div>
+              <div class="claim-suggestions" aria-label="Sample handles">
+                <button type="button" class="sample-chip" onclick="trySampleHandle('mina')">mina</button>
+                <button type="button" class="sample-chip" onclick="trySampleHandle('cozy-cafe')">cozy-cafe</button>
+                <button type="button" class="sample-chip" onclick="trySampleHandle('moonjar')">moonjar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Moon Jar × Living Moss Reflection Stage -->
+          <div class="reflection-stage" role="region" aria-label="One Identity Reflecting Across Worlds">
+            <div class="stage-topbar">
+              <span data-i18n="hero.stageTitle">MOON JAR · THOUSAND WORLDS</span>
+              <span class="stage-live-pill" id="active-world-label" data-i18n="hero.ray0">01 · COZY CAT CAFE</span>
+            </div>
+
+            <svg class="stage-svg" viewBox="0 0 520 304" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <radialGradient id="mossGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.28"/>
+                  <stop offset="100%" stop-color="#090D16" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="waterlineMoss" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.08"/>
+                  <stop offset="50%" stop-color="#10B981" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0.08"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Zenith Moon Jar Identity -->
+              <circle cx="260" cy="72" r="62" fill="url(#mossGlow)"/>
+              <circle cx="260" cy="72" r="40" stroke="rgba(245, 242, 235, 0.22)" stroke-dasharray="3 4"/>
+              <circle cx="260" cy="72" r="24" fill="#F5F2EB"/>
+              <text x="260" y="77.5" text-anchor="middle" fill="#090D16" font-family="Noto Serif KR, Georgia, serif" font-weight="700" font-size="15">月</text>
+
+              <!-- Kan Trigram (☵) Water Reflection Bars -->
+              <rect x="228" y="114" width="26" height="3.2" rx="1.5" fill="#CBD5E1"/>
+              <rect x="266" y="114" width="26" height="3.2" rx="1.5" fill="#CBD5E1"/>
+              <rect x="236" y="123" width="48" height="3.6" rx="1.8" fill="#10B981"/>
+              <rect x="242" y="133" width="15" height="3.2" rx="1.5" fill="#94A3B8"/>
+              <rect x="263" y="133" width="15" height="3.2" rx="1.5" fill="#94A3B8"/>
+
+              <!-- Left & Right Handle Callouts -->
+              <g transform="translate(24, 42)">
+                <rect width="148" height="44" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)"/>
+                <text x="12" y="19" fill="#F5F2EB" font-family="Geist Mono, monospace" font-size="9.5" font-weight="600">alice.wolin.id</text>
+                <text x="12" y="33" fill="#94A3B8" font-family="Geist, sans-serif" font-size="8.5">Your Digital Passport</text>
+              </g>
+
+              <g transform="translate(348, 42)">
+                <rect width="148" height="44" rx="8" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.35)"/>
+                <text x="12" y="19" fill="#6EE7B7" font-family="Geist Mono, monospace" font-size="9.5" font-weight="600">1-Click Switch</text>
+                <text x="12" y="33" fill="#CBD5E1" font-family="Geist, sans-serif" font-size="8.5">You control every world</text>
+              </g>
+
+              <!-- Waterline -->
+              <line x1="24" y1="162" x2="496" y2="162" stroke="url(#waterlineMoss)" stroke-width="1.6"/>
+              <rect x="166" y="150" width="188" height="24" rx="12" fill="#090D16" stroke="#10B981" stroke-width="1.2"/>
+              <text x="260" y="165.2" text-anchor="middle" fill="#6EE7B7" font-family="Geist Mono, monospace" font-size="8.6" font-weight="600">YOUR CONSENT WATERLINE</text>
+
+              <!-- 4 Reflection Rays -->
+              <g id="refraction-rays">
+                <path id="ray-0" d="M260 174 L76 240" stroke="#10B981" stroke-width="2.2" opacity="1"/>
+                <path id="ray-1" d="M260 174 L198 240" stroke="#334155" stroke-width="1.2"/>
+                <path id="ray-2" d="M260 174 L322 240" stroke="#334155" stroke-width="1.2"/>
+                <path id="ray-3" d="M260 174 L444 240" stroke="#334155" stroke-width="1.2"/>
+              </g>
+
+              <!-- 4 World Ripples -->
+              <g transform="translate(76, 252)">
+                <ellipse cx="0" cy="0" rx="36" ry="6.5" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="1.5" id="ripple-0"/>
+                <text x="0" y="24" text-anchor="middle" fill="#F8FAFC" font-family="Geist, sans-serif" font-size="9.5" font-weight="600">Cozy Cafe</text>
+                <text x="0" y="37" text-anchor="middle" fill="#94A3B8" font-family="Geist Mono, monospace" font-size="7.8">3D avatar &amp; chat</text>
+              </g>
+
+              <g transform="translate(198, 252)">
+                <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1" id="ripple-1"/>
+                <text x="0" y="24" text-anchor="middle" fill="#CBD5E1" font-family="Geist, sans-serif" font-size="9.5">Live Stage</text>
+                <text x="0" y="37" text-anchor="middle" fill="#94A3B8" font-family="Geist Mono, monospace" font-size="7.8">concert &amp; cheer</text>
+              </g>
+
+              <g transform="translate(322, 252)">
+                <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1" id="ripple-2"/>
+                <text x="0" y="24" text-anchor="middle" fill="#CBD5E1" font-family="Geist, sans-serif" font-size="9.5">Pop-up Store</text>
+                <text x="0" y="37" text-anchor="middle" fill="#94A3B8" font-family="Geist Mono, monospace" font-size="7.8">wearable closet</text>
+              </g>
+
+              <g transform="translate(444, 252)">
+                <ellipse cx="0" cy="0" rx="34" ry="6.5" fill="rgba(255,255,255,0.03)" stroke="#475569" stroke-width="1.1" id="ripple-3"/>
+                <text x="0" y="24" text-anchor="middle" fill="#CBD5E1" font-family="Geist, sans-serif" font-size="9.5">Indie Game</text>
+                <text x="0" y="37" text-anchor="middle" fill="#94A3B8" font-family="Geist Mono, monospace" font-size="7.8">portable badges</text>
+              </g>
+            </svg>
+
+            <div class="world-tabs" role="tablist" aria-label="World Reflections">
+              <button type="button" role="tab" aria-selected="true" class="world-tab active" onclick="focusWorld(0, this)">
+                <span class="world-tab-title" data-i18n="hero.chip0Title">01 Cozy Cafe</span>
+                <span class="world-tab-sub" data-i18n="hero.chip0Scope">avatar + bio</span>
+              </button>
+              <button type="button" role="tab" aria-selected="false" class="world-tab" onclick="focusWorld(1, this)">
+                <span class="world-tab-title" data-i18n="hero.chip1Title">02 Live Stage</span>
+                <span class="world-tab-sub" data-i18n="hero.chip1Scope">fan pass</span>
+              </button>
+              <button type="button" role="tab" aria-selected="false" class="world-tab" onclick="focusWorld(2, this)">
+                <span class="world-tab-title" data-i18n="hero.chip2Title">03 Pop-up</span>
+                <span class="world-tab-sub" data-i18n="hero.chip2Scope">wearables</span>
+              </button>
+              <button type="button" role="tab" aria-selected="false" class="world-tab" onclick="focusWorld(3, this)">
+                <span class="world-tab-title" data-i18n="hero.chip3Title">04 Indie Game</span>
+                <span class="world-tab-sub" data-i18n="hero.chip3Scope">trophies</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Human Value Strip -->
+      <div class="value-strip">
+        <div class="value-grid">
+          <div class="value-cell">
+            <div class="value-num">5<span>sec</span></div>
+            <div class="value-lbl" data-i18n="value.v1">Sign in with Google, Kakao, Apple &amp; more</div>
+          </div>
+          <div class="value-cell">
+            <div class="value-num">1<span>Link</span></div>
+            <div class="value-lbl" data-i18n="value.v2">Linktree-style Digital Passport &amp; 3D closet</div>
+          </div>
+          <div class="value-cell">
+            <div class="value-num">100%<span>Yours</span></div>
+            <div class="value-lbl" data-i18n="value.v3">Personal Pod you control &amp; export anytime</div>
+          </div>
+          <div class="value-cell">
+            <div class="value-num">$0<span>Free</span></div>
+            <div class="value-lbl" data-i18n="value.v4">1 GB starter Pod · no coins or wallets</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. Digital Passport Showcase -->
+    <section class="band" id="passport">
+      <div class="container">
+        <div class="passport-grid">
+          <div>
+            <span class="section-eyebrow" data-i18n="passport.eyebrow">01 · DIGITAL PASSPORT</span>
+            <h2 class="section-title" data-i18n-html="passport.title">Your personal web address,<br>avatar closet, and world switchboard.</h2>
+            <p class="section-sub" style="margin-top: 0.95rem;" data-i18n-html="passport.sub">
+              Open <code>alice.wolin.id</code> in any browser and your Linktree-style Digital Passport comes alive — zero passwords, zero seed phrases, zero technical jargon.
+            </p>
+
+            <div class="provider-strip" aria-label="Supported Sign-in Methods">
+              <span class="provider-pill">Google</span>
+              <span class="provider-pill">Apple</span>
+              <span class="provider-pill">Kakao</span>
+              <span class="provider-pill">Naver</span>
+              <span class="provider-pill">Discord</span>
+              <span class="provider-pill">GitHub</span>
+              <span class="provider-pill magic" data-i18n="passport.magicLink">✉ Email Magic Link</span>
+            </div>
+
+            <div class="passport-feature-list">
+              <div class="passport-feature-row">
+                <span class="pf-num">01</span>
+                <div>
+                  <div class="pf-title" data-i18n="passport.f1Title">6 Social Logins + Instant Magic Link</div>
+                  <p class="pf-desc" data-i18n="passport.f1Desc">Start with the account you already use every day. Verified emails automatically link to the same Digital Passport.</p>
+                </div>
+              </div>
+              <div class="passport-feature-row">
+                <span class="pf-num">02</span>
+                <div>
+                  <div class="pf-title" data-i18n="passport.f2Title">Linktree-Style Showcase &amp; Portable 3D Avatar</div>
+                  <p class="pf-desc" data-i18n="passport.f2Desc">Share your hosted cafés, concert stages, social links, and 3D outfits on one clean page — and step into new worlds dressed as yourself.</p>
+                </div>
+              </div>
+              <div class="passport-feature-row">
+                <span class="pf-num">03</span>
+                <div>
+                  <div class="pf-title" data-i18n="passport.f3Title">Connected App Permissions in One Click</div>
+                  <p class="pf-desc" data-i18n="passport.f3Desc">See every app or world connected to your Pod and turn access off anytime with a single switch.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Interactive Passport Preview -->
+          <div class="passport-showcase-shell" aria-label="Wolin Digital Passport Preview">
+            <div class="passport-url-bar">
+              <div class="passport-url-pill">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                  <rect x="3" y="7" width="10" height="7" rx="1.8"/>
+                  <path d="M5 7V5a3 3 0 0 1 6 0v2"/>
+                </svg>
+                <span>alice.wolin.id</span>
+              </div>
+              <span class="passport-tag" data-i18n="passport.badge">Digital Passport</span>
+            </div>
+
+            <div class="passport-id-header">
+              <div class="passport-person-row">
+                <div class="passport-person-left">
+                  <div class="passport-avatar-frame" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                      <circle cx="20" cy="13.2" r="5.5" fill="#F5F2EB"/>
+                      <rect x="9.8" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/>
+                      <rect x="21.4" y="21.2" width="8.8" height="1.8" rx="0.5" fill="#E2E8F0"/>
+                      <rect x="12.2" y="24.5" width="15.6" height="1.9" rx="0.5" fill="#10B981"/>
+                      <rect x="14.5" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/>
+                      <rect x="21.3" y="28.0" width="4.2" height="1.8" rx="0.5" fill="#94A3B8"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="passport-name-row">
+                      <span class="passport-name">Alice Kim</span>
+                      <span class="verified-check" title="Verified Handle">✓</span>
+                    </div>
+                    <div class="passport-bio" data-i18n="passport.cardBio">Spatial Creator &amp; Cozy World Host · Seoul</div>
+                  </div>
+                </div>
+                <span class="passport-avatar-badge" data-i18n="passport.avatarBadge">3D Avatar Ready</span>
+              </div>
+            </div>
+
+            <div class="passport-bento">
+              <a href="https://auth.wolin.id/login?handle=alice" class="bento-tile featured-world">
+                <div class="bento-top">
+                  <span class="bento-kicker" data-i18n="passport.featuredKicker">Featured World · @alice</span>
+                  <span class="bento-visitors" data-i18n="passport.visiting">24 Visiting</span>
+                </div>
+                <div class="featured-world-body">
+                  <div>
+                    <div class="bento-title" data-i18n="passport.featuredTitle">Sunlit Cat Cafe · 3D Hangout</div>
+                    <div class="bento-sub" data-i18n="passport.featuredSub">Rooftop terrace, table voice chat &amp; guestbook</div>
+                    <span class="bento-cta" data-i18n="passport.enterWorld">Enter World →</span>
+                  </div>
+                  <svg class="world-mini-svg" viewBox="0 0 88 66" fill="none" aria-hidden="true">
+                    <path d="M44 8L80 26L44 44L8 26L44 8Z" fill="#ECFDF5" stroke="#059669" stroke-width="1.4"/>
+                    <path d="M8 26V44L44 62V44" fill="#FFFFFF" stroke="#059669" stroke-width="1.4"/>
+                    <path d="M80 26V44L44 62V44" fill="#D1FAE5" stroke="#059669" stroke-width="1.4"/>
+                    <circle cx="44" cy="25" r="5" fill="#059669"/>
+                  </svg>
+                </div>
+              </a>
+
+              <a href="/prompts.html" class="bento-tile">
+                <span class="bento-kicker" data-i18n="passport.tile1Kicker">Live Stage</span>
+                <div>
+                  <div class="bento-title" data-i18n="passport.tile1Title">Friday Acoustic Dome</div>
+                  <div class="bento-sub" data-i18n="passport.tile1Sub">Fri 21:00 KST</div>
+                </div>
+                <span class="bento-cta" data-i18n="passport.tile1Cta">Join Stage ↗</span>
+              </a>
+
+              <a href="/pricing.html" class="bento-tile">
+                <span class="bento-kicker" data-i18n="passport.tile2Kicker">Wardrobe</span>
+                <div>
+                  <div class="bento-title" data-i18n="passport.tile2Title">Avatar Closet</div>
+                  <div class="bento-sub" data-i18n="passport.tile2Sub">4 Outfits Equipped</div>
+                </div>
+                <span class="bento-cta" data-i18n="passport.tile2Cta">View Closet ↗</span>
+              </a>
+
+              <a href="/prompts.html" class="bento-tile">
+                <span class="bento-kicker" data-i18n="passport.tile4Kicker">Portals</span>
+                <div>
+                  <div class="bento-title" data-i18n="passport.tile4Title">Saved Worlds</div>
+                  <div class="bento-sub" data-i18n="passport.tile4Sub">12 Bookmarks</div>
+                </div>
+                <span class="bento-cta" data-i18n="passport.tile4Cta">Explore ↗</span>
+              </a>
+
+              <a href="/docs.html" class="bento-tile">
+                <span class="bento-kicker" data-i18n="passport.tile3Kicker">Social</span>
+                <div>
+                  <div class="bento-title">@alice_builds</div>
+                  <div class="bento-sub" data-i18n="passport.tile3Sub">Notes &amp; Sketches</div>
+                </div>
+                <span class="bento-cta" data-i18n="passport.tile3Cta">Follow ↗</span>
+              </a>
+            </div>
+
+            <!-- Interactive Connected Apps Switchboard -->
+            <div class="permissions-drawer">
+              <div class="perm-head">
+                <span data-i18n="passport.permTitle">CONNECTED APPS &amp; PERMISSIONS</span>
+                <span data-i18n="passport.permHint">Click to toggle</span>
+              </div>
+              <div class="perm-list">
+                <div class="perm-row">
+                  <div>
+                    <div class="perm-app-name">Sunlit Cat Cafe</div>
+                    <div class="perm-app-scope" data-i18n="passport.perm1Scope">Avatar &amp; Cafe Guestbook</div>
+                  </div>
+                  <button type="button" class="perm-toggle" onclick="togglePerm(this)" data-i18n="passport.permAllowed">Connected ✓</button>
+                </div>
+                <div class="perm-row">
+                  <div>
+                    <div class="perm-app-name">Friday Acoustic Dome</div>
+                    <div class="perm-app-scope" data-i18n="passport.perm2Scope">Display Name &amp; Fan Lightstick</div>
+                  </div>
+                  <button type="button" class="perm-toggle" onclick="togglePerm(this)" data-i18n="passport.permAllowed">Connected ✓</button>
+                </div>
+                <div class="perm-row">
+                  <div>
+                    <div class="perm-app-name">Old Sandbox Demo</div>
+                    <div class="perm-app-scope" data-i18n="passport.perm3Scope">Access paused by you</div>
+                  </div>
+                  <button type="button" class="perm-toggle off" onclick="togglePerm(this)" data-i18n="passport.permPaused">Paused</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. Creators & Vibe Coders Section -->
+    <section class="band surface-band" id="creators">
+      <div class="container">
+        <span class="section-eyebrow" data-i18n="creators.eyebrow">02 · FOR CREATORS &amp; VIBE CODERS</span>
+        <div class="section-heading-row">
+          <h2 class="section-title" data-i18n-html="creators.title">Ship a multiplayer 3D world this weekend.<br>Zero backend database to maintain.</h2>
+          <p class="section-sub" data-i18n-html="creators.sub">
+            Add login and portable avatars in 3 lines with <code>@wolin-id/client</code>, link worlds with portals, and deploy static builds for $0.
+          </p>
+        </div>
+
+        <div class="creators-grid">
+          <!-- 3-Line SDK Login Window -->
+          <div class="sdk-window">
+            <div>
+              <div class="sdk-topbar">
+                <span class="sdk-file">
+                  <span class="sdk-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span>world-login.ts · @wolin-id/client</span>
+                </span>
+                <button type="button" class="sdk-copy-btn" id="copy-sdk-btn" onclick="copySdkSnippet()" data-i18n="creators.copyBtn">Copy 3-Line SDK</button>
+              </div>
+              <pre class="sdk-code" id="sdk-snippet"><code><span class="cm">// pnpm add @wolin-id/client — zero backend keys or app review</span>
+<span class="kw">import</span> { loginWithWolin } <span class="kw">from</span> <span class="str">'@wolin-id/client'</span>;
+
+<span class="kw">const</span> player = <span class="kw">await</span> <span class="fn">loginWithWolin</span>({ issuer: <span class="str">'https://auth.wolin.id'</span> });
+<span class="fn">spawnAvatar</span>(player.avatarUrl, player.displayName);</code></pre>
+            </div>
+            <div class="sdk-footer">
+              <span data-i18n="creators.sdkNote">Also ready for React, Unity C#, Swift, Kotlin &amp; Python.</span>
+              <a href="/docs.html" data-i18n="creators.sdkLink">Explore 5 SDK Docs →</a>
+            </div>
+          </div>
+
+          <!-- 4 Creator Building Blocks -->
+          <div class="creator-cards">
+            <article class="creator-card">
+              <div>
+                <div class="creator-card-top">
+                  <span class="creator-kicker" data-i18n="creators.c1Kicker">01 · SDK Login</span>
+                </div>
+                <h3 data-i18n="creators.c1Title">3-Line Login &amp; Portable Avatars</h3>
+                <p data-i18n="creators.c1Desc">Skip building user tables or password resets. Players bring their own verified handle, 3D avatar, and saved items into your world on day one.</p>
+              </div>
+            </article>
+
+            <article class="creator-card">
+              <div>
+                <div class="creator-card-top">
+                  <span class="creator-kicker" data-i18n="creators.c2Kicker">02 · Interoperability</span>
+                </div>
+                <h3 data-i18n="creators.c2Title">Cross-World Portals</h3>
+                <p data-i18n="creators.c2Desc">Place doorway portals between cozy cafés, VTuber concert domes, and indie game lobbies so friends travel across creator worlds seamlessly.</p>
+              </div>
+            </article>
+
+            <article class="creator-card coming-soon">
+              <div>
+                <div class="creator-card-top">
+                  <span class="creator-kicker" data-i18n="creators.c3Kicker">03 · Monetization</span>
+                  <span class="badge-soon" data-i18n="creators.c4Badge">Coming Soon · 준비 중</span>
+                </div>
+                <h3 data-i18n="creators.c3Title">Spatial AdSlot</h3>
+                <p data-i18n="creators.c3Desc">Drop contextual 3D wall posters or stage banners into your scene. Matched to your world’s vibe — never tracking cookies or private user data.</p>
+              </div>
+            </article>
+
+            <article class="creator-card coming-soon">
+              <div>
+                <div class="creator-card-top">
+                  <span class="creator-kicker" data-i18n="creators.c4Kicker">04 · Creator Economy</span>
+                  <span class="badge-soon" data-i18n="creators.c4Badge">Coming Soon · 준비 중</span>
+                </div>
+                <h3 data-i18n="creators.c4Title">Wolin Pay</h3>
+                <p data-i18n="creators.c4Desc">Audience Stream Boosts for live 3D rooms and direct creator payouts via licensed payment partners — currently in preparation, zero lock-in.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. Sir Tim Berners-Lee Storytelling Section -->
+    <section class="band porcelain-band" id="story">
+      <div class="container">
+        <span class="section-eyebrow" data-i18n="story.eyebrow">03 · WHY WOLIN EXISTS</span>
+        <div class="story-lead-box">
+          <h2 class="section-title" data-i18n-html="story.title">Sir Tim Berners-Lee’s second revolution —<br>made effortless in 5 seconds.</h2>
+          <blockquote class="story-quote" data-i18n="story.quote">
+            “The Web was designed to empower every person equally. When platforms locked our data inside silos, the answer wasn’t speculation — it was giving every human their own Pod.”
+          </blockquote>
+        </div>
+
+        <div class="story-grid">
+          <article class="story-chapter">
+            <div>
+              <span class="chapter-year" data-i18n="story.c1Year">1989 · THE OPEN WEB</span>
+              <h3 data-i18n="story.c1Title">A Gift to Humanity</h3>
+              <p data-i18n="story.c1Desc">Sir Tim Berners-Lee invented the World Wide Web and gave it to the world royalty-free, imagining an open commons where anyone could publish, link, and connect without permission.</p>
+            </div>
+            <div class="chapter-foot" data-i18n="story.c1Foot">Open links · Zero gatekeepers</div>
+          </article>
+
+          <article class="story-chapter">
+            <div>
+              <span class="chapter-year" data-i18n="story.c2Year">2005–TODAY · THE SILO TRAP</span>
+              <h3 data-i18n="story.c2Title">Platforms Trapped Our Data</h3>
+              <p data-i18n="story.c2Desc">Giant platforms locked identities, social graphs, avatars, and creative work inside private servers. When an app shuts down or bans an account, years of digital life disappear overnight.</p>
+            </div>
+            <div class="chapter-foot" data-i18n="story.c2Foot">Walled gardens · Digital lock-in</div>
+          </article>
+
+          <article class="story-chapter">
+            <div>
+              <span class="chapter-year" data-i18n="story.c3Year">SOLID · HIS SECOND REVOLUTION</span>
+              <h3 data-i18n="story.c3Title">You Own Your Pod</h3>
+              <p data-i18n="story.c3Desc">Berners-Lee launched the Solid movement to restore the Web’s original promise: your profile, creations, and memories live in your own personal Pod, and apps simply borrow access.</p>
+            </div>
+            <div class="chapter-foot" data-i18n="story.c3Foot">Apps come and go · You endure</div>
+          </article>
+
+          <article class="story-chapter wolin-now">
+            <div>
+              <span class="chapter-year" data-i18n="story.c4Year">TODAY · WOLIN (月印千江)</span>
+              <h3 data-i18n="story.c4Title">Effortless in 5 Seconds</h3>
+              <p data-i18n="story.c4Desc">Until now, owning a personal Pod required setting up servers. Wolin makes it feel like claiming a username: sign in with a social account in 5 seconds and carry one Passport everywhere.</p>
+            </div>
+            <div class="chapter-foot" data-i18n="story.c4Foot">One handle · A thousand worlds</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. 〈달항아리 이끼〉 Worldview + Lightweight AI Agent Badges -->
+    <section class="band" id="worldview" style="border-bottom: none;">
+      <div class="container">
+        <span class="section-eyebrow" data-i18n="wv.eyebrow">04 · WORLDVIEW · 달항아리 이끼</span>
+        <div class="section-heading-row">
+          <h2 class="section-title" data-i18n-html="wv.title">Moon Jar Porcelain &amp; Living Moss.<br>One moon upon a thousand rivers.</h2>
+          <p class="section-sub" data-i18n="wv.sub">
+            Inspired by Joseon white porcelain Moon Jars (달항아리) and resilient moss growing across stone — warm, quiet craft built to hold a lifetime of digital memories.
+          </p>
+        </div>
+
+        <div class="worldview-grid">
+          <article class="wv-card porcelain-card">
+            <div class="wv-swatch-row">
+              <span class="wv-dot" style="background: #F5F2EB;" aria-hidden="true"></span>
+              <span class="wv-token">Moon Jar · #F5F2EB</span>
+            </div>
+            <h3 data-i18n="wv.c1Title">달항아리 · The Vessel</h3>
+            <p data-i18n="wv.c1Desc">Like a luminous white porcelain Moon Jar, your personal Pod quietly holds your identity, memories, and creations without belonging to any platform.</p>
+          </article>
+
+          <article class="wv-card moss-card">
+            <div class="wv-swatch-row">
+              <span class="wv-dot" style="background: #059669;" aria-hidden="true"></span>
+              <span class="wv-token">Living Moss · #059669</span>
+            </div>
+            <h3 data-i18n="wv.c2Title">이끼 · Living Connection</h3>
+            <p data-i18n="wv.c2Desc">Living Moss symbolizes organic communities, indie creators, and helpful AI companions flourishing together across open digital ground.</p>
+          </article>
+
+          <article class="wv-card">
+            <div class="wv-swatch-row">
+              <span class="wv-dot" style="background: #090D16;" aria-hidden="true"></span>
+              <span class="wv-token">Kan ☵ · 月印千江</span>
+            </div>
+            <h3 data-i18n="wv.c3Title">월인천강 · Infinite Reflections</h3>
+            <p data-i18n="wv.c3Desc">One moon in the night sky reflects clearly across a thousand rivers — your single Wolin handle adapts naturally to every world you visit.</p>
+          </article>
+        </div>
+
+        <!-- Lightweight AI Agent & Developer Strip -->
+        <div class="agent-strip" aria-label="AI Agent and Developer Resources">
+          <div class="agent-strip-left">
+            <span class="agent-kicker" data-i18n="wv.agentKicker">AI Agent Ready</span>
+            <span class="agent-text" data-i18n="wv.agentText">Building with Claude Code, Cursor, or AI agents? Connect machine-readable context in one click.</span>
+          </div>
+          <div class="agent-badges">
+            <a href="/llms.txt" class="agent-badge">llms.txt</a>
+            <a href="/llms-full.txt" class="agent-badge">llms-full.txt</a>
+            <a href="https://wolin.id/mcp" class="agent-badge">MCP</a>
+            <a href="/prompts.html" class="agent-badge" data-i18n="nav.prompts">Prompts</a>
+            <a href="/docs.html" class="agent-badge" data-i18n="wv.docsCta">Docs →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-quote" data-i18n="footer.quote">月印千江 — 달은 하나이나 천 개의 강물에 비친다.</div>
+        <div class="footer-meta">
+          <strong>wolin.id</strong> · <span data-i18n="footer.tagline">One Identity. Infinite Reflections.</span><br>
+          <span data-i18n="footer.contactLabel">Contact:</span> <a href="mailto:hello@wolin.id">hello@wolin.id</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="/docs.html" data-i18n="nav.docs">Docs</a>
+        <a href="/pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="/prompts.html" data-i18n="nav.prompts">Prompts</a>
+        <a href="/about.html" data-i18n="nav.about">About</a>
+        <a href="/terms.html" data-i18n="footer.terms">Terms</a>
+        <a href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
+        <a href="/refund.html" data-i18n="footer.refund">Refund</a>
+        <button type="button" class="footer-report-btn" data-report-open data-i18n="footer.reportIssue">Report an issue</button>
+        <a href="https://github.com/wolin-id/wolin" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="wolin-report-modal" class="report-backdrop" role="dialog" aria-modal="true" aria-labelledby="wolin-report-title" aria-describedby="wolin-report-desc" hidden>
+    <div class="report-dialog">
+      <h2 id="wolin-report-title" class="report-title" data-i18n="report.title">Report an issue</h2>
+      <p id="wolin-report-desc" class="report-desc" data-i18n="report.desc">Spot something broken or confusing? Tell us what happened.</p>
+      <form id="wolin-report-form" novalidate>
+        <textarea id="wolin-report-message" class="report-textarea" name="message" rows="4" maxlength="2000" required aria-labelledby="wolin-report-title" data-i18n-placeholder="report.placeholder" placeholder="What were you trying to do, and what happened instead?"></textarea>
+        <div id="wolin-report-status" class="report-status" role="status" aria-live="polite" hidden></div>
+        <div class="report-actions">
+          <button type="button" class="report-btn" data-report-close data-i18n="report.cancel">Cancel</button>
+          <button type="submit" id="wolin-report-submit" class="report-btn report-btn-primary" data-i18n="report.submit">Send report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/i18n.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var RESERVED_LIST = [
+        'about','abuse','admin','administrator','ads','api','app','apps','assets','auth',
+        'authorize','autoconfig','autodiscover','backup','beta','billing','blog','brand',
+        'calendar','cdn','chat','cloud','consent','console','contact','control','corp',
+        'dashboard','data','dev','dns','doc','docs','download','downloads','edge','email',
+        'engine','enterprise','entropy','events','files','forum','ftp','gateway','git',
+        'graphql','health','healthz','help','home','host','hostmaster','id','idp','images',
+        'imap','img','inbox','info','internal','journal','jwks','legal','local','localhost',
+        'login','logout','logs','mail','mailer','manage','mcp','media','metrics','mta-sts',
+        'mx','net','news','no-reply','noreply','notify','ns','ns1','ns2','ns3','ns4',
+        'oauth','official','oidc','ops','org','origin','passport','pay','payment','payments',
+        'pod','pods','pop','pop3','portal','postmaster','press','pricing','privacy','private',
+        'prod','production','profile','prompts','proxy','pub','public','refund','register',
+        'registry','relay','root','rpc','rss','sandbox','search','secure','security','server',
+        'service','services','session','settings','sftp','signin','signout','signup','smtp',
+        'solid','sparql','ssh','sso','stage','staging','static','stats','status','storage',
+        'store','support','sync','sys','system','team','telemetry','terms','test','testing',
+        'token','trust','updates','upload','uploads','userinfo','vault','verify','vpn','wac',
+        'web','webhook','webhooks','webid','webmail','webmaster','well-known','wolin','ws','wss','www'
+      ];
+      var RESERVED_LOCAL = Object.create(null);
+      for (var rIdx = 0; rIdx < RESERVED_LIST.length; rIdx++) {
+        RESERVED_LOCAL[RESERVED_LIST[rIdx]] = 1;
+      }
+
+      var currentWorldIdx = 0;
+      var checkTimer = null;
+      var activeController = null;
+
+      function tr(key, fallback) {
+        if (typeof window.wolinT === 'function') {
+          var v = window.wolinT(key);
+          if (v && v !== key) return v;
+        }
+        return fallback;
+      }
+
+      function normalizeHandle(raw) {
+        return String(raw || '')
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9-]/g, '');
+      }
+
+      function validateHandleLocal(h) {
+        if (!h) return { state: 'idle' };
+        if (h.length < 3) return { state: 'short' };
+        if (h.length > 32) return { state: 'invalid' };
+        if (h.charAt(0) === '-' || h.charAt(h.length - 1) === '-' || h.indexOf('--') !== -1 || h.indexOf('xn--') === 0) {
+          return { state: 'invalid' };
+        }
+        if (RESERVED_LOCAL[h]) return { state: 'reserved' };
+        return { state: 'valid', rare: h.length === 3 };
+      }
+
+      var inputEl = document.getElementById('handle-input');
+      var formEl = document.getElementById('handle-claim-form');
+      var statusWrap = document.getElementById('handle-status');
+      var statusText = document.getElementById('handle-status-text');
+
+      function setStatus(kind, message) {
+        statusWrap.className = 'claim-status' + (kind ? ' ' + kind : '');
+        statusText.removeAttribute('data-i18n');
+        statusText.textContent = message;
+      }
+
+      function checkHandleLive(handle) {
+        if (activeController) {
+          try { activeController.abort(); } catch (_) {}
+        }
+        var local = validateHandleLocal(handle);
+        if (local.state === 'idle') {
+          statusWrap.className = 'claim-status';
+          statusText.setAttribute('data-i18n', 'hero.claimHint');
+          statusText.textContent = tr('hero.claimHint', '4+ letters free forever · 1 GB personal Pod included');
+          return;
+        }
+        if (local.state === 'short') {
+          setStatus('checking', tr('hero.statusShort', 'Use at least 3 letters or numbers (4+ is free forever).'));
+          return;
+        }
+        if (local.state === 'invalid') {
+          setStatus('taken', tr('hero.statusInvalid', 'Use lowercase letters, numbers, and single hyphens only.'));
+          return;
+        }
+        if (local.state === 'reserved') {
+          setStatus('taken', handle + '.wolin.id — ' + tr('hero.statusReserved', 'Reserved system handle. Try another name.'));
+          return;
+        }
+
+        setStatus('checking', tr('hero.statusChecking', 'Checking ') + handle + '.wolin.id…');
+
+        var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        activeController = ctrl;
+        var timerId = setTimeout(function () {
+          if (ctrl) {
+            try { ctrl.abort(); } catch (_) {}
+          }
+        }, 3500);
+
+        fetch('https://auth.wolin.id/api/handles/check?handle=' + encodeURIComponent(handle), {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'omit',
+          signal: ctrl ? ctrl.signal : undefined
+        })
+          .then(function (res) {
+            clearTimeout(timerId);
+            if (!res || !res.ok) throw new Error('status_' + (res ? res.status : 0));
+            return res.json();
+          })
+          .then(function (data) {
+            if (normalizeHandle(inputEl.value) !== handle) return;
+            if (data && data.valid && data.available) {
+              var suffix = handle.length === 3
+                ? tr('hero.statusRare', ' is available (3-letter Pro handle) →')
+                : tr('hero.statusAvailable', ' is available! Claim it in 5 seconds →');
+              setStatus('available', '✓ ' + handle + '.wolin.id' + suffix);
+            } else {
+              var msg = data && data.reason === 'reserved_pod_id'
+                ? tr('hero.statusReserved', 'Reserved handle. Try another name.')
+                : tr('hero.statusTaken', 'Already claimed or unavailable. Try another.');
+              setStatus('taken', handle + '.wolin.id — ' + msg);
+            }
+          })
+          .catch(function (err) {
+            clearTimeout(timerId);
+            if (err && err.name === 'AbortError' && normalizeHandle(inputEl.value) !== handle) return;
+            if (normalizeHandle(inputEl.value) !== handle) return;
+            /* Graceful offline / CORS fallback */
+            var fallbackMsg = handle.length === 3
+              ? tr('hero.statusFallbackRare', ' looks valid (3-letter Pro) — continue to verify & claim →')
+              : tr('hero.statusFallback', ' looks ready — continue to login & claim →');
+            setStatus('available', '✓ ' + handle + '.wolin.id' + fallbackMsg);
+          });
+      }
+
+      if (inputEl) {
+        inputEl.addEventListener('input', function () {
+          var cleaned = normalizeHandle(inputEl.value);
+          if (inputEl.value !== cleaned) {
+            inputEl.value = cleaned;
+          }
+          clearTimeout(checkTimer);
+          var local = validateHandleLocal(cleaned);
+          if (local.state !== 'valid') {
+            checkHandleLive(cleaned);
+            return;
+          }
+          setStatus('checking', tr('hero.statusChecking', 'Checking ') + cleaned + '.wolin.id…');
+          checkTimer = setTimeout(function () {
+            checkHandleLive(cleaned);
+          }, 220);
+        });
+      }
+
+      if (formEl) {
+        formEl.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          var cleaned = normalizeHandle(inputEl ? inputEl.value : '');
+          if (cleaned) {
+            var local = validateHandleLocal(cleaned);
+            if (local.state === 'short' || local.state === 'invalid' || local.state === 'reserved') {
+              checkHandleLive(cleaned);
+              if (inputEl) inputEl.focus();
+              return;
+            }
+            window.location.href = 'https://auth.wolin.id/login?handle=' + encodeURIComponent(cleaned);
+          } else {
+            window.location.href = 'https://auth.wolin.id/login';
+          }
+        });
+      }
+
+      window.trySampleHandle = function (sample) {
+        if (!inputEl) return;
+        inputEl.value = sample;
+        inputEl.focus();
+        clearTimeout(checkTimer);
+        checkHandleLive(sample);
+      };
+
+      var worldMeta = [
+        { key: 'hero.ray0', label: '01 · COZY CAT CAFE' },
+        { key: 'hero.ray1', label: '02 · LIVE CONCERT STAGE' },
+        { key: 'hero.ray2', label: '03 · 3D POP-UP STORE' },
+        { key: 'hero.ray3', label: '04 · INDIE GAME LOBBY' }
+      ];
+
+      window.focusWorld = function (idx, btnEl) {
+        currentWorldIdx = idx;
+        document.querySelectorAll('.world-tab').forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        if (btnEl) {
+          btnEl.classList.add('active');
+          btnEl.setAttribute('aria-selected', 'true');
+        }
+        var rayLabel = document.getElementById('active-world-label');
+        if (rayLabel) {
+          rayLabel.setAttribute('data-i18n', worldMeta[idx].key);
+          rayLabel.textContent = tr(worldMeta[idx].key, worldMeta[idx].label);
+        }
+        for (var i = 0; i < 4; i++) {
+          var ray = document.getElementById('ray-' + i);
+          var ripple = document.getElementById('ripple-' + i);
+          if (!ray || !ripple) continue;
+          if (i === idx) {
+            ray.setAttribute('stroke', '#10B981');
+            ray.setAttribute('stroke-width', '2.2');
+            ripple.setAttribute('stroke', '#10B981');
+            ripple.setAttribute('fill', 'rgba(16,185,129,0.2)');
+            ripple.setAttribute('stroke-width', '1.5');
+          } else {
+            ray.setAttribute('stroke', '#334155');
+            ray.setAttribute('stroke-width', '1.2');
+            ripple.setAttribute('stroke', '#475569');
+            ripple.setAttribute('fill', 'rgba(255,255,255,0.03)');
+            ripple.setAttribute('stroke-width', '1.1');
+          }
+        }
+      };
+
+      window.togglePerm = function (btn) {
+        var isOff = btn.classList.toggle('off');
+        if (isOff) {
+          btn.setAttribute('data-i18n', 'passport.permPaused');
+          btn.textContent = tr('passport.permPaused', 'Paused');
+        } else {
+          btn.setAttribute('data-i18n', 'passport.permAllowed');
+          btn.textContent = tr('passport.permAllowed', 'Connected ✓');
+        }
+      };
+
+      window.copySdkSnippet = function () {
+        var code = "import { loginWithWolin } from '@wolin-id/client';\n\nconst player = await loginWithWolin({ issuer: 'https://auth.wolin.id' });\nspawnAvatar(player.avatarUrl, player.displayName);";
+        var btn = document.getElementById('copy-sdk-btn');
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(code).catch(function () {});
+        }
+        if (btn) {
+          btn.textContent = tr('creators.copiedBtn', 'Copied ✓');
+          setTimeout(function () {
+            btn.textContent = tr('creators.copyBtn', 'Copy 3-Line SDK');
+          }, 1500);
+        }
+      };
+
+      window.addEventListener('wolin:langchange', function () {
+        var cleaned = normalizeHandle(inputEl ? inputEl.value : '');
+        if (!cleaned && statusText) {
+          statusText.textContent = tr('hero.claimHint', '4+ letters free forever · 1 GB personal Pod included');
+        }
+        var rayLabel = document.getElementById('active-world-label');
+        if (rayLabel && worldMeta[currentWorldIdx]) {
+          rayLabel.textContent = tr(worldMeta[currentWorldIdx].key, worldMeta[currentWorldIdx].label);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
